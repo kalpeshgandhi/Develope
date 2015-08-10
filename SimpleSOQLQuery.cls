@@ -7,14 +7,17 @@ public with sharing class SimpleSOQLQuery {
     public void contactQueryOnListAndPrintIt()
     {
         // Intialize the List of The Contact
-        List<Contact> contactList=[Select c.Name, c.Id 
-                                   From Contact c
-                                   where LastName <> :null];
+        List<Contact> contactList=[
+                               SELECT c.Name,
+                                      c.Id 
+                               FROM   Contact c
+                               LIMIT 200];
+                               
         // Iterate Over the List of Contact
         for(contact contactInstance:contactList)
            {
                //Print The Conatact List
-              system.debug(contactinstance);
+              system.debug('Contact List--->>'+contactinstance);
            }
     /**
      * SimpleSOQLQuery soqlInstance=new SimpleSOQLQuery();
@@ -22,11 +25,11 @@ public with sharing class SimpleSOQLQuery {
      */
     }
     
-       /**
-        * Method that Gets all the Account Record that have Enrolled in Year
-        * 1)2010
-        * 2)2013,2014 Checks account Enrollment Year in 2010,2013,2014
-        */
+    /**
+     * Method that Gets all the Account Record that have Enrolled in Year
+     * 1)2010
+     * 2)2013,2014 Checks account Enrollment Year in 2013,2014
+     */
       public void checkEnrollmentYear() 
        {
         // This is a List that fetches the Account Records Having Enrollment Year 2010.
@@ -34,14 +37,15 @@ public with sharing class SimpleSOQLQuery {
                                     From Account a 
                                     where Enrollment_Year__c 
                                     INCLUDES('2010')]; 
-        // This is a List that fetches the Account Records Having Enrollment Year 2013 or 2014.
+                                    
+        // This is a List that fetches the Account Records Having Enrollment Year 2013,2014.
         List<Account> accountListForTwoYears=[Select a.Name, a.Id, a.Enrollment_Year__c 
                                               From Account a 
                                               where Enrollment_Year__c 
                                               INCLUDES ('2013','2014')];
          
-        System.debug(accountList);
-        System.debug(accountListForTwoYears);
+        System.debug('List of AccountsIn 2010' + accountList);
+        System.debug('List of AccountsIn 2013,2014' + accountListForTwoYears);
     }
     
   
@@ -54,16 +58,20 @@ public with sharing class SimpleSOQLQuery {
     public void billingStateNotMaharashtraOrKerala()
     {
         // Iterate Over the list of Account 
-         for(Account accountInstance:[Select a.Name, a.Id, a.AccountNumber 
-                                      From Account a 
-                                      where BillingState__c 
-                                      NOT IN  ('Mumbai','Kerala') 
-                                      ORDER BY BillingState__c DESC Nulls Last 
-                                      limit :10000])
+         for(Account accountInstance:[
+                                 SELECT a.Name,
+                                        a.Id, 
+                                        a.AccountNumber 
+                                 FROM   Account a 
+                                 WHERE  BillingState__c 
+                                 NOT IN  ('Maharashtra','Kerala') 
+                                 ORDER BY BillingState__c DESC Nulls Last 
+                                 LIMIT :10000])
             {
                 // print The List
                     System.debug(accountInstance);
             }
+            
            /**
            * SimpleSOQLQuery soqlInstance=new SimpleSOQLQuery();
            * soqlInstance.billingStateNotMaharashtraOrKerala();
@@ -77,11 +85,15 @@ public with sharing class SimpleSOQLQuery {
      public void opportunityAmountGreaterThenTenthosand()
      {
          // Iterate Over the List of Opportunity
-          for(Opportunity opportunityInstance:[Select o.Name, o.Id, o.Amount 
-                                               From Opportunity o 
-                                               where Amount>10000 
-                                               ORDER BY CreatedDate 
-                                               limit 100 Offset 50 All Rows])
+          for(Opportunity opportunityInstance:[
+                                       SELECT o.Name,
+                                              o.Id,
+                                              o.Amount 
+                                       FROM Opportunity o 
+                                       WHERE Amount>10000 
+                                       ORDER BY CreatedDate 
+                                       LIMIT 100 
+                                       OFFSET 50 All Rows])
              {
                  //Print the Result
                   System.debug(opportunityInstance);
