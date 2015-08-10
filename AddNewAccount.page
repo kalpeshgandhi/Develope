@@ -1,0 +1,18 @@
+<apex:page standardController="Account">
+	<apex:form >
+		<apex:pageBlock title="Account Page" mode="edit">
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!save}" Value="Save" />
+				<apex:commandButton action="/001" Value="Cancel" />
+			</apex:pageBlockButtons>
+			<apex:pageBlockSection title="Account Details" columns="2">
+				<apex:inputField Value="{!Account.name} " Label="Name"
+					required="True" />
+				<apex:inputField Value="{!Account.Email_ID__c} " Label="Email Id"
+					required="True" />
+				<apex:inputField Value="{!Account.AccountNumber} "
+					Label="Account Number" />
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>
