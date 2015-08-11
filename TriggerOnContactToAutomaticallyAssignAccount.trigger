@@ -1,4 +1,4 @@
-trigger TriggerOnContactToAutomaticallyAssignAccount on Contact (before insert,after insert) 
+trigger TriggerOnContactToAutomaticallyAssignAccount on Contact (before insert) 
 {
     if(trigger.isbefore)
     {
@@ -7,6 +7,4 @@ trigger TriggerOnContactToAutomaticallyAssignAccount on Contact (before insert,a
             AutomaticallyAssignConTactTriggerHandler.assignAccountID(trigger.new); 
         }
     }
-  
-    
 }
