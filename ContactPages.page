@@ -1,48 +1,41 @@
 <apex:page Controller="ListOfAllAccountControler">
-	<apex:form >
-		<apex:pageBlock title="Contact Details for '{!AccName}' "
-			id="blockpage">
-			<br>
-			</br>
-			<apex:repeat value="{!listAToZInstance}" var="traverser">
+	<apex:form>
+		<apex:pageBlock title="Contact Details for {!accName.Name} " id="blockpage">
+		<br></br>
+		    <apex:repeat value="{!listAToZInstance}" var="traverser">
 				<apex:commandLink value="{!traverser}" action="{!displayAlfa}"
-					rerender="contactTable,totalcount">
+					                           rerender="contactTable,totalcount">
 					<apex:param name="contactList" value="{!traverser}"
-						assignTo="{!alphaName}" />
-                    |&nbsp;
-            </apex:commandLink>
+						                              assignTo="{!alphaName}" />
+                                    |&nbsp;
+                </apex:commandLink>
 			</apex:repeat>
-			<br>
-			</br>
-
-			<apex:pageBlockTable value="{!contactList}" id="contactTable"
-				var="contactTraverser">
+		<br></br>
+		<apex:pageBlockTable value="{!contactList}" id="contactTable"
+		               		var="contactTraverser">
 				<apex:column value="{!contactTraverser.Name}" />
 				<apex:column value="{!contactTraverser.Id}" />
-				<apex:column >
-					<apex:commandlink value="Delete"
-						onclick="Onclick('{!contactTraverser.Id}')"
-						rerender="contactTable,blockpage" />
+				<apex:column>
+				        <apex:commandlink value="Delete"
+					        	onclick="deleteOnClick('{!contactTraverser.Id}')"
+						        rerender="contactTable,blockpage" oncomplete="location.reload()" />
 				</apex:column>
 			</apex:pageBlockTable>
 			<apex:commandButton value="Return" action="{!returnToAccount}" />
 			<apex:facet name="footer">
-				<apex:outputText value="Total Count:-{!contactSize}" id="totalcount"
-					style="font-weight:bold;font-size:15px">
-				</apex:outputText>
+				<c:CountOfListComponent countSizeOfList="{!countSizeOfList}" />
 			</apex:facet>
 		</apex:pageBlock>
 	</apex:form>
-
 	<script type="text/javascript">
-		function Onclick(idcontact) {
+		function deleteOnClick(idcontact) {
 
 			Visualforce.remoting.Manager
 					.invokeAction(
 							'{!$RemoteAction.ListOfAllAccountControler.deleteRelatedContact}',
 							idcontact, function(result, event) {
 								if (event.status) {
-									alert('deleted!!');
+									alert('The contact has been deleted');
 									console.log("Successful");
 									console.log(event);
 								} else if (event.type === 'exception') {

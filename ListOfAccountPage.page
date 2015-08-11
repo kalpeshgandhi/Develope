@@ -7,12 +7,12 @@
                 value="{!searchStringAccount}" />
 
             <apex:actionFunction name="SearchResultAccount"
-                action="{!SearchResultAccount}" />
-            <apex:commandButton Value="Search" action="{!SearchResultAccount}"
+                action="{!searchResultAccount}" />
+            <apex:commandButton Value="Search" action="{!searchResultAccount}"
                 id="cmdbuton" rerender="accountlistpageblocktable,message" />
             <apex:pageMessages id="message">
             </apex:pageMessages>
-            <apex:commandlink id="clear" Value="Clean"
+            <apex:commandlink id="clear" Value="Clear"
                 action="{!clearSearchResult}"
                 rerender="accountlistpageblocktable,searchinput" />
             <br>
@@ -31,19 +31,15 @@
                         rerender="All">
                         <apex:param name="Accountid" value="{!item.id}"
                             assignTo="{!idAccount}" />
-                        <apex:param name="AccountName" value="{!item.name}"
-                            assignTo="{!accName}" />
-                    </apex:commandButton>
+                    </apex:commandButton>   
                 </apex:column>
                 <apex:facet name="footer">
-                    <apex:outputText value="Total Count:-{!accountSize}"
-                        style="font-weight:bold;font-size:15px">
-                    </apex:outputText>
+                     <c:CountOfListComponent countSizeOfList="{!countSizeOfList}" />
                 </apex:facet>
             </apex:pageBlockTable>
         </apex:pageBlock>
     </apex:form>
-    <script type='text/javascript'>
+  <!--<script type='text/javascript'>
         function enter_keypress(eventInstance) {
             if (window.event && window.event.keyCode == 13
                     || eventInstance.which == 13) {
@@ -53,5 +49,6 @@
                 return true;
             }
         }
-    </script>
+    </script>-->
+    <apex:includeScript value="{!URLFOR($Resource.ScriptEnterKey, '/Script/EnterKeyJs.js')}"/>
 </apex:page>
