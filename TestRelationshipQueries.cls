@@ -54,7 +54,8 @@ private class TestRelationshipQueries
          RelationQueriesSoql relationshipQueriesInstance = new RelationQueriesSoql(); 
          
          // Check for result
-         System.assertEquals(1, relationshipQueriesInstance.retriveActiveContactsFromAccounts().size());
+         System.assertEquals(1,
+         relationshipQueriesInstance.retriveActiveContactsFromAccounts().size());
     } 
     
     /**
@@ -108,7 +109,8 @@ private class TestRelationshipQueries
          RelationQueriesSoql relationshipQueriesInstance = new RelationQueriesSoql(); 
          
          // Check for result
-         System.assertEquals(0, relationshipQueriesInstance.retriveActiveContactsFromAccounts().size());
+         System.assertEquals(0,
+           relationshipQueriesInstance.retriveActiveContactsFromAccounts().size());
     }
     
     /**
@@ -163,7 +165,8 @@ private class TestRelationshipQueries
          RelationQueriesSoql relationshipQueriesInstance = new RelationQueriesSoql(); 
          
          // Check for result
-         System.assertEquals(0, relationshipQueriesInstance.retriveActiveContactsFromAccounts().size());
+         System.assertEquals(0,
+         relationshipQueriesInstance.retriveActiveContactsFromAccounts().size());
     }
     
     /**
@@ -218,7 +221,8 @@ private class TestRelationshipQueries
          RelationQueriesSoql relationshipQueriesInstance = new RelationQueriesSoql(); 
          
          // Check for result
-         System.assertEquals(0, relationshipQueriesInstance.retriveActiveContactsFromAccounts().size());
+         System.assertEquals(0,
+          relationshipQueriesInstance.retriveActiveContactsFromAccounts().size());
     }
     
     /**
@@ -269,7 +273,7 @@ private class TestRelationshipQueries
         
         // Check for the search
         System.assertEquals(1,
-                            relationshipQueriesInstance.retriveAccountAndRelatedContactsWhichContainsJohn().size());
+           relationshipQueriesInstance.retriveAccountAndRelatedContactsWhichContainsJohn().size());
     }
     
    /**
@@ -319,7 +323,7 @@ private class TestRelationshipQueries
         
         // Check for the search
         System.assertEquals(0,
-                            relationshipQueriesInstance.retriveAccountAndRelatedContactsWhichContainsJohn().size());
+          relationshipQueriesInstance.retriveAccountAndRelatedContactsWhichContainsJohn().size());
     }
     
     /**
@@ -370,7 +374,7 @@ private class TestRelationshipQueries
         
         // Check for the result match.
         System.assertEquals(1,
-                            relationshipQueriesInstance.retriveAccountAndRelatedContactsWhichContainsJohn().size());
+           relationshipQueriesInstance.retriveAccountAndRelatedContactsWhichContainsJohn().size());
     }
     
    /**
@@ -418,7 +422,7 @@ private class TestRelationshipQueries
          
         // Check for the result match.
         System.assertEquals(1,
-                            relationshipQueriesInstance.findsAccountRecordHavingAtleastOneOpportunity().size());
+               relationshipQueriesInstance.findsAccountRecordHavingAtleastOneOpportunity().size());
     }
     
     /**
@@ -466,7 +470,7 @@ private class TestRelationshipQueries
          
         // Check for the result match.
         System.assertEquals(0,
-                            relationshipQueriesInstance.findsAccountRecordHavingAtleastOneOpportunity().size());
+              relationshipQueriesInstance.findsAccountRecordHavingAtleastOneOpportunity().size());
     }
     
     
@@ -514,7 +518,7 @@ private class TestRelationshipQueries
          
         // Check for the result match.
         System.assertEquals(0,
-                            relationshipQueriesInstance.findsAccountRecordHavingAtleastOneOpportunity().size());
+               relationshipQueriesInstance.findsAccountRecordHavingAtleastOneOpportunity().size());
     }
     
     /**
@@ -560,7 +564,8 @@ private class TestRelationshipQueries
         // Create the instance of the class
         RelationQueriesSoql relationshipQueriesInstance = new RelationQueriesSoql(); 
                          
-        System.assertEquals(1,relationshipQueriesInstance.retriveRecordsFromAWhereChildnameisJohn().size()); // Check for result
+        System.assertEquals(1,
+        relationshipQueriesInstance.retriveRecordsFromAWhereChildnameisJohn().size());
     } 
     
     
@@ -607,6 +612,7 @@ private class TestRelationshipQueries
          // Create the instance of the class
          RelationQueriesSoql relationshipQueriesInstance = new RelationQueriesSoql(); 
                           
-         System.assertEquals(0,relationshipQueriesInstance.retriveRecordsFromAWhereChildnameisJohn().size()); // Check for result
+         System.assertEquals(0,
+             relationshipQueriesInstance.retriveRecordsFromAWhereChildnameisJohn().size()); 
     }  
 }
