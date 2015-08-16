@@ -6,57 +6,58 @@
 private class TestOnContactToAssignAccount 
 {
  /**
-  * This is the Positive Test Method Automatically associate a Contact created 
-  * with the respective Account based on the email domain 
-  * specified in the primary email address of the Contact.
+  * This is the positive test method automatically associate a contact created 
+  * with the respective account based on the email domain 
+  * specified in the primary email address of the contact.
   */
     static testMethod void automaticallyAssignContactTest() 
     {
-       // It creates the test data for the account.
-       Account accountTestData=new Account(Name='TestAccount',
-                                           Website='http:http://www.testforce.com'); 
+       // Assign the list returned from data factory to a new instance of the Account List 
+       List<Account> accountInstanceList=TestDataFactory.accountTestData(1);
        
-       // Create a instance list of contact.
-       List<Contact> contactList=new List<Contact>();
-       
-       // Start of the for loop
-       for(integer i=0;i<200;i++)
-       {
-                // Add The 200 contacts to the list.
-                contactList.add(new Contact(LastName='testContact'+i,
-                                            Email='test@testforce.com'));
-       } // End of the for loop
+       // Assign the list returned from data factory to a new instance of the Contact List
+       List<Contact> contactInstanceList=TestDataFactory.contactTestData(200);
        
        // Start the test
        Test.startTest();
        
        // Insert the account list
-       insert accountTestData;
+       insert accountInstanceList;
+       
+       // Check all the account are inserted or not.
+       System.assertEquals(1,accountInstanceList.size());
        
        // Insert the contact list
-       insert contactList;
+       insert contactInstanceList;
        
        // Check all the contacts are inserted or not.
-       System.assertequals(200,contactList.Size());
+       System.assertEquals(200,contactInstanceList.size());
        
        // Stop the test
        Test.stopTest();
        
+       // Fetch the accounts in a list having the name as TestAccount.
+       List<Account> accountTestList=[
+                                      SELECT Id
+                                      FROM Account
+                                      WHERE Name 
+                                      LIKE 'TestAccount%'];
+                                      
        // Fetch the contacts in a list having the name as testContact.
-       List<Contact> contacttestList=[
-                                      SELECT id,
+       List<Contact> contactTestList=[
+                                      SELECT Id,
                                              AccountId 
                                       FROM Contact
                                       WHERE Name 
                                       LIKE 'testContact%'];
-                                      
        // Iterate over the contact list.
-       for(Contact contactTest:contacttestList)
+       for(Contact contactTest : contactTestList)
        {
-             // Check wheter the excepted value and actual value are same.
-             System.assertequals(accountTestData.id,contactTest.Accountid);
+             // Check whether the excepted value and actual value are same.
+             System.assertEquals(accountTestList[0].Id,contactTest.AccountId);
        }
   }
+          
           
  /**
   * This is the negative test method where email is kept blank when need to automatically associate 
@@ -65,103 +66,104 @@ private class TestOnContactToAssignAccount
   */  
     static testMethod void noEmailProvidedTest() 
     {
-        // It creates the test data for the account.
-        Account accountTestData=new Account(
-                                            Name='TestAccount',
-                                            Website='http:http://www.testforce.com/'); 
+         // Assign the list returned from data factory to a new instance of the Account List 
+       List<Account> accountInstanceList=TestDataFactory.accountTestData(1);
+       
+        // Create an instance list of contact.
+        List<Contact> contactList = new List<Contact>();
          
-        // Create a instance list of contact.
-        List<Contact> contactList=new List<Contact>();
-        
         // Start of the for loop
-        for(integer i=0;i<200;i++)
+        for(Integer i=0;i<200;i++)
         {
              // Add The 200 contacts to the list with the email as blank.
              contactList.add(new Contact(LastName='testContactNoEmail'+i,Email=''));
-        }// End of the For Loop.
+        } // End of the for Loop.
         
-        // Start the Test
+        // Start the test
         Test.startTest();
         
-        // Insert the account List
-        insert accountTestData;
+        // Insert the account list
+        insert accountInstanceList;
+        
+        // Check all the account are inserted or not.
+        System.assertEquals(1,accountInstanceList.size());
 
         // Insert the contact list
         insert contactList;
-        
+
         // Check the contacts are inserted or not.
-        System.assertequals(200,contactList.Size());
+        System.assertEquals(200,contactList.size());
         
         // Stop the test
         Test.stopTest();
         
         // Fetch the contacts in a list having the name as testContactNoEmail.
-        List<Contact> contacttestList=[
-                                       SELECT id,AccountId 
+        List<Contact> contactTestList=[
+                                       SELECT Id,
+                                              AccountId 
                                        FROM Contact
                                        WHERE Name 
                                        LIKE 'testContactNoEmail%'];
         
-        // Iterate over the contat list.
-        for(Contact contactTest:contacttestList)
+        // Iterate over the contact list.
+        for(Contact contactTest : contactTestList)
         {
-            // Check wheter the excepted value and actual value are same.
-            System.assertequals(null,contactTest.Accountid);
+            // Check whether the excepted value and actual value are same.
+            System.assertEquals(null,contactTest.AccountId);
         }
     }
 
  /**
-  * This is the Negative Test Method where Account Website is kept Blank when Need to 
-  * Automatically associate a Contact created with the respective Account based on the email domain 
-  * specified in the primary email address of the Contact.
+  * This is the negative test method where account website is kept blank when need to 
+  * automatically associate a contact created with the respective account based on the email domain 
+  * specified in the primary email address of the contact.
   */  
     static testMethod void noWebsiteProvidedTest() 
     {
-          // It creates the test data for the account having the website field blank.
-        Account accountTestData=new Account(Name='TestAccount',Website='');
+        // It creates the test data for the account having the website field blank.
+        Account accountTestData= new Account(Name='TestAccount',Website='');
         
-         // Create a Instance list of contact. 
-        List<Contact> contactList=new List<Contact>();
-        
-         // Start of the for loop
-        for(integer i=0;i<200;i++)
-        {
-            // Add The 200 contacts to the list.
-            contactList.add(new Contact(
-                                        LastName='testContactNoWebsite'+i,
-                                        Email='test@testforce.com'));
-        }// End of the for loop.
-        
+        // Assign the list returned from data factory to a new instance of the Contact List
+        List<Contact> contactInstanceList=TestDataFactory.contactTestData(200);
+
         // Start the test
         Test.startTest();
-        
+
         // Insert the account List
         insert accountTestData;
-        
-        // Insert the contact List
-        insert contactList;
-        
+
+        // Check the contacts are inserted or not.
+        System.assertNotEquals(null, accountTestData.Id);
+
+        // Insert the contact list
+        insert contactInstanceList;
+
+        // Check all the contacts are inserted or not.
+        System.assertEquals(200,contactInstanceList.size());
+
         // Stop the test
         Test.stopTest();
-         // Fetch the contacts in a list having the name as testContactNoWebsite.
-        List<Contact> contacttestList=[
-                                      SELECT id,AccountId 
-                                      FROM Contact
-                                      WHERE Name 
+
+        // Fetch the contacts in a list having the name as testContactNoWebsite.
+        List<Contact> contactTestList=[
+                                      SELECT c.Id,
+                                             c.AccountId 
+                                      FROM Contact c
+                                      WHERE c.Name 
                                       LIKE 'testContactNoWebsite%'];
                                       
-        // Iterate over the contat List.
-        for(Contact contactTest:contacttestList)
+        // Iterate over the contact List.
+        for(Contact contactTest:contactTestList)
         {
-            // Check wheter the excepted value and actual value are same.
-            System.assertequals(null,contactTest.Accountid);
+            // Check whether the excepted value and actual value are same.
+            System.assertEquals(null,contactTest.AccountId);
         }
     }
 
  /**
-  * This is the Negative Test Method where Account Email And Website Does Not match when Need to 
-  * Automatically associate a Contact created with the respective Account based on the email domain 
-  * specified in the primary email address of the Contact.
+  * This is the negative test method where account email and website does not match when need to 
+  * automatically associate a contact created with the respective account based on the email domain 
+  * specified in the primary email address of the contact.
   */  
     static testMethod void wrongProvidedTest() 
     {
@@ -169,12 +171,12 @@ private class TestOnContactToAssignAccount
         Account accountTestData=new Account(Name='TestAccount',
                                             Website='http:/www.google.com'); 
         
-        // Create a instance list of contact.
+        // Create an instance list of contact.
         List<Contact> contactList=new List<Contact>();
         
         // Start of the for loop
         
-        for(integer i=0;i<200;i++)
+        for(Integer i=0;i<200;i++)
         {
             contactList.add(new Contact(LastName='testContactdatamismatch'+i,
                                         Email='test@testforce.com'));
@@ -185,28 +187,32 @@ private class TestOnContactToAssignAccount
         
         // Insert the account list
         insert accountTestData;
-        
+
+        // Check the contacts are inserted or not.
+        System.assertNotEquals(null, accountTestData.Id);
+
         // Insert the contact list
         insert contactList;
-        
+
         // Check the contacts are inserted or not.
-        System.assertequals(200,contactList.Size());
-       
+        System.assertEquals(200,contactList.size());
+
         // Stop the test
         Test.stopTest();
-        
+
         // Fetch the contacts in a list having the name as testContact.
-        List<Contact> contacttestList=[
-                                       SELECT id,
+        List<Contact> contactTestList=[
+                                       SELECT Id,
                                               AccountId 
                                        FROM Contact
                                        WHERE Name 
                                        LIKE 'testContact%'];
-        // Iterate Over the Contat List.
-        for(Contact contactTest:contacttestList)
+
+        // Iterate Over the contact list.
+        for(Contact contactTest : contactTestList)
         {
-            // Check Wheter the excepted value and actual value are same.
-            System.assertequals(null,contactTest.AccountId);
+            // Check whether the excepted value and actual value are same.
+            System.assertEquals(null,contactTest.AccountId);
         }
     }
 }

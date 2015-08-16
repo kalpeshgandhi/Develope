@@ -1,14 +1,14 @@
 /**
- * This is a handler class that will automatically associate a Contact created 
- * with the respective Account based on the email domain specified in the 
- * primary email address of the Contac.t
+ * This is a handler class that will automatically associate a contact created 
+ * with the respective account based on the email domain specified in the 
+ * primary email address of the Contact
  */
 public with sharing class AutomaticallyAssignConTactTriggerHandler
 {
-   /**
-    * This is a method that will automatically assosiate a contact
+    /**
+    * This is a method that will automatically associate a contact
     * with the respective account based on the email domain 
-    * specified in the primary email address of the Contact.
+    * specified in the primary email address of the contact.
     */
     public static void assignAccountID(List<Contact> contactList)
     {
@@ -16,21 +16,22 @@ public with sharing class AutomaticallyAssignConTactTriggerHandler
         Map<String,Id> mapOfAccountAndWebsite=new Map<String,Id>();
         
         // Instantiate the set that has the value of contact domain.
-        Set<String> setOfDomain=new  Set<String>();
+        Set<String> setOfDomain= new Set<String>();
         
         // Iterate over the contact instance.
         for(Contact contactInstanceForDomain:contactList)
         { 
-             // Checks whether the email is not equals to null.
-             if(contactInstanceForDomain.Email <> null)
-             {
-                 // Add the elements to the set.
-                 setOfDomain.add('%'+ (contactInstanceForDomain.Email).substringafter('@'));
-             }
+            // Checks whether the email is not equals to null.
+            if(contactInstanceForDomain.Email <> null)
+            {
+                // Add the elements to the set.
+                setOfDomain.add('%'+ (contactInstanceForDomain.Email).substringAfter('@'));
+            }
         }
-        // For loop  iterates over all the accounts whose website is not null.
+        // For loop iterates over all the accounts whose website is not null.
         for(Account accountInstance :[
-                                SELECT id,WebSite 
+                                SELECT Id,
+                                       Website 
                                 FROM Account 
                                 WHERE Website 
                                 LIKE :setOfDomain])
@@ -38,7 +39,7 @@ public with sharing class AutomaticallyAssignConTactTriggerHandler
             // Add elements in the map where key is a website and ID is The value.
             mapOfAccountAndWebsite.put(
                                 (accountInstance.Website).substringAfterLast('w.'),
-                                 accountInstance.id);
+                                 accountInstance.Id);
         } // End of the for loop
         
         // Iterate over the instance of the contactList(Trigger New)
@@ -47,10 +48,10 @@ public with sharing class AutomaticallyAssignConTactTriggerHandler
              // Checks whether the email field is blank or not
              if(contactListInstance.Email <> null)
              {
-                   // Assosiate the account to the contact ny fetching the accountid from map.
+                   // Associate the account to the contact by fetching the accountid from map.
                    contactListInstance.AccountId=
                    mapOfAccountAndWebsite.get(
-                                           (contactListInstance.Email).substringafter('@'));
+                                           (contactListInstance.Email).substringAfter('@'));
              } // End of the if loop
              
         } // End of the for loop
