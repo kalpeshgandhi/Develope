@@ -10,24 +10,34 @@ public with sharing class SimpleSOQLQuery
     */
     public List<Contact> fetchContactList()
     {
-    // Fetch all the contacts and save them in the list.
-    List<Contact> contactListInstance=[
-                                      SELECT Id,
-                                             Name 
-                                      FROM Contact 
-                                      WHERE LastName <> null 
-                                      ];
-                                      system.debug(contactListInstance);
-    return contactListInstance;
+        // Fetch all the contacts and save them in the list.
+        List<Contact> contactListInstance = [
+                                             SELECT 
+                                                   Id,
+                                                   Name 
+                                             FROM 
+                                                 Contact 
+                                             WHERE 
+                                                  LastName <> null 
+                                            ];
+                                            
+        for(Integer i = 0 ; i < contactListInstance.size() ; i++)
+        {
+            system.debug(contactListInstance);
+        }
+        
+        return contactListInstance;
     }
    /**
     * Prints all the Contact Records in the list  
     */
     public Integer printContactList()
     {
-         List<Contact> contactList=fetchContactList();
+        List<Contact> contactList = fetchContactList();
+        
         // Print the contact list
         System.debug('This is the Contact for '+ contactList);
+        
         // Returns the size of the list.
         return contactList.size();
     }
@@ -40,28 +50,40 @@ public with sharing class SimpleSOQLQuery
     public List<Account> checkEnrollmentYear2010() 
     {
         // This is a list that fetches the account records having enrollment year 2010.
-        List<Account> accountList =[
-                                   SELECT a.Name,
-                                          a.Id, 
-                                          a.Enrollment_Year__c 
-                                   FROM Account a 
-                                   WHERE Enrollment_Year__c 
-                                   INCLUDES('2010')]; 
+        List<Account> accountList = [
+                                     SELECT 
+                                           a.Name,
+                                           a.Id, 
+                                           a.Enrollment_Year__c 
+                                     FROM 
+                                          Account a 
+                                     WHERE 
+                                          Enrollment_Year__c 
+                                     INCLUDES('2010')
+                                     ]; 
+
         System.debug('List of Accounts In 2010' + accountList);
-       return accountList;
+
+        return accountList;
     }
        
     public List<Account> checkEnrollmentYear20132014() 
     {
         // This is a List that fetches the account records having enrollment year 2013,2014.
-        List<Account> accountListForTwoYears=[
-                                             SELECT a.Name,
-                                                    a.Id,
-                                                    a.Enrollment_Year__c 
-                                             FROM Account a 
-                                             WHERE Enrollment_Year__c 
-                                             INCLUDES ('2013','2014')];
+        List<Account> accountListForTwoYears = [
+                                                SELECT 
+                                                      a.Name,
+                                                      a.Id,
+                                                      a.Enrollment_Year__c 
+                                                FROM 
+                                                     Account a 
+                                                WHERE 
+                                                     Enrollment_Year__c 
+                                                INCLUDES ('2013','2014')
+                                                ];
+        
         System.debug('List of Accounts In 2013,2014' + accountListForTwoYears);
+        
         return accountListForTwoYears;
     }
     
@@ -76,17 +98,27 @@ public with sharing class SimpleSOQLQuery
          List<Account> accountList = new List<Account>();
          
          // Iterate Over the list of Account 
-         for(Account accountInstance:[
-                                      SELECT a.Name,
-                                             a.Id, 
-                                             a.AccountNumber 
-                                      FROM Account a 
-                                      WHERE BillingState__c 
-                                      NOT IN ('Maharashtra','Kerala') 
-                                      ORDER BY BillingState__c DESC Nulls Last 
-                                      LIMIT :10000])
+         for(Account accountInstance : [
+                                        SELECT 
+                                              a.Name,
+                                              a.Id, 
+                                              a.AccountNumber 
+                                        FROM
+                                             Account a 
+                                        WHERE
+                                              BillingState__c 
+                                        NOT IN 
+                                              (
+                                              'Maharashtra',
+                                              'Kerala'
+                                              ) 
+                                        ORDER BY 
+                                              BillingState__c DESC Nulls Last 
+                                        LIMIT : 10000
+                                        ])
          {
              accountList.add(accountInstance);
+             
              // print The List
              System.debug(accountInstance);
          }
@@ -107,16 +139,24 @@ public with sharing class SimpleSOQLQuery
      {
          // Create the Instance of the opportunity.
          List<Opportunity> opportunityList=new List<Opportunity>();
+         
          // Iterate Over the List of Opportunity
          for(Opportunity opportunityInstance:[
-                                              SELECT o.Name,
+                                              SELECT 
+                                                     o.Name,
                                                      o.Id,
                                                      o.Amount 
-                                              FROM Opportunity o 
-                                              WHERE Amount>10000 
-                                              ORDER BY CreatedDate 
-                                              LIMIT 100 
-                                              OFFSET 50 All Rows])
+                                              FROM
+                                                   Opportunity o 
+                                              WHERE
+                                                   Amount>10000 
+                                              ORDER BY 
+                                                     CreatedDate 
+                                              LIMIT 
+                                                    100 
+                                              OFFSET 
+                                                    50 All Rows
+                                              ])
          {
              //Print the Result
              System.debug(opportunityInstance);

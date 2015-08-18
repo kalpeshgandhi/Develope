@@ -11,24 +11,30 @@ public with sharing class PrintTheActiveUser
     public Map<Id,User> printAllActiveUsers()
     {
         // Queries on user to find the list of users that are active 
-        List<User> listOfUser =[
-                                SELECT u.Name, 
-                                       u.Id 
-                                FROM User u 
-                                WHERE IsActive = true];
+        List<User> listOfUser = 
+            [
+                SELECT 
+                    u.Name, 
+                    u.Id 
+                FROM 
+                    User u 
+                WHERE 
+                    IsActive = true
+            ];
 
         // Instance of a map with Id as a key and user as a value
-        Map<Id,User> userMapWithIdAndUser= new map<Id,User>();
+        Map<Id,User> userMapWithIdAndUser = new map<Id,User>();
 
         // Iterate over the user
-        for(User userInstance:listOfUser )
+        for(User userInstance : listOfUser )
         {
             // Put the user in the map
-            userMapWithIdAndUser.put(userInstance.id,userInstance);
+            userMapWithIdAndUser.put(userInstance.Id,userInstance);
         }
 
         // Print the map
         system.debug(userMapWithIdAndUser);
+        
         return userMapWithIdAndUser;
     }
 }

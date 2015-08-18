@@ -10,55 +10,77 @@ private class TestDmlOperation
      static testMethod void testAccountRecords()
      {
          // Create the list of account
-         List<Account> listAccount  = new List<Account>(); 
+         List<Account> listAccount = new List<Account>(); 
          // Iterate over the loop
-         for (Integer i=0;i<5;i++)
+         for (Integer i = 0 ; i < 5; i++)
          {
              // Create the account record
-             Account accountInstance = new Account(Name ='Test'+i, Active__c ='No');
+             Account accountInstance = new Account(Name ='Test' + i, Active__c ='No');
              listAccount.add(accountInstance);
          }
+         
+         // Check the records are added or not
+         System.assertEquals(5,listAccount.size());
+         
          // Start the Test
          Test.startTest();
          
          // Insert list of account
          insert listAccount;
          
-         // Check the records are added or not
-         System.assertEquals(5,listAccount.size());
+         // Fetch the record
+         List<Account> accountListInstance=
+            [
+                SELECT 
+                    Id,
+                    Name
+                FROM
+                    Account
+                WHERE
+                    Name LIKE 'Test%'
+            ];
+            
+         // Check If the record is inserted or not.
+         System.assertEquals(5, accountListInstance.size());
+         
+         // Create the instance of the class
+         SoqlAndSoslQueryDmlOperation dmlInstance = new SoqlAndSoslQueryDmlOperation();
+         
+         // Call the Method 
+         dmlInstance.deletAllinActiveAccountInLastNintyDays();
          
          // Stop the test
          Test.stopTest();
          
-         // Create the instance of the class
-         SoqlAndSoslQueryDmlOperation dmlInstance=new SoqlAndSoslQueryDmlOperation();
-         dmlInstance.deletAllinActiveAccountInLastNintyDays();
-         List <Account> listAccountInstance=[
-                                             SELECT Id,
-                                                    Name 
-                                             FROM Account
-                                             WHERE Name
-                                             LIKE 'Test %'];
+         List <Account> listAccountInstance = 
+            [
+                SELECT 
+                    Id,
+                    Name 
+                FROM 
+                    Account
+                WHERE 
+                    Name LIKE 'Test%'
+            ];
          
-         System.assertNotEquals(listAccount.size(),listAccountInstance.size());
+         System.assertEquals(0,listAccountInstance.size());
     }
     
    /**
     * This is a method that tests the functionality to upsert Asset records.
     */
-    static testMethod void testUpsertAssetRecords()
+    static testMethod void testUpsertOfAssetRecords()
     {
          // Create the Account record
          Account accountInstance = new Account(Name = 'Test');
          
-         // Create the instance of asser list
-         List<Asset> listAsset = new List<Asset>();
          
-         // Create the instance of asser list
-         List<Asset> listAsset2 = new List<Asset>();
+         // Create the instance of asset list
+         List<Asset> listAsset = new List<Asset>();
          
          // Create the Asset record
          Asset assetInstance = new Asset(Line_Item_Id__c = 'WER',Name = 'Test');
+         
          
          // Start the test
          Test.startTest();
@@ -67,7 +89,7 @@ private class TestDmlOperation
          insert accountInstance;
          
          // Check the records are added or not
-         System.assertNotEquals(null,accountInstance.Id);
+         System.assert(String.isNotBlank(accountInstance.Id));
          
          // Assign the Id to asset record
          assetInstance.AccountId = accountInstance.Id;
@@ -78,8 +100,19 @@ private class TestDmlOperation
          // Insert the Asset
          insert listAsset;
          
-         // Stop the test
-         Test.stopTest();
+         List<Asset> assetListInstance=
+           [
+               SELECT 
+                   Id,
+                   Name
+               FROM
+                   Asset
+               WHERE
+                   Name = 'Test'
+           ];
+           
+         // Check If the record is inserted or not.
+         System.assertEquals(1, assetListInstance.size()); 
          
          // Create the Instance of the Class 
          SoqlAndSoslQueryDmlOperation soqlDmlInstance = new SoqlAndSoslQueryDmlOperation();
@@ -87,14 +120,22 @@ private class TestDmlOperation
          // Call the Method from the Class
          soqlDmlInstance.usingUpsertOnAssets();
          
+          // Stop the test
+         Test.stopTest();
+         
          // Fetch all the Assets
-         List<Asset> accountAfterUpdate=[
-                                         SELECT NAME
-                                         FROM Asset];
+         List<Asset> accountAfterUpdate=
+            [
+                SELECT 
+                    NAME
+                FROM 
+                    Asset
+            ];
          
          // Check the records are added or not
          System.assertEquals('TrailAssetsUpsert',accountAfterUpdate[0].Name);
     }
+    
     
    /**
     * This is a method that test for all records which were not inserted into Lead object, 
@@ -104,26 +145,43 @@ private class TestDmlOperation
     {
         // Create the instance of the Lead
         List<Lead> listLead = new List<Lead>();
+        
         // Fetch all log before Insert 
-        list<Log__c> logList=[
-                              SELECT Id,
-                                     Name
-                              FROM Log__c];
+        list<Log__c> logList=
+            [
+                SELECT Id,
+                       Name
+                FROM 
+                    Log__c
+            ];
+        
+         // Check If the record is inserted or not.
+         System.assertEquals(0, logList.size()); 
+         
         // Stop the test
         Test.startTest();
+        
         // Create the Insatnce of the class
         SoqlAndSoslQueryDmlOperation loginstance = new SoqlAndSoslQueryDmlOperation();
+        
         // Call the function
         loginstance.insertRecordInLeadIfErrorInsertErrorInLog();
+        
         // Call the function
         loginstance.insertRecordInLeadIfErrorInsertErrorInLog();
+        
         // Stop the test
         Test.stopTest();
+        
         // Fetch all log after insert.
-        List<Log__c> listAfterLog=[
-                                   SELECT Id,
-                                          Name
-                                   FROM Log__c];
+        List<Log__c> listAfterLog=
+            [
+                SELECT 
+                    Id,
+                    Name
+                FROM Log__c
+            ];
+        
         // Checks the log size before and after insert of lead.
         System.assertNotEquals(logList.size(),listAfterLog.size());
     }
