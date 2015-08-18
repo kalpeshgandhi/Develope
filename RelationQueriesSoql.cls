@@ -22,18 +22,18 @@ public with sharing class RelationQueriesSoql
                                           FROM
                                               Contact c 
                                           WHERE
-                                              Account.Industry ='Media' 
+                                              Account.Industry = 'Media' 
                                           AND
-                                              Account.Active__c ='Yes'
+                                              Account.Active__c = 'Yes'
                                        ])
          {
               contactList.add(contactInstance);
               
               // Prints The ContactList
-              System.debug('Contact Information'+contactInstance);
+              System.debug('Contact Information' + contactInstance);
               
               // Prints The Account Name
-              System.debug('Account Name'+contactInstance.Account.Name);
+              System.debug('Account Name' + contactInstance.Account.Name);
          }
          return contactList;
         /**
@@ -52,30 +52,32 @@ public with sharing class RelationQueriesSoql
          List<C__c> listOfC = new List<C__c>();
          
          // Iterate Over List which fetches all records of 'C' with name 'John' along with Details of Parent
-         for(C__c cInstance:
-                            [
-                             SELECT
-                                c.Name,
-                                c.Bs__r.name,
-                                c.A_relation__r.name
-                             FROM
-                                C__c c
-                             WHERE
-                                Name='John'
+         for(C__c cInstance : 
+                             [
+                                SELECT
+                                    c.Name,
+                                    c.Bs__r.name,
+                                    c.A_relation__r.name
+                                FROM
+                                    C__c c
+                                WHERE
+                                    Name='John'
                             ])
                              
                              
          {
              listOfC.add(cInstance);
+             
              // Prints The List C's Name
-             System.debug('C name------------>'+cInstance.name);
+             System.debug('C name------------>' + cInstance.name);
              
              // Prints The B's Name
-             System.debug('C Parent Bs Name---------->'+cInstance.Bs__r.name);
+             System.debug('C Parent Bs Name---------->' + cInstance.Bs__r.name);
              
              // Prints The C's Name
-             System.debug('C Parent As Name---------->'+cInstance.A_relation__r.name);
+             System.debug('C Parent As Name---------->' + cInstance.A_relation__r.name);
          }
+         
          return listOfC;
         /* RelationQueriesSoql relationInstance=new RelationQueriesSoql();
          * relationInstance.retriveAllecordsWithNameJohnFromC();
@@ -92,7 +94,7 @@ public with sharing class RelationQueriesSoql
           List<Account> accountList = new List<Account>();
           
           // Iterate Over List of Account which fetches all records Having Opportunity Stage As Closed Won
-          for(Account accountInstance :
+          for(Account accountInstance : 
                                        [
                                            SELECT 
                                                a.Name,
@@ -108,7 +110,7 @@ public with sharing class RelationQueriesSoql
                                                FROM
                                                    Opportunity 
                                                WHERE
-                                                   Stagename='Closed won'
+                                                   Stagename = 'Closed won'
                                             )
                                        ])
           {
@@ -140,7 +142,7 @@ public with sharing class RelationQueriesSoql
             [
                 SELECT
                     a.Name,
-                    a.Id , 
+                    a.Id, 
                     (
                         SELECT
                             Name 
@@ -170,7 +172,7 @@ public with sharing class RelationQueriesSoql
         for(Account accountInstance : ListAccount)
         {
             // Print the List
-            System.debug('Account Details ---------->'+accountInstance );
+            System.debug('Account Details ---------->' + accountInstance );
             
             accountList.add(accountInstance);
             
@@ -178,7 +180,7 @@ public with sharing class RelationQueriesSoql
             for(Contact contactInstance : AccountInstance.Contacts)
             {
                 // Print the List
-                System.debug('Contact Details ---------->'+contactInstance);
+                System.debug('Contact Details ---------->' + contactInstance);
                 
             }// End Of the For Loop
             

@@ -15,11 +15,12 @@ public class TestDataFactory
         List<Account> accountDataList = new List<Account>();
 
         // Iterate over the for loop to add accounts. 
-        for(Integer i=0;i<listAccountsize;i++)
+        for(Integer i = 0; i < listAccountsize; i++)
         {
             // Add the Accounts to the list.
-            accountDataList.add(new Account(Name='TestAccount'+i,
-                                             Website='http://www.testforce.com')); 
+            accountDataList.add(new Account(Name='TestAccount' + i,
+                                            Website='http://www.testforce.com')
+                                           ); 
         } // End of the for loop
         
         // Return the list of account.
@@ -32,11 +33,12 @@ public class TestDataFactory
        List<Contact> contactList = new List<Contact>();
        
         // Iterate over the for loop to add contacts. 
-       for(Integer i=0;i<listContactsize;i++)
+       for(Integer i = 0; i < listContactsize; i++)
        {
                 // Add The contacts to the list.
-                contactList.add(new Contact(LastName ='testContact'+i,
-                                            Email ='test@testforce.com'));
+                contactList.add(new Contact(LastName ='testContact' + i,
+                                            Email ='test@testforce.com')
+                                            );
        } // End of the for loop
        
        // Return the list of contact.
@@ -49,11 +51,13 @@ public class TestDataFactory
        List<Contact> contactList = new List<Contact>();
        
         // Iterate over the for loop to add contacts. 
-       for(Integer i=0;i<listContactsize;i++)
+       for(Integer i = 0; i < listContactsize; i++)
        {
                 // Add The contacts to the list.
-                contactList.add(new Contact(LastName ='TestContact'+i,
-                                            Email ='test@testforce.com',AccountId=AccountIdParameter));
+                contactList.add(new Contact(LastName ='TestContact' + i,
+                                            Email ='test@testforce.com',
+                                            AccountId=AccountIdParameter)
+                                            );
        } // End of the for loop
        
        // Return the list of contact.

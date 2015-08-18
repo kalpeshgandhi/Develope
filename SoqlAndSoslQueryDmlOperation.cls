@@ -18,23 +18,23 @@ public with sharing class SoqlAndSoslQueryDmlOperation
                 IN
                     NAME 
                 FIELDS RETURNING 
-                    contact(name), 
-                    account(name),
-                    lead(name),
-                    user(name)
+                    Contact(name), 
+                    Account(name),
+                    Lead(name),
+                    User(name)
             ];
                                          
         // Add to contact list if it is found in the contact.
-        Contact[] listContact = ((List<contact>)searchList[0]);
+        Contact[] listContact = ((List<Contact>)searchList[0]);
         
         // Add to account list if it is found in the account.
-        Account[] listAccount = ((List<account>)searchList[1]);
+        Account[] listAccount = ((List<Account>)searchList[1]);
         
         // Add to lead list if it is found in the lead.
-        Lead[] listLead = ((List<lead>)searchList[2]);
+        Lead[] listLead = ((List<Lead>)searchList[2]);
         
         // Add to user list if it is found in the user.
-        User[] listUser = ((List<user>)searchList[3]);
+        User[] listUser = ((List<User>)searchList[3]);
         
         //Iterate over the contact instance and print the list.
         for(Contact contactInstance : listContact)
@@ -78,13 +78,13 @@ public with sharing class SoqlAndSoslQueryDmlOperation
      
     /**
      * Method that Create 100 lead records using DML operations having a unique name. 
-     * For all records which were not inserted into Lead object, 
+     * For all records which were not inserted into lead object, 
      * insert a record in Log object along with the reason why a record  it was not inserted.
      */
      public void insertRecordInLeadIfErrorInsertErrorInLog()
      {
          // Initialize the List of Leads
-         List<Lead> leadList=new List<Lead>();
+         List<Lead> leadList = new List<Lead>();
          
          // Start of for loop 
          for(Integer i = 0; i < 100; i++)
@@ -120,7 +120,7 @@ public with sharing class SoqlAndSoslQueryDmlOperation
                        );
                         
          // Try to insert the List using dataBase.query()
-         Database.SaveResult[] saveresultList = database.insert(leadList,false);
+         Database.SaveResult[] saveresultList = Database.insert(leadList,false);
         
          // Create an Instance of log list
          List<Log__c> errorList = new List<Log__c>();
@@ -168,7 +168,7 @@ public with sharing class SoqlAndSoslQueryDmlOperation
       public void deletAllinActiveAccountInLastNintyDays()
       {
             // List of Account that has been Created In Last 90 Days And Is Inactive
-            List <Account> listAccount=
+            List <Account> listAccount =
                 [
                     SELECT 
                         Id,
@@ -176,7 +176,7 @@ public with sharing class SoqlAndSoslQueryDmlOperation
                     FROM
                         Account 
                     WHERE 
-                        Active__c ='No' 
+                        Active__c = 'No' 
                     AND 
                         CreatedDate = LAST_90_DAYS
                 ];
@@ -243,7 +243,7 @@ public with sharing class SoqlAndSoslQueryDmlOperation
          catch(Exception e)
          {
               // Prints if Any exception Occurred
-              system.debug('Exception Occurred:'+ e);
+              system.debug('Exception Occurred:' + e);
          }
     }  
 }

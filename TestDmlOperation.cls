@@ -15,7 +15,7 @@ private class TestDmlOperation
          for (Integer i = 0 ; i < 5; i++)
          {
              // Create the account record
-             Account accountInstance = new Account(Name ='Test' + i, Active__c ='No');
+             Account accountInstance = new Account(Name ='Test' + i, Active__c = 'No');
              listAccount.add(accountInstance);
          }
          
@@ -124,7 +124,7 @@ private class TestDmlOperation
          Test.stopTest();
          
          // Fetch all the Assets
-         List<Asset> accountAfterUpdate=
+         List<Asset> accountAfterUpdate =
             [
                 SELECT 
                     NAME
@@ -147,7 +147,7 @@ private class TestDmlOperation
         List<Lead> listLead = new List<Lead>();
         
         // Fetch all log before Insert 
-        list<Log__c> logList=
+        list<Log__c> logList =
             [
                 SELECT Id,
                        Name
@@ -174,7 +174,7 @@ private class TestDmlOperation
         Test.stopTest();
         
         // Fetch all log after insert.
-        List<Log__c> listAfterLog=
+        List<Log__c> listAfterLog =
             [
                 SELECT 
                     Id,

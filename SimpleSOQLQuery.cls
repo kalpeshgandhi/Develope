@@ -11,15 +11,16 @@ public with sharing class SimpleSOQLQuery
     public List<Contact> fetchContactList()
     {
         // Fetch all the contacts and save them in the list.
-        List<Contact> contactListInstance = [
-                                             SELECT 
-                                                   Id,
-                                                   Name 
-                                             FROM 
-                                                 Contact 
-                                             WHERE 
-                                                  LastName <> null 
-                                            ];
+        List<Contact> contactListInstance = 
+            [
+                 SELECT 
+                    Id,
+                    Name 
+                 FROM 
+                    Contact 
+                 WHERE 
+                    LastName <> null 
+            ];
                                             
         for(Integer i = 0 ; i < contactListInstance.size() ; i++)
         {
@@ -50,17 +51,18 @@ public with sharing class SimpleSOQLQuery
     public List<Account> checkEnrollmentYear2010() 
     {
         // This is a list that fetches the account records having enrollment year 2010.
-        List<Account> accountList = [
-                                     SELECT 
-                                           a.Name,
-                                           a.Id, 
-                                           a.Enrollment_Year__c 
-                                     FROM 
-                                          Account a 
-                                     WHERE 
-                                          Enrollment_Year__c 
-                                     INCLUDES('2010')
-                                     ]; 
+        List<Account> accountList =
+            [
+                SELECT 
+                    a.Name,
+                    a.Id, 
+                    a.Enrollment_Year__c 
+                FROM 
+                    Account a 
+                WHERE 
+                    Enrollment_Year__c 
+                INCLUDES('2010')
+            ]; 
 
         System.debug('List of Accounts In 2010' + accountList);
 
@@ -70,17 +72,18 @@ public with sharing class SimpleSOQLQuery
     public List<Account> checkEnrollmentYear20132014() 
     {
         // This is a List that fetches the account records having enrollment year 2013,2014.
-        List<Account> accountListForTwoYears = [
-                                                SELECT 
-                                                      a.Name,
-                                                      a.Id,
-                                                      a.Enrollment_Year__c 
-                                                FROM 
-                                                     Account a 
-                                                WHERE 
-                                                     Enrollment_Year__c 
-                                                INCLUDES ('2013','2014')
-                                                ];
+        List<Account> accountListForTwoYears =
+            [
+                SELECT 
+                    a.Name,
+                    a.Id,
+                    a.Enrollment_Year__c 
+                FROM 
+                    Account a 
+                WHERE 
+                    Enrollment_Year__c 
+                INCLUDES ('2013','2014')
+            ];
         
         System.debug('List of Accounts In 2013,2014' + accountListForTwoYears);
         
@@ -99,23 +102,23 @@ public with sharing class SimpleSOQLQuery
          
          // Iterate Over the list of Account 
          for(Account accountInstance : [
-                                        SELECT 
-                                              a.Name,
-                                              a.Id, 
-                                              a.AccountNumber 
-                                        FROM
-                                             Account a 
-                                        WHERE
-                                              BillingState__c 
-                                        NOT IN 
-                                              (
-                                              'Maharashtra',
-                                              'Kerala'
-                                              ) 
-                                        ORDER BY 
-                                              BillingState__c DESC Nulls Last 
-                                        LIMIT : 10000
-                                        ])
+                                            SELECT 
+                                                a.Name,
+                                                a.Id, 
+                                                a.AccountNumber 
+                                            FROM
+                                                Account a 
+                                            WHERE
+                                                BillingState__c 
+                                            NOT IN 
+                                                (
+                                                 'Maharashtra',
+                                                 'Kerala'
+                                                ) 
+                                            ORDER BY 
+                                                BillingState__c DESC Nulls Last 
+                                            LIMIT : 10000
+                                      ])
          {
              accountList.add(accountInstance);
              
@@ -138,24 +141,24 @@ public with sharing class SimpleSOQLQuery
      public List<Opportunity> opportunityAmountGreaterThenTenthosand()
      {
          // Create the Instance of the opportunity.
-         List<Opportunity> opportunityList=new List<Opportunity>();
+         List<Opportunity> opportunityList = new List<Opportunity>();
          
          // Iterate Over the List of Opportunity
-         for(Opportunity opportunityInstance:[
-                                              SELECT 
-                                                     o.Name,
-                                                     o.Id,
-                                                     o.Amount 
-                                              FROM
-                                                   Opportunity o 
-                                              WHERE
-                                                   Amount>10000 
-                                              ORDER BY 
-                                                     CreatedDate 
-                                              LIMIT 
-                                                    100 
-                                              OFFSET 
-                                                    50 All Rows
+         for(Opportunity opportunityInstance : [
+                                                    SELECT 
+                                                        o.Name,
+                                                        o.Id,
+                                                        o.Amount 
+                                                    FROM
+                                                        Opportunity o 
+                                                    WHERE
+                                                        Amount>10000 
+                                                    ORDER BY 
+                                                        CreatedDate 
+                                                    LIMIT 
+                                                        100 
+                                                    OFFSET 
+                                                        50 All Rows
                                               ])
          {
              //Print the Result

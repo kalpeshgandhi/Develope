@@ -23,10 +23,10 @@ public with sharing class DisplayTheMapStructure
             ];
 
         // Initialize the Map where Id is the Key and Account Is the Value  
-        Map<Id,Account> accountIdWithAccountMap=new Map<Id,Account>();
+        Map<Id,Account> accountIdWithAccountMap = new Map<Id,Account>();
 
         // Iterate Over the List of the Account
-        for(Account accountInstance:accountList)
+        for(Account accountInstance : accountList)
         {   
            // Add key Value Pair to the Map
             accountIdWithAccountMap.put(accountInstance.Id,accountInstance);
@@ -57,12 +57,12 @@ public with sharing class DisplayTheMapStructure
             ];
 
         // Initialize the Map where  Account Name is the Key and Id the Value  
-        Map<String,Id> accountNameWithAccountIdMap=new Map<String,Id>();
+        Map<String,Id> accountNameWithAccountIdMap = new Map<String,Id>();
         
-        for(Account accountInstance:accountList)
+        for(Account accountInstance : accountList)
         {          
              // Add key Value Pair to the Map
-             accountNameWithAccountIdMap.put(accountInstance.name,accountInstance.id);
+             accountNameWithAccountIdMap.put(accountInstance.name,accountInstance.Id);
         } 
            
         //Print the map

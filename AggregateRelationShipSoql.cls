@@ -100,7 +100,7 @@
    * This is a method to find total number of Lead records by status by Lead Source. 
    * Store this information in map and display the same.
    */
-   public Map<string,Map<String,Integer>> leadRecordsByStatus()
+   public Map<String,Map<String,Integer>> leadRecordsByStatus()
    {
        // Fetches the query and stores it in the list.
        List<AggregateResult> aggregateResultList = 
@@ -125,15 +125,14 @@
        // Iterate over the aggregate results list
        for(AggregateResult aggrigateInstance : aggregateResultList )
        {
-           system.debug('>>>>>>>>>'+aggrigateInstance);
             // Fetches the value of the count from the List.
-            Integer countInteger = Integer.valueof(aggrigateInstance.get('countAlias'));
+            Integer countInteger = Integer.valueOf(aggrigateInstance.get('countAlias'));
 
                         
             if(aggrigateInstance.get('LeadSource') <> null)
             {
                 // Fetch all the lead Sources from the List.
-                String leadSource = String.valueof(aggrigateInstance.get('LeadSource'));
+                String leadSource = String.valueOf(aggrigateInstance.get('LeadSource'));
                 
                 // Insert the values in the map.
                 mapInstanceSting.put(leadSource,countInteger);  
@@ -141,10 +140,10 @@
                 if(aggrigateInstance.get('Status') <> null)
                 {
                     // Fetch the status from the list of aggrigate results.
-                    String leadStatus = String.valueof(aggrigateInstance.get('Status'));
+                    String leadStatus = String.valueOf(aggrigateInstance.get('Status'));
 
                     // Insert the values in the map.
-                    mapOfLeadStatusByLeadSource.put(leadStatus,new Map<string,Integer>(mapInstanceSting));
+                    mapOfLeadStatusByLeadSource.put(leadStatus,new Map<String,Integer>(mapInstanceSting));
                 }
             }
        }// End of the For loop.

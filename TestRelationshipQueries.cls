@@ -43,7 +43,7 @@ private class TestRelationshipQueries
                 FROM
                     Account
                 WHERE
-                    Name ='TestAccount'
+                    Name = 'TestAccount'
             ];
             
          // Check If the record is inserted or not.
@@ -71,7 +71,7 @@ private class TestRelationshipQueries
                 FROM
                     Contact
                 WHERE
-                    Name ='TestContact'
+                    Name = 'TestContact'
             ];
          
          // Check If the record is inserted or not.
@@ -137,8 +137,8 @@ private class TestRelationshipQueries
          for(Integer i = 0; i < 100; i++)
          {
               // Add The contacts to the list.
-              contactList.add(new Contact(LastName ='TestContact'+i,
-                                          AccountId=accountListInstance[0].Id)
+              contactList.add(new Contact(LastName ='TestContact' + i,
+                                          AccountId = accountListInstance[0].Id)
                                          );
          }
          // Check for the size of List that is been Inserted.
@@ -148,7 +148,7 @@ private class TestRelationshipQueries
          insert contactList;
         
          // Fetch the record
-         List<Contact> contactListInstance=
+         List<Contact> contactListInstance =
             [
                 SELECT 
                     Id,
@@ -300,7 +300,7 @@ private class TestRelationshipQueries
                 FROM
                     Account
                 WHERE
-                    Name ='TestAccount'
+                    Name = 'TestAccount'
             ];
          
          // Check If the record is inserted or not.
@@ -330,7 +330,7 @@ private class TestRelationshipQueries
                 FROM
                     Contact
                 WHERE
-                    Name ='TestContact'
+                    Name = 'TestContact'
             ];
             
          System.assertEquals(1, contactListInstance.size());
@@ -389,7 +389,7 @@ private class TestRelationshipQueries
                 FROM
                     Account
                 WHERE
-                    Name ='TestAccount'
+                    Name = 'TestAccount'
             ];
          
          // Check If the record is inserted or not.
@@ -419,7 +419,7 @@ private class TestRelationshipQueries
                 FROM
                     Contact
                 WHERE
-                    Name ='TestContact'
+                    Name = 'TestContact'
             ];
          
          // Check If the record is inserted or not.
@@ -474,7 +474,7 @@ private class TestRelationshipQueries
                FROM
                    Account
                WHERE
-                   Name ='TestAccount'
+                   Name = 'TestAccount'
            ];
         
         // Check If the record is inserted or not.
@@ -504,7 +504,7 @@ private class TestRelationshipQueries
                 FROM
                     Contact
                 WHERE
-                    Name ='John'
+                    Name = 'John'
             ];
          
          // Check If the record is inserted or not.
@@ -637,7 +637,7 @@ private class TestRelationshipQueries
                 FROM
                     Account
                 WHERE
-                    Name ='TestAccount'
+                    Name = 'TestAccount'
             ];
          
          // Check If the record is inserted or not.
@@ -1100,10 +1100,10 @@ private class TestRelationshipQueries
         {
             // Creates the record for C Object
             listOfC.add(new C__c(
-                                        Name = 'John', 
-                                        A_relation__c = instanceOfA.Id,
-                                        Bs__c = instanceOfB.Id
-                                       ));
+                                 Name = 'John', 
+                                 A_relation__c = instanceOfA.Id,
+                                 Bs__c = instanceOfB.Id
+                                ));
         }
         
         // Check for the records inserted in the list.

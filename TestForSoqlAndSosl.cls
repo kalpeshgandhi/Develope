@@ -23,7 +23,7 @@ private class TestForSoqlAndSosl
         insert contactList;
        
         // Fetch the records.
-        List<Contact> contactListInstance=
+        List<Contact> contactListInstance =
            [
                SELECT 
                    Id,
@@ -95,8 +95,9 @@ private class TestForSoqlAndSosl
         DisplayTheMapStructure mapInstance = new DisplayTheMapStructure();
         
         // Compare the size of the map and the returned size of the map.
-        System.assertEquals(accountNameWithAccountIdMapInstance.size(), mapInstance.mapOfAccountNameAndAccountId().size()); 
-        
+        System.assertEquals(accountNameWithAccountIdMapInstance.size(),
+                            mapInstance.mapOfAccountNameAndAccountId().size()
+                            ); 
         
         // Stop the test.
         Test.stopTest();   
@@ -107,7 +108,7 @@ private class TestForSoqlAndSosl
         // Initialize the list to create the data.
         List<Account> accountList = TestDataFactory.accountTestData(3);
         
-         // Check the list size.
+        // Check the list size.
         System.assertEquals(3,accountList.size());
         
         // Start the test.
@@ -117,7 +118,7 @@ private class TestForSoqlAndSosl
         insert accountList;
         
         // Fetch the records.
-        List<Account> accountListInstance=
+        List<Account> accountListInstance =
            [
                SELECT 
                    Id,
@@ -144,7 +145,8 @@ private class TestForSoqlAndSosl
         DisplayTheMapStructure mapInstance = new DisplayTheMapStructure();
         
        // Compare the size of the map and the returned size of the map.
-        System.assertEquals(accountIdWithAccountMapInstance.size(), mapInstance.mapOfIdAndAccount().size());
+        System.assertEquals(accountIdWithAccountMapInstance.size(),
+                            mapInstance.mapOfIdAndAccount().size());
      }
        
    /**
@@ -566,7 +568,7 @@ private class TestForSoqlAndSosl
                 FROM 
                     Profile 
                 WHERE 
-                    Name='Standard User'
+                    Name ='Standard User'
             ]; 
         // Create the user record
         User userInstance = new User(
@@ -608,7 +610,7 @@ private class TestForSoqlAndSosl
         // Create the instance the list of account.
         List<Account> accountList = new List<Account>();
         
-        for(Integer i=0; i<5;i++) 
+        for(Integer i = 0; i < 5; i++) 
         {
             Account accountInstance = new Account(Name = 'Test'+i);
             accountList.add(accountInstance);    
@@ -620,7 +622,7 @@ private class TestForSoqlAndSosl
         // Create the instance the list of lead.
         List<Lead> leadlist = new List<Lead>();
         
-        for(Integer i=0;i<5;i++) 
+        for(Integer i = 0; i < 5; i++) 
         {
             Lead leadInstance = new Lead(LastName = 'Test'+i, 
                                          Company = 'ESPL', 
@@ -635,7 +637,7 @@ private class TestForSoqlAndSosl
         
         // Create the instance the list of Contact.
         List<Contact> contactList = new List<Contact>();
-        for(Integer i=0;i<5;i++) 
+        for(Integer i = 0; i < 5; i++) 
         {
             Contact contactInstance = new Contact(LastName = 'Test'+i);
             contactList.add(contactInstance);    
