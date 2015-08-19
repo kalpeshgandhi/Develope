@@ -5,10 +5,10 @@ public with sharing class SimpleSOQLQuery
 {
     
    /**
-    * Method that query on all contact records and 
-    * add them to the List.
+    * This is a Method that query on all contact records,add them to the list and
+    * prints all the contact records in the list  
     */
-    public List<Contact> fetchContactList()
+    public Integer printContactList()
     {
         // Fetch all the contacts and save them in the list.
         List<Contact> contactListInstance = 
@@ -21,33 +21,20 @@ public with sharing class SimpleSOQLQuery
                  WHERE 
                     LastName <> null 
             ];
-                                            
-        for(Integer i = 0 ; i < contactListInstance.size() ; i++)
+     
+       for(Integer i = 0 ; i < contactListInstance.size() ; i++)
         {
-            system.debug(contactListInstance);
+            // Print the contact list
+            System.debug('This is the Contact for '+ contactListInstance);
         }
-        
-        return contactListInstance;
-    }
-   /**
-    * Prints all the Contact Records in the list  
-    */
-    public Integer printContactList()
-    {
-        List<Contact> contactList = fetchContactList();
-        
-        // Print the contact list
-        System.debug('This is the Contact for '+ contactList);
-        
         // Returns the size of the list.
-        return contactList.size();
+        return contactListInstance.size();
     }
     
-    /**
-     * Method that gets all the account record that have enrolled in year
-     * 1)2010
-     * 2)2013,2014 checks account enrollment year in 2013,2014
-     */
+   /**
+    * Method that gets all the account record that have enrolled in year
+    * 1)2010
+    */
     public List<Account> checkEnrollmentYear2010() 
     {
         // This is a list that fetches the account records having enrollment year 2010.
@@ -69,6 +56,10 @@ public with sharing class SimpleSOQLQuery
         return accountList;
     }
        
+   /**
+    * Method that gets all the account record that have enrolled in year
+    * 1)2013,2014 checks account enrollment year in 2013,2014
+    */
     public List<Account> checkEnrollmentYear20132014() 
     {
         // This is a List that fetches the account records having enrollment year 2013,2014.

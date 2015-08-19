@@ -6,7 +6,7 @@
 private class TestForSoqlAndSosl 
 {
    /**
-    *  Method to test query on all Contact records and add them to the list. 
+    * This is a Method to test query on all Contact records and add them to the list. 
     */
     static testMethod void testForContacts() 
     {
@@ -37,6 +37,42 @@ private class TestForSoqlAndSosl
         
         // Check If the record is inserted or not.
         System.assertEquals(10, contactListInstance.size()); 
+        
+        // Create the Instance of the class
+        SimpleSOQLQuery contactInstance = new SimpleSOQLQuery();
+        
+        // Compare the list size and the returned size.
+        System.assertEquals(contactListInstance.size(),contactInstance.printContactList());
+        
+        // Stop the test
+        Test.stopTest();
+    }
+    
+    /**
+    * This is a Method to test if no contact is inserted then query on all Contact records and 
+    * add them to the list. 
+    */
+    static testMethod void testForContactsNoContactInserted() 
+    {
+        
+        // Start the test
+        Test.startTest();
+        
+        // Fetch the records.
+        List<Contact> contactListInstance =
+           [
+               SELECT 
+                   Id,
+                   Name
+               FROM
+                   Contact
+               WHERE
+                   Name LIKE 'testContact%'
+           ];
+           
+        
+        // Check If the record is inserted or not.
+        System.assertEquals(0, contactListInstance.size()); 
         
         // Create the Instance of the class
         SimpleSOQLQuery contactInstance = new SimpleSOQLQuery();
@@ -717,4 +753,5 @@ private class TestForSoqlAndSosl
         Test.stopTest();
         
     }
-}
+    
+   }
