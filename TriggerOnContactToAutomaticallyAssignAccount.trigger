@@ -7,10 +7,13 @@
 */
 trigger TriggerOnContactToAutomaticallyAssignAccount on Contact (before insert) 
 {
+    // Check if the trigger is before
     if(trigger.isbefore)
     {
+        // Check if the trigger id insert
         if(trigger.isinsert)
         {
+            // Call the handler method
             AutomaticallyAssignConTactTriggerHandler.assignAccountID(trigger.new); 
         }
     }
