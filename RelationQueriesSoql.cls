@@ -5,13 +5,13 @@
 public with sharing class RelationQueriesSoql
 {
     
-   /* This Method has the SOQL query on contact to retrieve all active accounts belonging 
-    * to 'media' Industry. It Also display the name of the account to which it is associated to.
+   /* This method has the SOQL query on contact to retrieve all active accounts belonging 
+    * to 'media' industry. It Also display the name of the account to which it is associated to.
     */
      public List<Contact> retriveActiveContactsFromAccounts()
      {
          List<Contact> contactList = new List<Contact>();
-         // Iterate Over Contact List which fetches all The Contacts having the industry as Media 
+         // Iterate over contact list which fetches all The contacts having the industry as media 
          for(Contact contactInstance : 
                                       [
                                           SELECT 
@@ -28,11 +28,11 @@ public with sharing class RelationQueriesSoql
                                        ])
          {
               contactList.add(contactInstance);
-              
-              // Prints The ContactList
+
+              // Prints The contactList
               System.debug('Contact Information' + contactInstance);
-              
-              // Prints The Account Name
+
+              // Prints The account name
               System.debug('Account Name' + contactInstance.Account.Name);
          }
          return contactList;
@@ -41,16 +41,16 @@ public with sharing class RelationQueriesSoql
          * relationInstance.retriveActiveContactsFromAccounts();
          */
     }
-    
+
     /**
      * Method that Has the SOQL query on 'C'(Object) to retrieve all records of 'C' 
-     * with name 'John' along with Details of the A and B Object.
+     * with name 'John' along with details of the A and B object.
      */
      public List<C__c> retriveAllrecordsWithNameJohnFromC()
      {
          
          List<C__c> listOfC = new List<C__c>();
-         
+
          // Iterate Over List which fetches all records of 'C' with name 'John' along with Details of Parent
          for(C__c cInstance : 
                              [
@@ -63,37 +63,34 @@ public with sharing class RelationQueriesSoql
                                 WHERE
                                     Name='John'
                             ])
-                             
-                             
          {
              listOfC.add(cInstance);
-             
-             // Prints The List C's Name
+             // Prints The List C's name
              System.debug('C name------------>' + cInstance.name);
-             
-             // Prints The B's Name
+
+             // Prints The B's name
              System.debug('C Parent Bs Name---------->' + cInstance.Bs__r.name);
-             
-             // Prints The C's Name
+
+             // Prints The C's name
              System.debug('C Parent As Name---------->' + cInstance.A_relation__r.name);
          }
-         
+
          return listOfC;
         /* RelationQueriesSoql relationInstance=new RelationQueriesSoql();
          * relationInstance.retriveAllecordsWithNameJohnFromC();
          */
      }
-    
+
     /**
-     * Method that has a SOQL query to find all Account records which have at least has an 
+     * Method that has a SOQL query to find all account records which have at least has an 
      * opportunity record which is 'Closed Won'.
      */
      public List<Account> findsAccountRecordHavingAtleastOneOpportunity()
      {
           // Create the instance of the list of account.
           List<Account> accountList = new List<Account>();
-          
-          // Iterate Over List of Account which fetches all records Having Opportunity Stage As Closed Won
+
+          // Iterate Over List of account which fetches all records having opportunity stage as closed won
           for(Account accountInstance : 
                                        [
                                            SELECT 
@@ -114,29 +111,29 @@ public with sharing class RelationQueriesSoql
                                             )
                                        ])
           {
-               //Print the Account List
+               //Print the account list
                System.debug(accountInstance);
-               
+
                // Add the records to the list
                accountList.add(accountInstance);
           }
-          
+
           return accountList;
        /**
         * RelationQueriesSoql relationInstance=new RelationQueriesSoql();
         * relationInstance.findsAccountRecordHavingAtleastOneOpportunity();
         */
     }
-    
+
    /**
-    * Method that fetches And prints the Account Record and finds all associated contact which 
+    * Method that fetches And prints the account record and finds all associated contact which 
     * contains the word 'John'.
     */
     public List<Account> retriveAccountAndRelatedContactsWhichContainsJohn()
     {
         // Create the instance of the list of account.
         List<Account> accountList = new List<Account>();
-        
+
         // Fetches the account record and all associated contact which contains the word 'John'.
         List<Account> listAccount = 
             [
@@ -167,46 +164,46 @@ public with sharing class RelationQueriesSoql
                         LIKE '%John%'
                     )
             ];
-                                    
-        // Iterate Over the Account List to Print the Result
+
+        // Iterate Over the account list to print the result
         for(Account accountInstance : ListAccount)
         {
-            // Print the List
+            // Print the list
             System.debug('Account Details ---------->' + accountInstance );
             
             accountList.add(accountInstance);
             
-            // Iterate Over the Account List to Print the Result
+            // Iterate Over the account list to print the result
             for(Contact contactInstance : AccountInstance.Contacts)
             {
-                // Print the List
+                // Print the list
                 System.debug('Contact Details ---------->' + contactInstance);
                 
-            }// End Of the For Loop
+            }// End of the for loop
             
-        }// End Of the For Loop
-        
+        }// End of the for loop
+
         return accountList;
-        
+
         /**
          * RelationQueriesSoql relationInstance=new RelationQueriesSoql();
          * relationInstance.retriveAccountAndRelatedContactsWhichContainsJohn();
          */
     }
-    
+
     /**
-    * Method That query’s on 'A' and retrieve all parents with all their child records 
+    * Method that query’s on 'A' and retrieve all parents with all their child records 
     * where in child name is 'John.
     */
     public List<C__c> retriveRecordsFromAWhereChildnameisJohn()
     {
-        // Create the instance of List of C__c
+        // Create the instance of list of C__c
         List<C__c> listOfC = new List<C__c>();
-        
-        // Create the instance of List of A__c
+
+        // Create the instance of list of A__c
         List<A__c> listAInstance = new List<A__c>();
-        
-        // Initialize the List that Queries On 'A' and retrieve all records having child name as John.
+
+        // Initialize the list that queries on 'A' and retrieve all records having child name as john.
         List<A__c> listOfA = 
             [
                 SELECT 
@@ -236,26 +233,26 @@ public with sharing class RelationQueriesSoql
                         LIKE '%john%'
                     )
             ];
-            // Iterate Over the List Of A 
+
+            // Iterate over the list Of A 
             for(A__c aInstance : listOfA)
             {   
-                // Print the List 
+                // Print the list 
                 System.debug('A details -->' + aInstance);
                 
                 listAInstance.add(aInstance);
                 
-                // Iterate Over the List Of Child Object C
+                // Iterate over the list of child object C
                 for(C__c cInstance : aInstance.Cs__r)
                 {
                     
-                     //Print The list 
+                     // Print The list 
                      System.debug('C details -->' + cInstance);
                      
                      listOfC.add(cInstance);
                 }// End of inner for loop
                 
             }// End of inner for loop
-
            return listOfC;
     }
 }

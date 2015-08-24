@@ -21,16 +21,17 @@ public with sharing class SimpleSOQLQuery
                  WHERE 
                     LastName <> null 
             ];
-     
+
        for(Integer i = 0 ; i < contactListInstance.size() ; i++)
         {
             // Print the contact list
             System.debug('This is the Contact for '+ contactListInstance);
         }
+
         // Returns the size of the list.
         return contactListInstance.size();
     }
-    
+
    /**
     * Method that gets all the account record that have enrolled in year
     * 1)2010
@@ -55,14 +56,14 @@ public with sharing class SimpleSOQLQuery
 
         return accountList;
     }
-       
+
    /**
     * Method that gets all the account record that have enrolled in year
     * 1)2013,2014 checks account enrollment year in 2013,2014
     */
     public List<Account> checkEnrollmentYear20132014() 
     {
-        // This is a List that fetches the account records having enrollment year 2013,2014.
+        // This is a list that fetches the account records having enrollment year 2013,2014.
         List<Account> accountListForTwoYears =
             [
                 SELECT 
@@ -80,7 +81,7 @@ public with sharing class SimpleSOQLQuery
         
         return accountListForTwoYears;
     }
-    
+
    /**
     * Method that has a SOQL query to find all account records where 'Billing State' is not 
     *'Maharashtra' and 'Kerala'.Order the results by billing state in descending order with 
@@ -90,8 +91,8 @@ public with sharing class SimpleSOQLQuery
     {
          // Initialize the list of account.
          List<Account> accountList = new List<Account>();
-         
-         // Iterate Over the list of Account 
+
+         // Iterate Over the list of account 
          for(Account accountInstance : [
                                             SELECT 
                                                 a.Name,
@@ -112,29 +113,29 @@ public with sharing class SimpleSOQLQuery
                                       ])
          {
              accountList.add(accountInstance);
-             
-             // print The List
+
+             // Print The list
              System.debug(accountInstance);
          }
-         
+
          return accountList;
-         
+
         /**
          * SimpleSOQLQuery soqlInstance=new SimpleSOQLQuery();
          * soqlInstance.billingStateNotMaharashtraOrKerala();
          */
     }
-    
+
     /**
      * Write a SOQL query to display 100 opportunity records with amount greater than 10,000 
      * order by created date. Skip first 50 records and include records from recycle bin. 
      */
      public List<Opportunity> opportunityAmountGreaterThenTenthosand()
      {
-         // Create the Instance of the opportunity.
+         // Create the instance of the opportunity.
          List<Opportunity> opportunityList = new List<Opportunity>();
-         
-         // Iterate Over the List of Opportunity
+
+         // Iterate over the list of opportunity
          for(Opportunity opportunityInstance : [
                                                     SELECT 
                                                         o.Name,
@@ -152,11 +153,12 @@ public with sharing class SimpleSOQLQuery
                                                         50 All Rows
                                               ])
          {
-             //Print the Result
+             // Print the result
              System.debug(opportunityInstance);
              opportunityList.add(opportunityInstance);
          }
          return opportunityList;
+
         /**
          * SimpleSOQLQuery soqlInstance=new SimpleSOQLQuery();
          * soqlInstance.opportunityAmountGreaterThenTenthosand();
