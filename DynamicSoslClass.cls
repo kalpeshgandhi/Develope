@@ -65,8 +65,6 @@ public with sharing class DynamicSoslClass
     // This is a boolean variable which is used to render the buttons
     public Boolean renderaddValue {get; set;}
 
-    //****** public List<wrapperForSearchResult> searchResultsInstance{get;set;}
-
     // This is a list of wrapper
     public List<WrapperForObjectNameFieldListAndRecords> searchResultsInstance {get; set;}
 
@@ -116,8 +114,6 @@ public with sharing class DynamicSoslClass
 
         // Create the instance the set of string
         nameOfFields = new List<SelectOption>();
-
-        // mapWithObjectAndSelectedField= new Map<String,Set<String>>();
 
         // Create the instance the list of string
         fieldName = new List<String>();
@@ -537,9 +533,9 @@ public with sharing class DynamicSoslClass
         dynamicQuery = (findkeyword + ' {'+inputSearchValue +'} ' + ' ' + 'IN' + ' ' + 'ALL' + ' '
              + returningFields + ' ' + objectAndField + 'LIMIT' + ' ' + selectedNumber);
         
-        system.debug('dynamicQuery+++++++++'+dynamicQuery);
+       
         // Execute the query
-        searchList = search.query(dynamicQuery);
+        searchList = Search.query(dynamicQuery);
 
         // Disable button
         renderaddValue= false;
