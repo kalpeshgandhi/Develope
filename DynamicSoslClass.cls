@@ -6,7 +6,7 @@
 public with sharing class DynamicSoslClass
 {
     // Get all the information about the objects in the Map
-    Map<String, Schema.SObjectType> mapOfObject =Schema.getGlobalDescribe();
+    Map<String, Schema.SObjectType> mapOfObject = Schema.getGlobalDescribe();
 
     // This is a List of string used to save the selected object
     public String selectedObject {get; set;}
@@ -670,13 +670,13 @@ public with sharing class DynamicSoslClass
          public String orderByName {get ; set;}
 
          // Declare the instance of list of sobject 
-         public List<SObject> recordObject {get; set;}
+         public List<SObject> recordObject {get ; set;}
 
          // Declare the instance of list of string 
-         public List<String> orderbyFieldlist {get; set;}
+         public List<String> orderbyFieldlist {get ; set;}
 
          // Declare the instance of list of string 
-         public List<String> fieldName {get; set;}
+         public List<String> fieldName {get ; set;}
 
         /**
          * This is a constructor that will instantiate the wrapper class

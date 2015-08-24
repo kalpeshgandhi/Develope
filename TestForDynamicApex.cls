@@ -138,7 +138,7 @@ private class TestForDynamicApex
         // Add the fields to the list of selected fields
         contollerInstance.orderbyselectedField.add('Id');
         
-        // Set the  string as ASC
+        // Set the string as ASC
         contollerInstance.selectedRadio = 'ASC';
         
         // Save the query in the string
@@ -222,7 +222,7 @@ private class TestForDynamicApex
         // Stop the test
         Test.stopTest();
        
-        // Check if the record is found bu checking the size of the searchlist result 
+        // Check if the record is found by checking the size of the searchlist result 
         System.assertEquals(1, contollerInstance.searchList.size());
     }
     
@@ -234,7 +234,7 @@ private class TestForDynamicApex
         // Create the instance of the controller
         DynamicSoslClass contollerInstance = new DynamicSoslClass();
         
-        // Create the instance of the list of SObject
+        // Create the instance of the list of sobject
         List<SObject> sObjectListInstance = new List<SObject>();
         
         // Create the records for account
@@ -260,14 +260,14 @@ private class TestForDynamicApex
         // Check the records are added or not
         System.assertEquals(5,checkAccountList.size());
         
-        // Create the instance of list of list of Sobject
+        // Create the instance of list of list of sobject
         List<List<SObject>> searchList = new List<List<SObject>>();
         
         // Create the records for contact
         List<Contact> contactListInstance = TestDataFactory.contactTestData(5);
         
         // Check records are added to the list
-        System.assertEquals(5 , contactListInstance.size());
+        System.assertEquals(5, contactListInstance.size());
         
         // Insert the contact records
         insert contactListInstance;
@@ -352,7 +352,7 @@ private class TestForDynamicApex
         // Create the instance of the controller
         DynamicSoslClass contollerInstance = new DynamicSoslClass();
         
-        // Create the instance of the list of SObject
+        // Create the instance of the list of sobject
         List<SObject> sObjectListInstance = new List<SObject>();
         
         // Create the records for account
@@ -378,14 +378,14 @@ private class TestForDynamicApex
         // Check the records are added or not
         System.assertEquals(5,checkAccountList.size());
         
-        // Create the instance of list of list of Sobject
+        // Create the instance of list of list of sobject
         List<List<SObject>> searchList = new List<List<SObject>>();
         
         // Create the records for contact
         List<Contact> contactListInstance = TestDataFactory.contactTestData(5);
         
         // Check records are added to the list
-        System.assertEquals(5 , contactListInstance.size());
+        System.assertEquals(5, contactListInstance.size());
         
         // Insert the contact records
         insert contactListInstance;
@@ -477,14 +477,14 @@ private class TestForDynamicApex
         // Create the instance of the controller
         DynamicSoslClass contollerInstance = new DynamicSoslClass();
         
-        // Create the instance of the list of SObject
+        // Create the instance of the list of sobject
         List<SObject> sObjectListInstance = new List<SObject>();
         
         // Create the records for account
         List<Account> accountListInstance = TestDataFactory.accountTestData(5);
         
         // Check records are added to the list
-        System.assertEquals(5 , accountListInstance.size());
+        System.assertEquals(5, accountListInstance.size());
         
         // Insert the account records
         insert accountListInstance;
@@ -506,7 +506,7 @@ private class TestForDynamicApex
         // Set the input string as blank
         contollerInstance.inputSearch = '';
         
-        // Start the test  
+        // Start the test
         Test.startTest();
         
         // Execute the query
@@ -525,7 +525,7 @@ private class TestForDynamicApex
     */
     static testMethod void testFieldsSelection() 
     {
-        // Create the instance of the page refrence
+        // Create the instance of the page reference
         PageReference pagerefrenceInstance = Page.DynamicSoslPage;
         
         // Set the page to DynamicSoslPage
@@ -558,7 +558,7 @@ private class TestForDynamicApex
     */
     static testMethod void testForObjectIsSelectedNone() 
     { 
-        // Create the instance of the page refrence
+        // Create the instance of the page reference
         PageReference pagerefrenceInstance = Page.DynamicSoslPage;
         
         // Set the page to DynamicSoslPage
@@ -588,7 +588,7 @@ private class TestForDynamicApex
     */
     static testMethod void testRemovalOfAllDisplayedFields() 
     {
-        // Create the instance of the page refrence
+        // Create the instance of the page reference
         PageReference pagerefrenceInstance = Page.DynamicSoslPage;
         
         // Set the page to DynamicSoslPage
@@ -617,7 +617,7 @@ private class TestForDynamicApex
         
         contollerInstance.getSelectedList();
         
-        // Compairs the size of the selected list
+        // Compares the size of the selected list
         System.assertNotEquals(countOfSelectedField,contollerInstance.nameOfFields.size());
     }
     
@@ -626,7 +626,7 @@ private class TestForDynamicApex
     */
     static testMethod void testRemovalOfAllSelectedFields() 
     {
-        // Create the instance of the page refrence
+        // Create the instance of the page reference
         PageReference pagerefrenceInstance = Page.DynamicSoslPage;
         
         // Set the page to DynamicSoslPage
