@@ -12,24 +12,21 @@ private class TestOnContactToAssignAccount
   */
     static testMethod void automaticallyAssignContactTest() 
     {
-       // Assign the list returned from data factory to a new instance of the Account List 
+       // Assign the list returned from data factory to a new instance of the account list 
        List<Account> accountInstanceList = TestDataFactory.accountTestData(1);
-       
+
        // Check all the account are inserted or not.
        System.assertEquals(1,accountInstanceList.size());
-       
-       // Assign the list returned from data factory to a new instance of the Contact List
+
+       // Assign the list returned from data factory to a new instance of the contact list
        List<Contact> contactInstanceList = TestDataFactory.contactTestData(200);
-       
+
        // Check all the contacts are inserted or not.
        System.assertEquals(200,contactInstanceList.size());
-       
-       // Start the test
-       Test.startTest();
-       
+
        // Insert the account list
        insert accountInstanceList;
-       
+
        // Fetch the accounts in a list having the name as TestAccount.
        List<Account> accountTestList =
            [
@@ -41,13 +38,19 @@ private class TestOnContactToAssignAccount
                    Name 
                LIKE 'TestAccount%'
            ];
-       
+
        // Check all the contacts are inserted or not.
        System.assertEquals(1,accountTestList.size());
-       
+
+       // Start the test
+       Test.startTest();
+
        // Insert the contact list
        insert contactInstanceList;
-       
+
+       // Stop the test
+       Test.stopTest();
+
        // Fetch the contacts in a list having the name as testContact.
        List<Contact> contactTestList =
            [
@@ -60,21 +63,20 @@ private class TestOnContactToAssignAccount
                    Name 
                LIKE 'testContact%'
            ];
-       
-        // Check all the contacts are inserted or not.
+
+       // Check all the contacts are inserted or not.
        System.assertEquals(200,contactTestList.size());
-       
-        // Iterate over the contact list.
+
+       // Iterate over the contact list.
        for(Contact contactTest : contactTestList)
        {
              // Check whether the excepted value and actual value are same.
              System.assertEquals(accountTestList[0].Id,contactTest.AccountId);
        }
-       
-       // Stop the test
-       Test.stopTest();
+
+
   }
-          
+
  /**
   * This is the negative test method where email is kept blank when need to automatically associate 
   * a contact created with the respective account based on the email domain 
@@ -82,32 +84,28 @@ private class TestOnContactToAssignAccount
   */  
     static testMethod void noEmailProvidedTest() 
     {
-        // Assign the list returned from data factory to a new instance of the Account List 
+        // Assign the list returned from data factory to a new instance of the account list 
         List<Account> accountInstanceList = TestDataFactory.accountTestData(1);
-        
+
         // Check all the account are inserted or not.
         System.assertEquals(1,accountInstanceList.size());
-        
+
         // Create an instance list of contact.
         List<Contact> contactList = new List<Contact>();
-         
+
         // Start of the for loop
         for(Integer i = 0; i < 200; i++)
         {
              // Add The 200 contacts to the list with the email as blank.
              contactList.add(new Contact(LastName = 'testContactNoEmail' + i,Email = ''));
-
         } // End of the for Loop.
-        
+
         // Check the contacts are inserted or not.
         System.assertEquals(200,contactList.size());
-        
-        // Start the test
-        Test.startTest();
-        
+
         // Insert the account list
         insert accountInstanceList;
-        
+
         // Fetch the accounts in a list having the name as TestAccount.
         List<Account> accountTestList =
            [
@@ -123,8 +121,14 @@ private class TestOnContactToAssignAccount
         // Check all the contacts are inserted or not.
         System.assertEquals(1,accountTestList.size());
 
+        // Start the test
+        Test.startTest();
+
         // Insert the contact list
         insert contactList;
+        
+        // Stop the test
+        Test.stopTest();
         
         // Fetch the contacts in a list having the name as testContactNoEmail.
         List<Contact> contactTestList =
@@ -148,9 +152,7 @@ private class TestOnContactToAssignAccount
             // Check whether the excepted value and actual value are same.
             System.assertEquals(null,contactTest.AccountId);
         }
-        
-        // Stop the test
-        Test.stopTest();
+
     }
 
    /**
@@ -162,24 +164,27 @@ private class TestOnContactToAssignAccount
     {
         // It creates the test data for the account having the website field blank.
         Account accountTestData = new Account(Name = 'TestAccount',Website = '');
-        
-        // Assign the list returned from data factory to a new instance of the Contact List
+
+        // Assign the list returned from data factory to a new instance of the contact list
         List<Contact> contactInstanceList = TestDataFactory.contactTestData(200);
 
         // Check all the contacts are inserted or not.
         System.assertEquals(200,contactInstanceList.size());
-        
-        // Start the test
-        Test.startTest();
 
         // Insert the account List
         insert accountTestData;
 
-        // Check for the record is Inserted.
+        // Check for the record is inserted.
         System.assert(String.isNotBlank(accountTestData.Id));
+
+        // Start the test
+        Test.startTest();
 
         // Insert the contact list
         insert contactInstanceList;
+
+        // Stop the test
+        Test.stopTest();
 
         // Fetch the contacts in a list having the name as testContactNoWebsite.
         List<Contact> contactTestList = 
@@ -200,9 +205,6 @@ private class TestOnContactToAssignAccount
             // Check whether the excepted value and actual value are same.
             System.assertEquals(null,contactTest.AccountId);
         }
-        
-        // Stop the test
-        Test.stopTest();
     }
 
  /**
@@ -231,17 +233,21 @@ private class TestOnContactToAssignAccount
         // Check the contacts are inserted or not.
         System.assertEquals(200,contactList.size());
         
-        // Start the test
-        Test.startTest();
         
         // Insert the account list
         insert accountTestData;
 
-        // Check for the record is Inserted.
+        // Check for the record is inserted.
         System.assert(String.isNotBlank(accountTestData.Id));
+
+        // Start the test
+        Test.startTest();
 
         // Insert the contact list
         insert contactList;
+
+        // Stop the test
+        Test.stopTest();
 
         // Fetch the contacts in a list having the name as testContact.
         List<Contact> contactTestList = 
@@ -259,8 +265,6 @@ private class TestOnContactToAssignAccount
         // Check If the record is inserted or not.
         System.assertEquals(200, contactTestList.size()); 
 
-        // Stop the test
-        Test.stopTest();
         
         // Iterate Over the contact list.
         for(Contact contactTest : contactTestList)

@@ -1,7 +1,7 @@
 /**
  * This is a handler class that will automatically associate a contact created 
  * with the respective account based on the email domain specified in the 
- * primary email address of the Contact
+ * primary email address of the contact
  */
 public with sharing class AutomaticallyAssignConTactTriggerHandler
 {
@@ -14,20 +14,21 @@ public with sharing class AutomaticallyAssignConTactTriggerHandler
     {
         // Instantiate the map that will map the website and the account id. 
         Map<String,Id> mapOfAccountAndWebsite = new Map<String,Id>();
-        
+
         // Instantiate the set that has the value of contact domain.
         Set<String> setOfDomain = new Set<String>();
-        
+
         // Iterate over the contact instance.
         for(Contact contactInstanceForDomain : contactList)
         { 
             // Checks whether the email is not equals to null.
-            if(contactInstanceForDomain.Email <> null)
+            if(contactInstanceForDomain.Email != null)
             {
                 // Add the elements to the set.
                 setOfDomain.add('%' + (contactInstanceForDomain.Email).substringAfter('@'));
             }
         }
+
         // For loop iterates over all the accounts whose website is not null.
         for(Account accountInstance :
                                      [
@@ -51,7 +52,7 @@ public with sharing class AutomaticallyAssignConTactTriggerHandler
         for(Contact contactListInstance : contactList)
         {
              // Checks whether the email field is blank or not
-             if(contactListInstance.Email <> null)
+             if(contactListInstance.Email != null)
              {
                    // Associate the account to the contact by fetching the accountid from map.
                    contactListInstance.AccountId = 

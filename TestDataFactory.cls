@@ -18,8 +18,8 @@ public class TestDataFactory
         for(Integer i = 0; i < listAccountsize; i++)
         {
             // Add the Accounts to the list.
-            accountDataList.add(new Account(Name='TestAccount' + i,
-                                            Website='http://www.testforce.com')
+            accountDataList.add(new Account(Name = 'TestAccount' + i,
+                                            Website = 'http://www.testforce.com')
                                            ); 
         } // End of the for loop
         
@@ -36,8 +36,8 @@ public class TestDataFactory
        for(Integer i = 0; i < listContactsize; i++)
        {
                 // Add The contacts to the list.
-                contactList.add(new Contact(LastName ='testContact' + i,
-                                            Email ='test@testforce.com')
+                contactList.add(new Contact(LastName = 'testContact' + i,
+                                            Email = 'test@testforce.com')
                                             );
        } // End of the for loop
        
@@ -54,9 +54,9 @@ public class TestDataFactory
        for(Integer i = 0; i < listContactsize; i++)
        {
                 // Add The contacts to the list.
-                contactList.add(new Contact(LastName ='TestContact' + i,
-                                            Email ='test@testforce.com',
-                                            AccountId=AccountIdParameter)
+                contactList.add(new Contact(LastName = 'TestContact' + i,
+                                            Email = 'test@testforce.com',
+                                            AccountId = AccountIdParameter)
                                             );
        } // End of the for loop
        
