@@ -6,7 +6,7 @@
 public with sharing class DynamicSoslClass
 {
     // Get all the information about the objects in the Map
-    Map<String, Schema.SObjectType> mapOfObject = Schema.getGlobalDescribe();
+    public Map<String, Schema.SObjectType> mapOfObject = Schema.getGlobalDescribe();
 
     // This is a List of string used to save the selected object
     public String selectedObject {get; set;}
@@ -15,28 +15,28 @@ public with sharing class DynamicSoslClass
     public List<String> orderbyselectedField {get; set;}
 
     // This is a string variable used to save the selected fields
-    public List<String> selectedField {get; set;}
+    public List<String> selectedFieldFromAllDisplayedField {get; set;}
 
     // This is a string variable used to save the selected fields
-    public List<String> multiSelected {get; set;}
+    public List<String> selectedFieldFromAllSelectedField {get; set;}
 
     // List of select option used to save the fields
-    public List<SelectOption> nameOfFields {get; set;}
+    public List<SelectOption> listOfDisplayedFields {get; set;}
 
     // List of select option used to save the fields
     public List<SelectOption> listOfOrderByFields {get; set;}
 
     // List of select option used to save the fields
-    public List<SelectOption> multiSelectdFields {get; set;}
+    public List<SelectOption> listOfSelectedFields {get; set;}
 
     // Set of strings used to save the field name
-    public Set<String> nameOfSelectedFields {get; set;}
+    public Set<String> setOfDisplayedFields {get; set;}
 
     // Set of strings used to save the field name
     public Set<String> orderBySetFields {get; set;}
 
     // Set of strings used to save the field name
-    public Set<String> nameOfMultiSelectedFields {get;set;}
+    public Set<String> setOfSelectedFields {get;set;}
 
     // Used to set the radio button for order
     public String selectedRadio {get; set;}
@@ -86,34 +86,34 @@ public with sharing class DynamicSoslClass
         selectedObject ='None';
 
         // Create the instance of list of string
-        selectedField = new List<String>();
+        selectedFieldFromAllDisplayedField = new List<String>();
 
         // Create the instance of list of list of sobject
         searchList = new List<List<SObject>>();
 
         // Create the instance of list of string
-        multiSelected = new List<String>();
+        selectedFieldFromAllSelectedField = new List<String>();
 
         // Create the instance of list of string
         orderbyselectedField = new List<String>();
 
         // Create the instance of set of string
-        nameOfMultiSelectedFields = new Set<String>();
+        setOfSelectedFields = new Set<String>();
 
         // Create the instance of set of string
-        nameOfSelectedFields = new Set<String>();
+        setOfDisplayedFields = new Set<String>();
 
         // Create the instance of set of string
         orderBySetFields = new Set<String>();
 
         // Create the instance the set of string
-        nameOfMultiSelectedFields = new Set<String>();
+        setOfSelectedFields = new Set<String>();
 
         // Create the instance the set of string
-        multiSelectdFields = new List<SelectOption>();
+        listOfSelectedFields = new List<SelectOption>();
 
         // Create the instance the set of string
-        nameOfFields = new List<SelectOption>();
+        listOfDisplayedFields = new List<SelectOption>();
 
         // Create the instance the list of string
         fieldName = new List<String>();
@@ -148,29 +148,26 @@ public with sharing class DynamicSoslClass
         List<SelectOption> objectList = new List<SelectOption>();
 
         // Copy all the object from a keyset of map into a list
+        List<String> objectLabel = new List<String>();
+
+        // Copy all the object from a keyset of map into a list
         List<String> objectNames = new List<String>();
+
+        // Add by default None Value
+        objectList.add(new SelectOption('None','None'));
 
         for(String objectNameInstance : mapOfObject.keySet())
         {
            if(mapOfObject.get(objectNameInstance).getDescribe().isSearchable() == true)
            {
-               //objectNames.add(mapOfObject.get(objectNameInstance).getDescribe().getLabel());
-               objectNames.add(objectNameInstance);
+               // Add the elements to the list
+               objectList.add(new SelectOption(objectnameInstance,mapOfObject.get(objectNameInstance).getDescribe().getLabel()));
+              
            }
         }// End of for loop
 
         // Sort the List
-        objectNames.sort();
-
-        // Add by default None Value
-        objectList.add(new SelectOption('None','None'));
-
-        // Iterate over the object list
-        for(String objectnameInstance : objectNames)
-        {
-            // Add the elements to the list
-            objectList.add(new SelectOption(objectnameInstance,objectnameInstance));
-        }// End of for loop
+        objectList.sort();
 
         // Return the list of object 
         return objectList;
@@ -185,18 +182,18 @@ public with sharing class DynamicSoslClass
         listOfOrderByFields.clear();
         
         // Clear the list 
-        nameOfFields.clear();
+        listOfDisplayedFields.clear();
 
         // Clear the list 
-        multiSelectdFields.clear();
+        listOfSelectedFields.clear();
 
         // Clear the list 
-        nameOfSelectedFields.clear();
+        setOfDisplayedFields.clear();
 
         // Clear the list 
-        nameOfMultiSelectedFields.clear();
+        setOfSelectedFields.clear();
 
-        // Check the selected object is none
+        // Check the selected object is not none
         if(selectedObject != 'None')
         {
             // Save the list of all the fields in the map 
@@ -204,10 +201,10 @@ public with sharing class DynamicSoslClass
                 mapOfObject.get(selectedObject).getDescribe().fields.getMap();
 
             // Add all the fields to the set
-            nameOfSelectedFields.addAll(mapOfField.keySet());
+            setOfDisplayedFields.addAll(mapOfField.keySet());
 
             // Iterate over the set of the fields
-            for (String orderByInstance : nameOfSelectedFields) 
+            for (String orderByInstance : setOfDisplayedFields) 
             {
 
                 // Check if the fields are sortable
@@ -222,13 +219,13 @@ public with sharing class DynamicSoslClass
             }// End of for loop
 
             // Iterate over the set of the fields
-            for (String fieldName : nameOfSelectedFields) 
+            for (String fieldName : setOfDisplayedFields) 
             {  
                 // If field is 'name' dont add to the displayed field list
-                if(fieldName != 'name')
+                if(fieldName != 'Id')
                 {
                     // Add the fields to the displayed list
-                    nameOfFields.add(new SelectOption(fieldName,fieldName));
+                    listOfDisplayedFields.add(new SelectOption(fieldName,fieldName));
                 } 
             }// End of the for loop
 
@@ -236,92 +233,92 @@ public with sharing class DynamicSoslClass
         else
         {
             // Clear the list
-            nameOfFields.clear();
+            listOfDisplayedFields.clear();
 
             // Clear the list
-            multiSelectdFields.clear();
+            listOfSelectedFields.clear();
 
             // Clear the list
-            nameOfSelectedFields.clear();
+            setOfDisplayedFields.clear();
 
             // Clear the list
-            nameOfMultiSelectedFields.clear();
+            setOfSelectedFields.clear();
         }
     }
    
    /**
     * This is a getter that will add the elements in the displayed field list
     */
-    public List<SelectOption> getSelectedList() 
+    public List<SelectOption> getDisplayedFields() 
     {
         // Clear the list
-        nameOfFields.clear();
+        listOfDisplayedFields.clear();
 
         // Iterate over the list of the fields
-        for (String fieldName : nameOfSelectedFields) 
+        for (String fieldName : setOfDisplayedFields) 
         {    
              // If field is 'name' dont add to the displayed field list
-             if(fieldName != 'name')
+             if(fieldName != 'Id')
              {
-                nameOfFields.add(new SelectOption(fieldName,fieldName)); 
+                listOfDisplayedFields.add(new SelectOption(fieldName,fieldName)); 
              }
         }
 
         // Sort the list
-        nameOfFields.sort();
+        listOfDisplayedFields.sort();
 
         // return the list
-        return nameOfFields;
+        return listOfDisplayedFields;
     }
 
     /**
     * This is a getter that will add the elements in the selected field list
     */
-    public List<SelectOption> getMultiSelectedList() 
+    public List<SelectOption> getSelectedFields() 
     {
         // Clear the list
-        multiSelectdFields.clear();
+        listOfSelectedFields.clear();
 
         // Iterate over the selected field list 
-        for (String fieldName : nameOfMultiSelectedFields) 
+        for (String fieldName : setOfSelectedFields) 
         {  
              // Add the fields to be displayed in selected list
-             multiSelectdFields.add(new SelectOption(fieldName,fieldName)); 
+             listOfSelectedFields.add(new SelectOption(fieldName,fieldName)); 
         }// End of the for loop
 
         // return the list
-        return multiSelectdFields;
+        return listOfSelectedFields;
     }
 
    /**
     * This is a method that will add the fields in the selected list
     */
-    public void addMultiSelectFields() 
+    public void addToSelectedFields() 
     { 
         // Iterate over the selected list 
-        for (String selectFields : selectedField)
+        for (String selectFields : selectedFieldFromAllDisplayedField)
         {
             // Add files to the selected field list
-            nameOfMultiSelectedFields.add(selectFields);
+            setOfSelectedFields.add(selectFields);
 
             // Remove the fields from the displayed list
-            nameOfSelectedFields.remove(selectFields);
+            setOfDisplayedFields.remove(selectFields);
         }// End of the for loop
     }
 
     /**
     * This is a method that will remove the fields in the selected list
     */
-    public void removeMultiSelectFields() 
+    public void removeFromSelectedFields() 
     {
         // Iterate over the selected list 
-        for (String selectmultiFields : multiSelected)
+        for (String selectmultiFields : selectedFieldFromAllSelectedField)
         {
             // Add files to the displayed field list
-            nameOfSelectedFields.add(selectmultiFields);
+            setOfDisplayedFields.add(selectmultiFields);
 
             // Remove the fields from the selected list
-            nameOfMultiSelectedFields.remove(selectmultiFields);
+            setOfSelectedFields.remove(selectmultiFields);
         }// End of the for loop
     }
     
@@ -358,25 +355,25 @@ public with sharing class DynamicSoslClass
         selectedRadio = 'ASC';
 
         // Clear the list
-        nameOfFields.clear();
+        listOfDisplayedFields.clear();
 
         // Clear the list
-        multiSelectdFields.clear();
+        listOfSelectedFields.clear();
 
         // Clear the list
-        nameOfSelectedFields.clear();
+        setOfDisplayedFields.clear();
 
         // Clear the list        
-        nameOfMultiSelectedFields.clear();
+        setOfSelectedFields.clear();
 
         // Clear the list
-        selectedField.clear();
+        selectedFieldFromAllDisplayedField.clear();
 
         // Clear the list
         listOfOrderByFields.clear();
 
         // Clear the list
-        multiSelected.clear();
+        selectedFieldFromAllSelectedField.clear();
 
         // Clear the list
         orderbyselectedField.clear();
@@ -409,7 +406,7 @@ public with sharing class DynamicSoslClass
     public void saveValuesInTheWrappper()
     {
         // Check if the value of the search is blank
-        if(String.isNotBlank(inputSearch) && multiSelectdFields.size() != 0 
+        if(String.isNotBlank(inputSearch) && listOfSelectedFields.size() != 0 
            && inputSearch.length() > 3)
         {
             // Create the instance of the wrapper
@@ -423,7 +420,7 @@ public with sharing class DynamicSoslClass
             wrapperInstance.orderByName = selectedRadio;
 
             // Iterate over the list of selected fields
-            for (String fieldInstance : nameOfMultiSelectedFields)
+            for (String fieldInstance : setOfSelectedFields)
             {
                 // Add the fields in the list of fields of wrapper class
                 wrapperInstance.fieldName.add(fieldInstance);
@@ -445,16 +442,18 @@ public with sharing class DynamicSoslClass
             renderValue = true;
 
             // Add the page message
-            ApexPages.addmessage(new ApexPages.message(
-                                          ApexPages.severity.error,
-                                         'Please Provide the value to Search'));
+            ApexPages.addmessage(new ApexPages.message
+                                    (ApexPages.severity.error,
+                                        'Please Provide Atleast One Field/Atleast One' 
+                                        +' Object/Atleast Three Letters in SearchBox'
+                                    ));
         }
     }
         
     public void query()
     {
         // Check if the value of the search is blank
-        if(String.isNotBlank(inputSearch) && multiSelectdFields.size() != 0 
+        if(String.isNotBlank(inputSearch) && listOfSelectedFields.size() != 0 
            && inputSearch.length() > 3)
         {
             // Call the method that will save the values in the wrapper
@@ -493,7 +492,7 @@ public with sharing class DynamicSoslClass
                 }// End of for loop
 
                 // Explicitly fetch name field as required to redirect to detail page
-                objectAndField += ' ' + 'Name' + ' ,';
+                objectAndField += ' ' + 'Id' + ' ,';
 
                 // Remove extra , added
                 objectAndField  = objectAndField.removeEnd(',');
@@ -533,10 +532,19 @@ public with sharing class DynamicSoslClass
         dynamicQuery = (findkeyword + ' {'+inputSearchValue +'} ' + ' ' + 'IN' + ' ' + 'ALL' + ' '
              + returningFields + ' ' + objectAndField + 'LIMIT' + ' ' + selectedNumber);
         
-       
+       try
+       {
         // Execute the query
         searchList = Search.query(dynamicQuery);
-
+       }
+       catch (Exception e)
+       {
+           renderValue= true;
+           ApexPages.addmessage(new ApexPages.message
+                                    (ApexPages.severity.error,''+e
+                                    ));
+       }
+       
         // Disable button
         renderaddValue= false;
         }
@@ -546,13 +554,11 @@ public with sharing class DynamicSoslClass
             renderValue = true;
 
             // Add the page message
-            ApexPages.addmessage(
-                                 new ApexPages.message
-                                    (
-                                     ApexPages.severity.info,
-                              'Please Provide Atleast One Field/Atleast One Object/Value to Search'
-                                    )
-                                );
+            ApexPages.addmessage(new ApexPages.message
+                                    (ApexPages.severity.error,
+                                        'Please Provide Atleast One Field/Atleast One' 
+                                        +'Object/Atleast Three Letters in SearchBox'
+                                    ));
         }
         
     }
@@ -568,8 +574,9 @@ public with sharing class DynamicSoslClass
             // Iterate over the list of list of sobject
             for(List<SObject> listInstance : searchList) 
             {
+
                 // Fetch the name of the object from the List of sobject
-                String sObjectTypeName = listInstance.getSObjectType().getDescribe().getLabel();
+                String sObjectTypeName = listInstance.getSObjectType().getDescribe().getname();
 
                 // Create the instance of the wrapper
                 WrapperForObjectNameFieldListAndRecords wrapperQueryInstance = 
@@ -578,18 +585,18 @@ public with sharing class DynamicSoslClass
                 // Save the wrapper instance 
                 wrapperQueryInstance = 
                     mapWithObjectAndWrapper.get(mapOfObject.get(sObjectTypeName));
-
+              
                 // Add all the records to the wrapper
-                wrapperQueryInstance.recordObject.addAll(new List<SObject>(listInstance));
+                wrapperQueryInstance.recordObject.addAll(listInstance);
 
                 // Update the values of the wrapper in the map
                 mapWithObjectAndWrapper.put(mapOfObject.get(sObjectTypeName),wrapperQueryInstance);
 
                 // Add the wrapper instance to the list of wrapper 
                 searchResultsInstance.add(wrapperQueryInstance);
+                
             }// End of for loop
          }
-
          // return the list
          return searchResultsInstance;
      }
@@ -609,28 +616,28 @@ public with sharing class DynamicSoslClass
         selectedObject = 'None';
 
         // Clear the list 
-        selectedField.clear();
+        selectedFieldFromAllDisplayedField.clear();
 
         // Clear the list
         searchList.clear();
 
         // Clear the list
-        multiSelected.clear(); 
+        selectedFieldFromAllSelectedField.clear(); 
 
         // Clear the list
-        nameOfMultiSelectedFields.clear();
+        setOfSelectedFields.clear();
 
         // Clear the list
-        nameOfSelectedFields.clear();
+        setOfDisplayedFields.clear();
 
         // Clear the list
-        nameOfMultiSelectedFields.clear();
+        setOfSelectedFields.clear();
  
         // Clear the list
-        multiSelectdFields.clear();
+        listOfSelectedFields.clear();
 
         // Clear the list
-        nameOfFields.clear();
+        listOfDisplayedFields.clear();
 
         // Clear the list
         fieldName.clear();

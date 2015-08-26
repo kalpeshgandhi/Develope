@@ -1,5 +1,5 @@
-<apex:page Controller="DynamicSoslClass">
-	<apex:form>
+<apex:page Controller="DynamicSoslClass" readOnly="true">
+	<apex:form >
 		<apex:pageBlock id="page">
 			<apex:pageBlockSection title="Search Element">
 				<apex:pageMessages id="searchmessage" rendered="{!renderValue}" />
@@ -10,59 +10,61 @@
 				<apex:selectList value="{!selectedObject}" size="1">
 					<apex:selectOptions value="{!ListOfObject}" />
 					<apex:actionSupport event="onchange"
-						rerender="pagesectionfields,orderbysection"
-						action="{!getObjectFields}" />
+						                rerender="pagesectionfields,orderbysection"
+						                action="{!getObjectFields}" />
 				</apex:selectList>
 			</apex:pageBlockSection>
-			<apex:pageBlockSection columns="3" id="pagesectionfields"
-				title="Select Field">
+			<apex:pageBlockSection columns="3" 
+			                       id="pagesectionfields"
+				                   title="Select Field">
 				<apex:panelGrid columns="3" id="pnlGrd">
 					<apex:pageBlockSectionItem id="selectedfields">
 						<apex:outputPanel id="fields">
-							<apex:selectList value="{!selectedField}" size="10"
-								multiselect="true">
-								<apex:selectOptions value="{!SelectedList}" id="selectedfield" />
+							<apex:selectList value="{!selectedFieldFromAllDisplayedField}" 
+							                 size="10"
+							               	 multiselect="true">
+						      <apex:selectOptions value="{!DisplayedFields}" id="selectedfield" />
 							</apex:selectList>
 						</apex:outputPanel>
 					</apex:pageBlockSectionItem>
-					<apex:pageBlockSectionItem>
-						<apex:panelGroup>
-							<apex:commandButton value='>>' action="{!addMultiSelectFields}"
+					<apex:pageBlockSectionItem >
+						<apex:panelGroup >
+							<apex:commandButton value='>>' action="{!addToSelectedFields}"
 								rerender="pagesectionmultilist,pagesectionfields" />
 							<br />
 							<br />
 							<apex:commandButton value="<<"
-								action="{!removeMultiSelectFields}"
-								rerender="pagesectionfields,pagesectionmultilist" />
+							                 	action="{!removeFromSelectedFields}"
+								                rerender="pagesectionfields,pagesectionmultilist"/>
 						</apex:panelGroup>
 					</apex:pageBlockSectionItem>
 					<apex:pageBlockSectionItem id="pagesectionmultilist">
-						<apex:selectList value="{!multiSelected}" size="10"
-							multiselect="true" id="multiselect">
-							<apex:selectOptions value="{!MultiSelectedList}"
-								id="selectedMultiField" />
+						<apex:selectList value="{!selectedFieldFromAllSelectedField}" size="10"
+							             multiselect="true" id="multiselect">
+							<apex:selectOptions value="{!SelectedFields}"
+								                id="selectedMultiField" />
 						</apex:selectList>
 					</apex:pageBlockSectionItem>
 				</apex:panelGrid>
 			</apex:pageBlockSection>
 			<apex:pageBlockSection columns="3" title="Maximum Limit/Sort/OrderBy"
-				id="orderbysection">
+				                   id="orderbysection">
 				<apex:pageBlockSectionItem id="orderbyfields">
 					<apex:outputPanel id="orderByfields">
 						<apex:selectList value="{!orderbyselectedField}" size="10"
-							multiselect="true">
+							             multiselect="true">
 							<apex:selectOptions value="{!listOfOrderByFields}"
-								id="orderbyoption" />
+								                id="orderbyoption" />
 						</apex:selectList>
 					</apex:outputPanel>
 				</apex:pageBlockSectionItem>
-				<apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
 					<apex:outputlabel value="Sort As:" />
 					<apex:selectRadio value="{!selectedRadio}">
 						<apex:selectOptions value="{!Sort}" />
 					</apex:selectRadio>
 				</apex:pageBlockSectionItem>
-				<apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
 					<apex:outputlabel value="Maximum # Records To Display:" />
 					<apex:selectList value="{!selectedNumber}" size="1">
 						<apex:selectOptions value="{!AddNumber}" />
@@ -70,45 +72,46 @@
 				</apex:pageBlockSectionItem>
 			</apex:pageBlockSection>
 			<apex:pageBlockSection columns="3">
-				<apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
 					<apex:commandButton value="Add object"
-						action="{!addNewObjectToQuery}" rerender="inputSearch,page"
-						rendered="{!renderaddValue}" />
+						                action="{!addNewObjectToQuery}" 
+						                rerender="inputSearch,page"
+						                rendered="{!renderaddValue}" />
 				</apex:pageBlockSectionItem>
-				<apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
 					<apex:commandButton value="Execute Query" action="{!query}"
-						rendered="{!renderaddValue}" />
+						                rendered="{!renderaddValue}" />
 				</apex:pageBlockSectionItem>
-				<apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
 					<apex:commandButton value="Clear" action="{!clearProperties}" />
 				</apex:pageBlockSectionItem>
 			</apex:pageBlockSection>
-			<apex:pageBlockSection>
+			<apex:pageBlockSection >
 				<apex:outputText value="{!dynamicQuery}" />
 			</apex:pageBlockSection>
 			<apex:pageBlockSection collapsible="false" columns="1"
-				title="Results" id="pageblocktabel">
+				                   title="Results" id="pageblocktabel">
 				<apex:repeat value="{!searchResultsOfQuery}" var="wrapperInstance">
-					<apex:pageBlockTable value="{!wrapperInstance.recordObject}"
-						var="recordinstance">
-						<apex:facet name="header"> {!wrapperInstance.sObjectTypeName}</apex:facet>
-						<apex:repeat value="{!wrapperInstance.fieldName}" var="fieldname">
-							<apex:column>
+				<apex:pageBlockTable value="{!wrapperInstance.recordObject}"
+					                     var="recordinstance">
+					<apex:facet name="header"> {!wrapperInstance.sObjectTypeName}</apex:facet>
+				    <apex:repeat value="{!wrapperInstance.fieldName}" var="fieldname">
+							<apex:column >
 								<apex:facet name="header">
-                           {!fieldname}
-                        </apex:facet>
-                        {!recordinstance[fieldname]}
-                     </apex:column>
-						</apex:repeat>
-						<apex:column>
-							<apex:facet name="header">
-                        name
-                     </apex:facet>
-							<apex:outputLink value="/{!recordinstance.Id}">
-                        {!recordinstance['name']}
-                     </apex:outputLink>
-						</apex:column>
-					</apex:pageBlockTable>
+                                {!fieldname}
+                                </apex:facet>
+                                {!recordinstance[fieldname]}
+                           </apex:column>
+					</apex:repeat>
+					<apex:column >
+					       <apex:facet name="header">
+                              Id
+                           </apex:facet>
+					    <apex:outputLink value="/{!recordinstance.Id}">
+                                 {!recordinstance['Id']}
+                        </apex:outputLink>
+					</apex:column>
+				</apex:pageBlockTable>
 				</apex:repeat>
 			</apex:pageBlockSection>
 		</apex:pageBlock>
