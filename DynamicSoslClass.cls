@@ -161,7 +161,10 @@ public with sharing class DynamicSoslClass
            if(mapOfObject.get(objectNameInstance).getDescribe().isSearchable() == true)
            {
                // Add the elements to the list
-               objectList.add(new SelectOption(objectnameInstance,mapOfObject.get(objectNameInstance).getDescribe().getLabel()));
+               objectList.add(new SelectOption
+                                (objectnameInstance,
+                                 mapOfObject.get(objectNameInstance).getDescribe().getLabel())
+                             );
               
            }
         }// End of for loop
