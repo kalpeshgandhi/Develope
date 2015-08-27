@@ -1,6 +1,7 @@
 <apex:page Controller="AccountAndContactController">
-	<apex:includeScript value="{!URLFOR($Resource.AllScript, '/Script/EnterScript.js')}" />
-	<apex:form >
+	<apex:includeScript
+		value="{!URLFOR($Resource.AllScript, '/Script/EnterScript.js')}" />
+	<apex:form>
 		<img src="{!$Resource.ImageUsedAsHeader}" width="150" height="85" />
 		<apex:pageBlock title="Account Details">
 			<apex:inputText Label="Search" id="searchinput"
@@ -22,7 +23,7 @@
 				id="accountlistpageblocktable" var="item">
 				<apex:column headerValue="Account Name">
 					<apex:outputLink value="/{!item.id}"> {!item.name}
-                </apex:outputLink>
+                    </apex:outputLink>
 				</apex:column>
 				<apex:column value="{!item.Email_ID__c}" />
 				<apex:column value="{!item.Phone}" />
@@ -51,5 +52,5 @@
             }
         }
     </script>-->
-	
+
 </apex:page>

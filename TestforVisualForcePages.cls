@@ -1,7 +1,7 @@
 /**
  * This is a test method that checks the functionality of a visual force pages that has the 
- * functionality such as display the account list, contact list, search for the contact from the list 
- * a to z, search accounts and manage there respective -
+ * functionality such as display the account list, contact list, search for the contact from the 
+ * list a to z, search accounts and manage there respective -
  * based on the email domain specified in the primary email of contact.
  */
 @isTest
@@ -261,7 +261,8 @@ private class TestforVisualForcePages {
          Test.setCurrentPage(pageReferenceforcontact);
 
          // Checks the url returned and the expected url mathces.
-         System.assertEquals('/apex/contactpages?aid='+accountInstance.Id,controllerInstance.gotoContact().getURL());
+         System.assertEquals('/apex/contactpages?aid='+accountInstance.Id,
+         controllerInstance.gotoContact().getURL());
 
          // Check for the parameters matches
          System.assertEquals(accountInstance.Id,pageReferenceforcontact.getParameters().get('aid'));
@@ -455,7 +456,8 @@ private class TestforVisualForcePages {
          // Check for the size of the contact list equals to 10
          System.assertEquals(10,controllerInstance.countSizeOfList);
          
-         for(AccountAndContactController.WrapperForBindingCheckBoxWithContact wrapperInstance : controllerInstance.wrapperList)
+         for(AccountAndContactController.WrapperForBindingCheckBoxWithContact wrapperInstance :
+         controllerInstance.wrapperList)
          {
              wrapperInstance.checkBoxInstance = true;
          }
@@ -545,7 +547,8 @@ private class TestforVisualForcePages {
          Test.setCurrentPage(pageReferenceforcontact);
 
          // Checks the url returned and the expected url mathces.
-         System.assertEquals('/apex/contactpages?aid='+accountInstance.Id,controllerInstance.gotoContact().getURL());
+         System.assertEquals('/apex/contactpages?aid='+accountInstance.Id,
+         controllerInstance.gotoContact().getURL());
 
          // Check for the parameters matches
          System.assertEquals(accountInstance.Id,pageReferenceforcontact.getParameters().get('aid'));
@@ -699,7 +702,8 @@ private class TestforVisualForcePages {
          System.assertEquals(1, accountListInstance.size());
 
         // Assign the list returned from data factory to a new instance of the contact list
-        List<Contact> contactInstanceList = TestDataFactory.contactTestData(10,accountInstanceList[0].Id);
+        List<Contact> contactInstanceList = 
+            TestDataFactory.contactTestData(10,accountInstanceList[0].Id);
 
         // Check for the size of account list matches expected values
         System.assertEquals(10,contactInstanceList.size());

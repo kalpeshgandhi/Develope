@@ -1,6 +1,7 @@
 <apex:page Controller="AccountAndContactController">
-<apex:includeScript value="{!URLFOR($Resource.ScriptDeleteContact,'/Script/DeleteJavaScript.js')}"/>
-	<apex:form >
+	<apex:includeScript
+		value="{!URLFOR($Resource.ScriptDeleteContact,'/Script/DeleteJavaScript.js')}" />
+	<apex:form>
 		<apex:pageBlock title="Contact Details for {!accountName.Name} "
 			id="page">
 			<br></br>
@@ -11,7 +12,7 @@
 					<apex:param name="contactList" value="{!traverser}"
 						assignTo="{!alphabetName}" />
                                     |&nbsp;
-                    </apex:commandLink>
+                </apex:commandLink>
 			</apex:repeat>
 			<br></br>
 			<apex:pageBlockSection id="contactpage"
@@ -20,25 +21,28 @@
 					<apex:column value="{!war.contactInstance.Name}" />
 					<apex:column value="{!war.contactInstance.Id}" />
 
-					<apex:column >
+					<apex:column>
 						<apex:inputcheckBox value="{!war.checkBoxInstance}" />
-						<apex:actionSupport event="onclick" action="{!selectMultipleContact}" rerender="pageTable,button"/>
+						<apex:actionSupport event="onclick"
+							action="{!selectMultipleContact}" rerender="pageTable,button" />
 					</apex:column>
 
-					<apex:column >
+					<apex:column>
 						<apex:commandlink value="Delete"
 							onClick="deleteOnClick('{!war.contactInstance.Id}')"
 							rerender="contactTable,blockpage" oncomplete="location.reload();" />
 					</apex:column>
+
 				</apex:pageBlockTable>
 			</apex:pageBlockSection>
-            <apex:pageBlockSection id="button">
-			<apex:commandButton value="Delete Multiple Contacts"
-				action="{!deleteMultipleContact}" rendered="{!deleteContact}" />
-			
-			<apex:commandButton value="Add" action="{!rerenderAddColumn}"
-				rerender="pageadd,contactpage,page"></apex:commandButton>
-			<apex:commandButton value="Return" action="{!returnToAccount}" />
+			<apex:pageBlockSection id="button">
+				<apex:commandButton value="Delete Multiple Contacts"
+					action="{!deleteMultipleContact}" rendered="{!deleteContact}" />
+
+				<apex:commandButton value="Add" action="{!rerenderAddColumn}"
+					rerender="pageadd,contactpage,page">
+				</apex:commandButton>
+				<apex:commandButton value="Return" action="{!returnToAccount}" />
 			</apex:pageBlockSection>
 			<apex:facet name="footer">
 				<c:CountOfListComponent countSizeOfList="{!countSizeOfList}" />
@@ -48,7 +52,7 @@
 				rendered="{!renderAddPage}" id="pageadd">
 				<apex:inputText value="{!contactLastName}" label="LastName" />
 
-				<apex:commandButton value="Save" action="{!addContact}"></apex:commandButton>
+				<apex:commandButton value="Save" action="{!addContact}" />
 			</apex:pageBlockSection>
 		</apex:pageBlock>
 	</apex:form>
@@ -74,5 +78,5 @@
 			);
 		}
 	</script>-->
-	
+
 </apex:page>
