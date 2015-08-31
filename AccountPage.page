@@ -1,7 +1,6 @@
 <apex:page Controller="AccountAndContactController">
-	<apex:includeScript
-		value="{!URLFOR($Resource.AllScript, '/Script/EnterScript.js')}" />
-	<apex:form>
+	<apex:includeScript value="{!URLFOR($Resource.AllScript, '/Script/EnterScript.js')}" />
+	<apex:form >
 		<img src="{!$Resource.ImageUsedAsHeader}" width="150" height="85" />
 		<apex:pageBlock title="Account Details">
 			<apex:inputText Label="Search" id="searchinput"
@@ -17,8 +16,7 @@
 			<apex:commandlink id="clear" Value="Clear"
 				action="{!clearSearchResult}"
 				rerender="accountlistpageblocktable,searchinput" />
-			<br>
-			</br>
+			<br />
 			<apex:pageBlockTable value="{!accountList}"
 				id="accountlistpageblocktable" var="item">
 				<apex:column headerValue="Account Name">
@@ -41,16 +39,4 @@
 			</apex:pageBlockTable>
 		</apex:pageBlock>
 	</apex:form>
-	<!--<script type='text/javascript'>
-        function enter_keypress(eventInstance) {
-            if (window.event && window.event.keyCode == 13
-                    || eventInstance.which == 13) {
-                searchResultAccount();
-                return false;
-            } else {
-                return true;
-            }
-        }
-    </script>-->
-
 </apex:page>

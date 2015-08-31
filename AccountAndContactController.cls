@@ -53,8 +53,9 @@ public with sharing class AccountAndContactController
     // Declare the string with getters and setters for saving the last name.
     public String contactLastName {get; set;}
     
+    public String contactEmail {get; set;}
     
-    public Contact deleteContactInstance {get; set;}
+   
    /**
     * This is a constructor that will initialize all the list.
     */
@@ -69,10 +70,10 @@ public with sharing class AccountAndContactController
         // Intitalize the string to blank
         contactLastName = '';
         
+        contactEmail = '';
+        
         // Inititalize the boolean variable to true that by default shows the account page
         deleteContact = false;
-        
-        deleteContactInstance= new Contact();
         
         // Inititalize the boolean variable to true that by default shows the account page
         renderContactDispalyPage = true;
@@ -214,7 +215,6 @@ public with sharing class AccountAndContactController
         
         // Setting redirect true allows to redirect to new page.
         contactPage.setRedirect(true);
-        
         contactPage.getParameters().put('aid',idAccount);
         
         // Return the contact page.
@@ -237,12 +237,16 @@ public with sharing class AccountAndContactController
     */
     public void addContact()
     {
-        // Create the instance of the contact
-        Contact contactInstance = new Contact(LastName = contactLastName,AccountId = idAccount);
-        
-        // Insert the contact instance
-        insert contactInstance;
-        
+        Contact contactInstance = new Contact(LastName = contactLastName,Email = contactEmail,AccountId = idAccount);
+        try 
+        {
+            // Insert the contact instance
+            insert contactInstance;
+        }
+        catch(Exception e)
+        {   
+            contactInstance.clear();
+        }
         // Render the pageblocktabel
         renderContactDispalyPage = true;
         
@@ -251,6 +255,9 @@ public with sharing class AccountAndContactController
         
         // Initialize the string as blank
         contactLastName='';
+        
+        // Initialize the string as blank
+        contactEmail = '';
     }
     
    /**
@@ -385,6 +392,7 @@ public with sharing class AccountAndContactController
         
         // Delete the contact record.
         delete deleteContact;
+        
     }
     
    /**
