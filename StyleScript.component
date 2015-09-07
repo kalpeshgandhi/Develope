@@ -1,0 +1,42 @@
+<!--  
+ This is a component that will set the style of the table
+ -->
+<apex:component access="global">
+            <style type="text/css">
+            body {font-family: Courier; size: 12pt;}
+     
+            table {
+                border-width: 1px;
+                border-spacing: 0px;
+                border-style: solid  ;
+                background-color: #FFFFFF;
+            } 
+            td {
+                border-width: 1px;
+                padding: 4px;
+                width : 50%;
+                border-style: none;
+                border-color: #000000;
+                background-color: #FFFFFF;
+            }
+            tr {
+                border-width: 1px;
+                padding: 4px;
+                width : 50%;
+                border-style: solid;
+                border-color: #000000;
+                background-color: #FFFFFF;
+            }
+            th {
+                align:left;
+                color: #4B0082;
+                display:block;
+                border-width: 1px ;
+                padding: 4px ;
+                border-style: none ;
+                border-color: #000000;
+                background-color: #FFFFFF;
+            }
+            </style>
+
+</apex:component>

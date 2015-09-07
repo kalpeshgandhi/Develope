@@ -1,0 +1,29 @@
+<!-- This is a component that will build the responses for template-->
+<apex:component controller="ResponseComponentController" access="global">
+	<apex:attribute access="global" assignTo="{!queryId}"
+		name="queryIdValue" type="String" required="true"
+		description="Query Id" />
+	<b>Response Details</b>
+	<table>
+		<apex:repeat value="{!Responses}" var="responcevalue">
+			<tr>
+			<tr>
+				<th align="left"><a href="{!responcevalue.Links__c}">{!responcevalue.Title__c}</a>
+				</th>
+			</tr>
+			<tr>
+				<td>{!responcevalue.Links__c}</td>
+			</tr>
+			<tr>
+				<td>{!responcevalue.Description__c}</td>
+			</tr>
+			</tr> 
+			<tr>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+			</tr>
+		</apex:repeat>
+	</table>
+</apex:component> 
