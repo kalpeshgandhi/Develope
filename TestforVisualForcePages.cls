@@ -252,7 +252,7 @@ private class TestforVisualForcePages {
          controllerInstance.idAccount = accountInstance.Id;
 
          // Add the key and value to the map.
-         pageRefrenceInstance.getParameters().put('aid',controllerInstance.idAccount);
+         pageRefrenceInstance.getParameters().put('accountid',controllerInstance.idAccount);
 
          // Create the page reference
          PageReference pageReferenceforcontact = controllerInstance.gotoContact();
@@ -260,12 +260,13 @@ private class TestforVisualForcePages {
          // Set the current page as contact 
          Test.setCurrentPage(pageReferenceforcontact);
 
-         // Checks the url returned and the expected url mathces.
-         System.assertEquals('/apex/contactpages?aid='+accountInstance.Id,
+         // Checks the url returned and the expected url matches.
+         System.assertEquals('/apex/contactpages?accountid='+accountInstance.Id,
          controllerInstance.gotoContact().getURL());
 
          // Check for the parameters matches
-         System.assertEquals(accountInstance.Id,pageReferenceforcontact.getParameters().get('aid'));
+         System.assertEquals(accountInstance.Id,
+            pageReferenceforcontact.getParameters().get('accountid'));
 
          // Start the test
          Test.startTest();
@@ -342,7 +343,7 @@ private class TestforVisualForcePages {
          controllerInstance.idAccount = accountInstance.Id;
 
          // Add the key and value to the map.
-         pageRefrenceInstance.getParameters().put('aid',controllerInstance.idAccount);
+         pageRefrenceInstance.getParameters().put('accountid',controllerInstance.idAccount);
 
          // Create the page reference
          PageReference pageReferenceforcontact = controllerInstance.gotoContact();
@@ -350,13 +351,13 @@ private class TestforVisualForcePages {
          // Set the current page as contact 
          Test.setCurrentPage(pageReferenceforcontact);
 
-         // Checks the url returned and the expected url mathces.
-         System.assertEquals('/apex/contactpages?aid='+accountInstance.Id,
+         // Checks the url returned and the expected url matches.
+         System.assertEquals('/apex/contactpages?accountid='+accountInstance.Id,
             controllerInstance.gotoContact().getURL());
 
          // Check for the parameters matches
          System.assertEquals(accountInstance.Id,
-            pageReferenceforcontact.getParameters().get('aid'));
+            pageReferenceforcontact.getParameters().get('accountid'));
  
          // Start the test
          Test.startTest();
@@ -434,7 +435,7 @@ private class TestforVisualForcePages {
          controllerInstance.idAccount = accountInstance.Id;
 
          // Add the Key and Value to the map.
-         pageRefrenceInstance.getParameters().put('aid',controllerInstance.idAccount);
+         pageRefrenceInstance.getParameters().put('accountid',controllerInstance.idAccount);
 
          // Create the page reference
          PageReference pageReferenceforcontact = controllerInstance.gotoContact();
@@ -442,13 +443,13 @@ private class TestforVisualForcePages {
          // Set the current page as contact 
          Test.setCurrentPage(pageReferenceforcontact);
 
-         // Checks the url returned and the expected url mathces.
-         System.assertEquals('/apex/contactpages?aid='+accountInstance.Id,
+         // Checks the url returned and the expected url matches.
+         System.assertEquals('/apex/contactpages?accountid='+accountInstance.Id,
             controllerInstance.gotoContact().getURL());
 
          // Check for the parameters matches
          System.assertEquals(accountInstance.Id,
-            pageReferenceforcontact.getParameters().get('aid'));
+            pageReferenceforcontact.getParameters().get('accountid'));
          
          // Get the list of contact
          controllerInstance.getwrapperList();
@@ -538,7 +539,7 @@ private class TestforVisualForcePages {
          controllerInstance.idAccount = accountInstance.Id;
 
          // Add the key and value to the map.
-         pageRefrenceInstance.getParameters().put('aid',controllerInstance.idAccount);
+         pageRefrenceInstance.getParameters().put('accountid',controllerInstance.idAccount);
 
          // Create the page reference
          PageReference pageReferenceforcontact = controllerInstance.gotoContact();
@@ -546,12 +547,13 @@ private class TestforVisualForcePages {
          // Set the current page as contact 
          Test.setCurrentPage(pageReferenceforcontact);
 
-         // Checks the url returned and the expected url mathces.
-         System.assertEquals('/apex/contactpages?aid='+accountInstance.Id,
+         // Checks the url returned and the expected url matches.
+         System.assertEquals('/apex/contactpages?accountid='+accountInstance.Id,
          controllerInstance.gotoContact().getURL());
 
          // Check for the parameters matches
-         System.assertEquals(accountInstance.Id,pageReferenceforcontact.getParameters().get('aid'));
+         System.assertEquals(accountInstance.Id,
+            pageReferenceforcontact.getParameters().get('accountid'));
 
          // Fetch all the contact list
          controllerInstance.getContactList();

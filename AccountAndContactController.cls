@@ -18,7 +18,7 @@ public with sharing class AccountAndContactController
     public Id idAccount {get; set;}
     
     // Declare the String with getters and Setters which saves the name from the account List .
-    public Account accountName {get; set;}
+    public List<Account> accountName {get; set;}
     
     // Declare the Integer with getters and setters which saves the size of the list.
     public Integer countSizeOfList {get; set;}
@@ -69,7 +69,7 @@ public with sharing class AccountAndContactController
         
         // Intitalize the string to blank
         contactLastName = '';
-        
+        searchStringAccount= '';
         contactEmail = '';
         
         // Inititalize the boolean variable to true that by default shows the account page
@@ -140,11 +140,12 @@ public with sharing class AccountAndContactController
     public List<Contact> getContactList()
     {
         // Get the id passed from the accounts page.
-        idAccount = ApexPages.currentPage().getParameters().get('aid');
-        
+        idAccount = ApexPages.currentPage().getParameters().get('accountid');
+       
         // Check for the alphabet name string is empty or not. 
         if(String.isEmpty(alphabetName))
         {
+
             // Get the name of that account.
             accountName = 
                 [
@@ -176,7 +177,7 @@ public with sharing class AccountAndContactController
         }
         else
         {
-            // Fetch the contact records that are related to that account and are which are searched.
+            // Fetch the contact records that are related to that account and which are searched.
             contactList = 
                 [
                     SELECT 
@@ -199,6 +200,7 @@ public with sharing class AccountAndContactController
                 ];
            // Saves the size of the list.
            countSizeOfList = contactList.size();
+           
            // Return the contact list 
            return contactList;
            
@@ -215,7 +217,8 @@ public with sharing class AccountAndContactController
         
         // Setting redirect true allows to redirect to new page.
         contactPage.setRedirect(true);
-        contactPage.getParameters().put('aid',idAccount);
+        
+        contactPage.getParameters().put('accountid',idAccount);
         
         // Return the contact page.
         return contactPage;
@@ -237,7 +240,12 @@ public with sharing class AccountAndContactController
     */
     public void addContact()
     {
-        Contact contactInstance = new Contact(LastName = contactLastName,Email = contactEmail,AccountId = idAccount);
+        Contact contactInstance = 
+            new Contact(
+                LastName = contactLastName,
+                Email = contactEmail,
+                AccountId = idAccount
+            );
         try 
         {
             // Insert the contact instance
@@ -266,8 +274,9 @@ public with sharing class AccountAndContactController
     public void selectMultipleContact()
     {
         // Render the delete button if check box is selected
-        deleteContact= true;
+        deleteContact = true;
     }
+    
    /**
     * This is a method that will delete multiple contact.
     */
@@ -299,8 +308,10 @@ public with sharing class AccountAndContactController
     {  
         // Clear the wrapper list
         wrapperList.clear();
+        
         // Copy the list of the contact 
         contactListInstanceForWrapper = getContactList();
+        
         // Iterate over the contact list
         for(Contact contactInstance : contactListInstanceForWrapper)
         {
@@ -320,6 +331,12 @@ public with sharing class AccountAndContactController
     */
     public PageReference returnToAccount() 
     {
+        // Render the pageblocktabel
+        renderContactDispalyPage = true;
+        
+        // Render the add page section to false 
+        renderAddPage = false;
+        
         // Create the Reference of the page account
         PageReference accountPage = Page.AccountPage;
         
@@ -331,8 +348,8 @@ public with sharing class AccountAndContactController
     }
     
    /** 
-    * This is a method that searches the account if the search result is less then 3 letters display
-    * the message else search the result.
+    * This is a method that searches the account if the search result is less then 3 letters 
+    * display the message else search the result.
     */
     public void searchResultAccount() 
     {  
@@ -340,9 +357,12 @@ public with sharing class AccountAndContactController
         if(searchStringAccount.length() < 3)
         {
             // Add error message on the page.
-            ApexPages.addmessage(new ApexPages.message(
-                                          ApexPages.severity.info,
-                                         'Please enter at least 3 characters to perform search'));
+            ApexPages.addmessage(
+                new ApexPages.message(
+                    ApexPages.severity.info,
+                    'Please enter at least 3 characters to perform search'
+                )
+            );
         }
     }
     
@@ -396,7 +416,7 @@ public with sharing class AccountAndContactController
     }
     
    /**
-    * This is a inner class that will bind the chekbox and the contact together
+    * This is a inner class that will bind the checkbox and the contact together
     */
     public class WrapperForBindingCheckBoxWithContact
     {

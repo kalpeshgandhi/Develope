@@ -1,12 +1,12 @@
 <apex:page Controller="AccountAndContactController">
 	<apex:includeScript value="{!URLFOR($Resource.ScriptDeleteContact,'/Script/DeleteJavaScript.js')}" />
 	<apex:form >
-		<apex:pageBlock title="Contact Details for {!accountName.Name} "
+		<apex:pageBlock title="Contact Details for {!accountName[0].Name } "
 			id="page">
 			<br />
 			<apex:repeat value="{!listAToZInstance}" var="traverser">
 				<apex:commandLink value="{!traverser}"
-					rerender="contactTable,totalcount">
+					rerender="page">
 					<apex:param name="contactList" value="{!traverser}"
 						assignTo="{!alphabetName}" />
                                     |&nbsp;
@@ -33,7 +33,7 @@
 					</apex:column>
 				</apex:pageBlockTable>
 			</apex:pageBlockSection>
-			<apex:pageBlockSection id="button">
+			<apex:pageBlockSection id="button" rendered="{!renderContactDispalyPage}">
 				<apex:commandButton value="Delete Multiple Contacts"
 					action="{!deleteMultipleContact}" rendered="{!deleteContact}" />
 				<apex:commandButton value="Add" action="{!rerenderAddColumn}"
@@ -48,7 +48,7 @@
 				rendered="{!renderAddPage}" id="pageadd">
 				<apex:inputText value="{!contactLastName}" label="LastName" required = "true" />
                 <apex:inputText value="{!contactEmail}" label="Email" />
-                <apex:outputText value="{!accountName.Name}" label="AccountName"/>
+                <apex:outputText value="{!accountName[0].Name}" label="AccountName"/>
 				<apex:commandButton value="Save" action="{!addContact}" rerender="page"/>
 			</apex:pageBlockSection>
 		</apex:pageBlock>
