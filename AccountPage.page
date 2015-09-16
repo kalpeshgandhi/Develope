@@ -8,14 +8,15 @@
 				value="{!searchStringAccount}" />
 
 			<apex:actionFunction name="searchResultAccount"
-				action="{!searchResultAccount}" />
+				action="{!searchResultAccount}" 
+				rerender="message,page,searchinput,accountlistpageblocktable"/>
 			<apex:commandButton Value="Search" action="{!searchResultAccount}"
-				id="cmdbuton" rerender="accountlistpageblocktable,message,page" />
+				id="cmdbuton" rerender="message,page,searchinput,accountlistpageblocktable" />
 			<apex:pageMessages id="message">
 			</apex:pageMessages>
 			<apex:commandlink id="clear" Value="Clear"
 				action="{!clearSearchResult}"
-				rerender="accountlistpageblocktable,searchinput" />
+				rerender="accountlistpageblocktable,searchinput,page" />
 			<br />
 			<apex:pageBlockTable value="{!accountList}"
 				id="accountlistpageblocktable" var="item">

@@ -5,6 +5,7 @@
  */
 public with sharing class AccountAndContactController 
 {
+    
     // Declare the list of the account.
     public List<Account> accountList;
     
@@ -61,6 +62,7 @@ public with sharing class AccountAndContactController
     */
     public AccountAndContactController()
     {
+        
         // Initialize the list of the wrapper
         wrapperList = new List<WrapperForBindingCheckBoxWithContact>();
         
@@ -80,7 +82,29 @@ public with sharing class AccountAndContactController
         
         // Initialize the list of the contact
         seletedContactList = new List<Contact>();
+        
+        // Initialize the list of the account
+        accountList = new List<Account>();
+        
+        // Initialize the list of the contact
+        contactList = new List<Contact>();
+        
+        // Initialize the list of the contact
+        contactListInstanceForWrapper = new List<Contact>();
+        
+        // Initialize the list of the wrapper
+        wrapperList = new List<WrapperForBindingCheckBoxWithContact>();
+        
+        // Initialize the list of the contact
+        seletedContactList = new List<Contact>();
+        
+        // Initialize the list of the string
+        listAToZInstance = new List<String>();
+        
+        // Initialize the list of the account
+        accountName = new List<Account>();
     }
+    
     
    /**
     * This is a getter that will fetch all the records of the account when the flag is false 
@@ -88,9 +112,11 @@ public with sharing class AccountAndContactController
     */
     public List<Account> getAccountList()
     { 
+        
         // Check if the search string is Empty.
         if(String.isEmpty(searchStringAccount))
         {
+            
              // Fetch all the accounts record.
              accountList = 
                 [
@@ -109,6 +135,7 @@ public with sharing class AccountAndContactController
         }
         else 
         {   
+                
             // Fetch the accounts record that are searched.
             accountList = 
                 [
@@ -122,9 +149,9 @@ public with sharing class AccountAndContactController
                         Account a
                     WHERE 
                         Account.Name 
-                    LIKE : '%'+ searchStringAccount.trim() + '%'
+                    LIKE : '%'+ searchStringAccount.normalizeSpace() + '%'
                 ];
-                
+
             // Save total size of the account list.
             countSizeOfList = accountList.size();
         }
@@ -139,6 +166,7 @@ public with sharing class AccountAndContactController
     */
     public List<Contact> getContactList()
     {
+        
         // Get the id passed from the accounts page.
         idAccount = ApexPages.currentPage().getParameters().get('accountid');
        
@@ -177,6 +205,7 @@ public with sharing class AccountAndContactController
         }
         else
         {
+            
             // Fetch the contact records that are related to that account and which are searched.
             contactList = 
                 [
@@ -198,6 +227,7 @@ public with sharing class AccountAndContactController
                             Account.Id = :idAccount
                         )
                 ];
+                
            // Saves the size of the list.
            countSizeOfList = contactList.size();
            
@@ -212,22 +242,26 @@ public with sharing class AccountAndContactController
     */
     public PageReference gotoContact()
     {
+        
         // Create the reference of the page Contact
         PageReference contactPage = Page.ContactPages;
         
         // Setting redirect true allows to redirect to new page.
         contactPage.setRedirect(true);
         
+        // Set the parameters of account Id.
         contactPage.getParameters().put('accountid',idAccount);
         
         // Return the contact page.
         return contactPage;
     }
+    
    /**
     * This is a method that will render the page block tabel
     */
     public void rerenderAddColumn()
     {
+        
         // Set the contact pageblocktabel as false
         renderContactDispalyPage = false;
         
@@ -240,21 +274,27 @@ public with sharing class AccountAndContactController
     */
     public void addContact()
     {
+        // Create the instance of the contact
         Contact contactInstance = 
             new Contact(
                 LastName = contactLastName,
                 Email = contactEmail,
                 AccountId = idAccount
             );
+        
         try 
         {
+            
             // Insert the contact instance
             insert contactInstance;
+        
         }
         catch(Exception e)
         {   
+        
             contactInstance.clear();
         }
+        
         // Render the pageblocktabel
         renderContactDispalyPage = true;
         
@@ -273,6 +313,7 @@ public with sharing class AccountAndContactController
     */
     public void selectMultipleContact()
     {
+        
         // Render the delete button if check box is selected
         deleteContact = true;
     }
@@ -282,15 +323,19 @@ public with sharing class AccountAndContactController
     */
     public void deleteMultipleContact()
     {
+        
         // Iterate over the wrapper list
         for(WrapperForBindingCheckBoxWithContact wrapperInstance : wrapperList)
         {       
+        
             // Check if the checkbox is selected or not
             if(wrapperInstance.checkBoxInstance)
             {
+        
                 // Add the contact instance to the selected contact list
                 seletedContactList.add(wrapperInstance.contactInstance);
             }
+        
         }// End of the for loop
        
         // Delete the selected contact list
@@ -306,6 +351,7 @@ public with sharing class AccountAndContactController
     */
     public List<WrapperForBindingCheckBoxWithContact> getwrapperList()
     {  
+        
         // Clear the wrapper list
         wrapperList.clear();
         
@@ -315,13 +361,16 @@ public with sharing class AccountAndContactController
         // Iterate over the contact list
         for(Contact contactInstance : contactListInstanceForWrapper)
         {
+        
             // Create the instance of the wrapper
             WrapperForBindingCheckBoxWithContact wrapperInstance = 
                 new WrapperForBindingCheckBoxWithContact(contactInstance);
 
             // Add the wrapper instance to the wrapper list
             wrapperList.add(wrapperInstance);
+            
         }
+        
         // Return the wrapper list
         return wrapperList;
     }
@@ -331,6 +380,7 @@ public with sharing class AccountAndContactController
     */
     public PageReference returnToAccount() 
     {
+        
         // Render the pageblocktabel
         renderContactDispalyPage = true;
         
@@ -352,10 +402,12 @@ public with sharing class AccountAndContactController
     * display the message else search the result.
     */
     public void searchResultAccount() 
-    {  
+    {
+        
         // Check the length of the search string is less then 3 letters.
-        if(searchStringAccount.length() < 3)
+        if(searchStringAccount.normalizeSpace().length() < 3)
         {
+            
             // Add error message on the page.
             ApexPages.addmessage(
                 new ApexPages.message(
@@ -363,6 +415,8 @@ public with sharing class AccountAndContactController
                     'Please enter at least 3 characters to perform search'
                 )
             );
+            
+            searchStringAccount = '';
         }
     }
     
@@ -371,6 +425,7 @@ public with sharing class AccountAndContactController
     */
     public void clearSearchResult()
     {
+        
         // Set the search string as blank.
         searchStringAccount = '';
     }
@@ -382,7 +437,7 @@ public with sharing class AccountAndContactController
     {
         // Add A to Z to the list.
         listAToZInstance = new List<String> {'A','B','C','D','E','F','G','H','I','J','K','L',
-                                        'M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+            'M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
                                         
         // Returns the list of letters.
         return listAToZInstance;

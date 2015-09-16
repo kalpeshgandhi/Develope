@@ -5,12 +5,15 @@
  * based on the email domain specified in the primary email of contact.
  */
 @isTest
-private class TestforVisualForcePages {
+private class TestforVisualForcePages 
+{
+   
    /**
     * This is a method that tests the list of account is displayed on the vf page.
     */
     static testMethod void displayTheAccount()
     {
+        
         // Assign the list returned from data factory to a new instance of the account list 
         List<Account> accountInstanceList = TestDataFactory.accountTestData(10);
 
@@ -62,6 +65,7 @@ private class TestforVisualForcePages {
     */
     static testMethod void searchAccount()
     {
+        
          // Assign the list returned from data factory to a new instance of the account list 
          List<Account> accountInstanceList = TestDataFactory.accountTestData(10);
 
@@ -122,12 +126,13 @@ private class TestforVisualForcePages {
 
     }
 
-/**
+   /**
     * This is a method that will test the functionality to give error if the length of the search 
     * string to search account is less then 3 from the account list.
     */
     static testMethod void searchAccountError()
     {
+   
         // Assign the list returned from data factory to a new instance of the account list 
         List<Account> accountInstanceList = TestDataFactory.accountTestData(10);
 
@@ -195,6 +200,7 @@ private class TestforVisualForcePages {
      */
      static testMethod void associatedContactForAccount() 
      { 
+   
          // Create a page reference for the account page.
          PageReference pageRefrenceInstance = Page.AccountPage;
 
@@ -220,8 +226,9 @@ private class TestforVisualForcePages {
          for(integer i = 0; i < 10; i++) 
          { 
                // Add the contacts to the list 
-               contactInstance.add(new Contact (LastName = 'ContactPageTest'+i,
-                                                AccountId = accountInstance.Id));
+               contactInstance.add(new Contact 
+                   (LastName = 'ContactPageTest'+i,AccountId = accountInstance.Id)
+               );
          }
 
          // Check the contacts are inserted or not.
@@ -286,6 +293,7 @@ private class TestforVisualForcePages {
      */
      static testMethod void testForPrintingWrapperList() 
      { 
+         
          // Create a page reference for the account page.
          PageReference pageRefrenceInstance = Page.AccountPage;
 
@@ -311,8 +319,9 @@ private class TestforVisualForcePages {
          for(integer i = 0; i < 10; i++) 
          { 
                // Add the contacts to the list 
-               contactInstance.add(new Contact (LastName = 'ContactPageTest'+i,
-                                                AccountId = accountInstance.Id));
+               contactInstance.add(
+                   new Contact (LastName = 'ContactPageTest'+i,AccountId = accountInstance.Id)
+               );
          }
 
          // Check the contacts are inserted or not.
@@ -403,8 +412,9 @@ private class TestforVisualForcePages {
          for(integer i = 0; i < 10; i++) 
          { 
                // Add the contacts to the list 
-               contactInstance.add(new Contact (LastName = 'ContactPageTest'+i,
-                                                AccountId = accountInstance.Id));
+               contactInstance.add(
+                   new Contact (LastName = 'ContactPageTest'+i,AccountId = accountInstance.Id)
+               );
          }
 
          // Check the contacts are inserted or not.
@@ -458,7 +468,7 @@ private class TestforVisualForcePages {
          System.assertEquals(10,controllerInstance.countSizeOfList);
          
          for(AccountAndContactController.WrapperForBindingCheckBoxWithContact wrapperInstance :
-         controllerInstance.wrapperList)
+                controllerInstance.wrapperList)
          {
              wrapperInstance.checkBoxInstance = true;
          }
@@ -507,8 +517,9 @@ private class TestforVisualForcePages {
          for(integer i = 0; i < 10; i++) 
          { 
                // Add the contacts to the list 
-               contactInstance.add(new Contact (LastName = 'ContactPageTest'+i,
-                                                AccountId = accountInstance.Id));
+               contactInstance.add(
+                   new Contact (LastName = 'ContactPageTest'+i,AccountId = accountInstance.Id)
+               );
          }
 
          // Check the contacts are inserted or not.
@@ -580,6 +591,7 @@ private class TestforVisualForcePages {
      */
      static testMethod void testForReturnButton() 
      { 
+         
          // Create a page reference for the account page.
          PageReference pageRefrenceInstance = Page.AccountPage;
 
@@ -617,6 +629,7 @@ private class TestforVisualForcePages {
      */
      static testMethod void testForAddButton() 
      { 
+         
          // Create the instance of the account
          Account accountInstance = new Account();
 
@@ -679,6 +692,7 @@ private class TestforVisualForcePages {
     */
     static testMethod void contactAlphabetSearchPage() 
     { 
+        
         // Assign the list returned from data factory to a new instance of the account list 
         List<Account> accountInstanceList = TestDataFactory.accountTestData(1);
 
@@ -770,6 +784,7 @@ private class TestforVisualForcePages {
     */
     static testMethod void testForClearButton() 
     { 
+        
         // Create the instance of the controller
         AccountAndContactController controllerInstance = new AccountAndContactController();
 
