@@ -6,6 +6,7 @@
  */
 global with sharing class TriggerForQueryGenerationHandler 
 {
+    
    /**
     * This is a method that will generate the query by parsing the email body. It checks if the 
     * query is already present, responses are appended. If query is not present a call out is made
@@ -13,9 +14,11 @@ global with sharing class TriggerForQueryGenerationHandler
     */
     global static void generationOfQuery(List<Email__c> emailList)
     {
+        
         // Iterate over the list of the email
         for(Email__c emailInstance: EmailList)
         {
+            
             // Create the instance of the email body
             String bodyInstance = emailInstance.Email_Body__c;
 
@@ -23,6 +26,7 @@ global with sharing class TriggerForQueryGenerationHandler
             bodyInstance = bodyInstance.substringBeforeLast(')');
             bodyInstance = bodyInstance.substringAfter('(');
             bodyInstance = bodyInstance.replaceAll('\\s+', ' ');
+            
             // Check if the body contains the ( & )
             if(bodyInstance.contains('(') || bodyInstance.contains(')'))
             {
@@ -37,11 +41,12 @@ global with sharing class TriggerForQueryGenerationHandler
                 bodyInstance= bodyInstance.trim();
 
             }
+            
             // Call the web service
             callTheWebservice(bodyInstance);
+        
         }// End of for loop
     }
-    
     
    /**
     * This is a method that will make a callous to the google and will save the responses.
@@ -49,8 +54,9 @@ global with sharing class TriggerForQueryGenerationHandler
     @future(callout = true)
     global static void callTheWebservice(String queryInstance)
     {
+        
         // Trim query 
-        //queryInstance= queryInstance.trim();
+        queryInstance= queryInstance.trim();
         
         // Create the instance of the http request
         HttpRequest request = new HttpRequest();
@@ -67,9 +73,6 @@ global with sharing class TriggerForQueryGenerationHandler
         
         // Store the response
         HTTPResponse res = http.send(request);
-        
-        // Store the html response body 
-        //String stringInstance = res.getbody();
         
         // Parse the string
         String parseString = res.getBody().remove('<!doctype html>');
@@ -97,14 +100,14 @@ global with sharing class TriggerForQueryGenerationHandler
         
         // Replace the html tag 
         parseString = parseString.replace('<a href=','titleLinkStart');
-        
         parseString = parseString.replace('</a>','titleLinkEnd');
+
         parseString = parseString.replace('<cite>',' HyperLinkStart[ '); 
-        
         parseString = parseString.replace('</cite>',']HyperLinkEnd description['); 
         
         parseString = parseString.replace('</div></li>',']EndEnddescription ');
         parseString = parseString.replace('Cached',' '); 
+
         parseString = parseString.stripHtmlTags();  
        
         // Create the instance of the list of string
@@ -112,8 +115,6 @@ global with sharing class TriggerForQueryGenerationHandler
         
         // Split from description 
         responseList = parseString.split('Enddescription');
-        
-        // responseList.remove(0);
         
         // Remove the last element which contains suggestions
         responseList.remove(responseList.size()-1);
@@ -129,27 +130,30 @@ global with sharing class TriggerForQueryGenerationHandler
                 WHERE 
                     Query_Field__c = :queryInstance
             ];
-        System.debug('queryInstance' + queryInstance);
+
         // Create the instance of the set
         Set<String> setOfTitles = new Set<String>();
         
         System.debug('queryStringInstance' + queryStringInstance);
+
         // Iterate over the response
         for(Response__c responseInstance : [
-                                              SELECT
-                                                  Title__c,
-                                                  Description__c,
-                                                  TitleLinks__c,
-                                                  Links__c,
-                                                  Search_Query__c 
-                                              FROM
-                                                  Response__c
-                                              WHERE
-                                                  Search_Query__c = : queryStringInstance[0].Id
-                                                ])
+                                                SELECT
+                                                    Title__c,
+                                                    Description__c,
+                                                    TitleLinks__c,
+                                                    Links__c,
+                                                    Search_Query__c 
+                                                FROM
+                                                    Response__c
+                                                WHERE
+                                                    Search_Query__c = : queryStringInstance[0].Id
+                                               ])
         {
+        
             // Add the response instance to the set
             setOfTitles.add(responseInstance.Title__c);
+        
         }// End of for
         
         // Create the instance of the response list
@@ -158,6 +162,7 @@ global with sharing class TriggerForQueryGenerationHandler
         // Iterate over the response list
         for(String stringInstance : responseList) 
         {
+        
             // Check if the string is not empty and blank
             if(String.isNotEmpty(stringInstance) && String.isNotBlank(stringInstance))
             {
@@ -173,10 +178,12 @@ global with sharing class TriggerForQueryGenerationHandler
                 // Check if the title link is blank or not
                 if(String.isNotBlank(titleLink) && titleLink.contains('http'))
                 {
+ 
                     // Fetch the title Link
                     titleLink = titleLink.substringAfter('http');
                     titleName = titleLink.substringAfter('">');
                     titleLink = titleLink.substringBefore('&sa');
+ 
                 }
                 
                 // Append the <a href tag
@@ -192,8 +199,10 @@ global with sharing class TriggerForQueryGenerationHandler
                 // Replace back with html tag 
                 stringInstance = stringInstance.replace('titleLinkStart','<a href=');
                 stringInstance = stringInstance.replace('titleLinkEnd','</a>');
+                
                 stringInstance = stringInstance.replace('Similar','');
                 stringInstance = stringInstance.replace(' HyperLinkStart[ ','<cite>'); 
+                
                 stringInstance = stringInstance.replace(']HyperLinkEnd description[','!!!!'); 
                 
                 // Strip html tag
@@ -205,26 +214,30 @@ global with sharing class TriggerForQueryGenerationHandler
                 // Check if the responses are already not present in the set
                 if(setOfTitles.contains(titleInstance) == false)
                 {
+
                     // Add the response instance
-                    responseListInstance.add(new Response__c(Description__c = descriptionInstance,
-                                                             TitleLinks__c = titleLink,
-                                                             Links__c = linkInstance,
-                                                             Title__c = titleInstance ,
-                                                             Search_Query__c = 
-                                                             queryStringInstance[0].Id));
+                    responseListInstance.add(new Response__c(
+                        Description__c = descriptionInstance,
+                        TitleLinks__c = titleLink,
+                        Links__c = linkInstance,
+                        Title__c = titleInstance ,
+                        Search_Query__c = queryStringInstance[0].Id
+                        )
+                    );
+                    
                 }
             }// End of if loop
                
         }// End of for loop
         try
         {
+            
             // Check if the list is not empty
             if(!responseListInstance.isEmpty())
             {
                 // insert the responselist
                 insert responseListInstance;
             }
-
        }
        catch(Exception e)
        {

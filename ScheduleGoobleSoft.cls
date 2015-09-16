@@ -1,3 +1,6 @@
+/**
+ * This is a class that will schedule the batch.
+ */
 global with sharing class ScheduleGoobleSoft implements Schedulable
 {    
     /**

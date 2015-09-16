@@ -4,11 +4,13 @@
 @isTest
 private class TestComponentHandler 
 {
+    
    /**
     * This is the test method that will check for response returned by the component 
     */
     static testMethod void testForResponseReturnedByComponent() 
     {
+        
         // Create the instance of the query
         Query__c queryInstance = new Query__c(Query_Field__c = 'Test');
         
@@ -40,11 +42,13 @@ private class TestComponentHandler
         System.assertEquals(1,checkQueryList.size());
         
         // Create the instance of the response
-        Response__c responseInstance = new Response__c(Description__c = 'Test Description',
-                                                       Search_Query__c = queryInstance.Id,
-                                                       Title__c = 'Test Title',
-                                                       Links__c = 'Test Link'
-                                                      );
+        Response__c responseInstance = new Response__c(
+            Description__c = 'Test Description',
+            Search_Query__c = queryInstance.Id,
+            Title__c = 'Test Title',
+            Links__c = 'Test Link'
+        );
+        
         // Fetch the response list
         List<Response__c> checkResponseList = 
             [
@@ -132,11 +136,13 @@ private class TestComponentHandler
         System.assertEquals(1,checkQueryList.size());
         
         // Create the instance of the response
-        Response__c responseInstance = new Response__c(Description__c = 'Test Description',
-                                                       Search_Query__c = queryInstance.Id,
-                                                       Title__c = 'Test Title',
-                                                       Links__c = 'Test Link'
-                                                      );
+        Response__c responseInstance = new Response__c(
+            Description__c = 'Test Description',
+            Search_Query__c = queryInstance.Id,
+            Title__c = 'Test Title',
+            Links__c = 'Test Link'
+        );
+        
         // Fetch the response list
         List<Response__c> checkResponseList = 
             [
@@ -188,11 +194,12 @@ private class TestComponentHandler
         System.assertEquals(0,responseList.size());
     }
     
-     /**
+   /**
     * This is the test method that will check for Bulk response returned by the component 
     */
     static testMethod void testWithBulkResponseForComponent() 
     {
+   
         // Create the instance of the query
         Query__c queryInstance = new Query__c(Query_Field__c = 'Test');
         
@@ -228,12 +235,13 @@ private class TestComponentHandler
         
         for(Integer i = 0; i < 200; i++)
         {
-           responseListInstance.add(
-                                    new Response__c(Description__c = 'Test Description',
-                                                    Search_Query__c = queryInstance.Id,
-                                                    Title__c = 'Test Title',
-                                                    Links__c = 'Test Link'
-                                                    ));
+           responseListInstance.add(new Response__c(
+               Description__c = 'Test Description',
+               Search_Query__c = queryInstance.Id,
+               Title__c = 'Test Title',
+               Links__c = 'Test Link'
+               )
+           );
         }
         // Fetch the response list
         List<Response__c> checkResponseList = 

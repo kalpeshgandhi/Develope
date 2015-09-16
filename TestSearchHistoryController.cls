@@ -10,6 +10,7 @@ private class TestSearchHistoryController
      */
      static testMethod void testResponseRecords() 
      {
+         
          // Create the instance of the query 
          Query__c queryInstance = new Query__c( Query_Field__c = 'test');
          
@@ -58,11 +59,12 @@ private class TestSearchHistoryController
          System.assertEquals(0,checkResponseList.size());
         
          // Create the instance of the response
-         Response__c responseInstance = new Response__c(Description__c = 'Test Description',
-                                                        Search_Query__c = queryInstance.Id,
-                                                        Title__c = 'Test Title',
-                                                        Links__c = 'Test Link'
-                                                       );
+         Response__c responseInstance = new Response__c(
+            Description__c = 'Test Description',
+            Search_Query__c = queryInstance.Id,
+            Title__c = 'Test Title',
+            Links__c = 'Test Link'
+         );
          
          insert responseInstance;
 
@@ -109,6 +111,7 @@ private class TestSearchHistoryController
      */
      static testMethod void testForQueryRecords() 
      {
+         
          // Create the instance of the query 
          Query__c queryInstance = new Query__c( Query_Field__c = 'test');
          
@@ -178,6 +181,7 @@ private class TestSearchHistoryController
          {
              queryList.add(new Query__c( Query_Field__c = 'test' + i));
          }
+         
          // Fetch the query 
          List<Query__c> checkQueryList = 
             [
@@ -292,10 +296,11 @@ private class TestSearchHistoryController
          { 
              responseListInstance.add( 
                 new Response__c(Description__c = 'Test Description',
-                               Search_Query__c = queryInstance.Id,
-                               Title__c = 'Test Title',
-                               Links__c = 'Test Link'
-                              ));
+                Search_Query__c = queryInstance.Id,
+                Title__c = 'Test Title',
+                Links__c = 'Test Link'
+                )
+             );
          }
          insert responseListInstance;
 
@@ -798,7 +803,6 @@ private class TestSearchHistoryController
         
         // Check the assert value
         System.assertEquals(3, pageNumber); 
-        
         
         // Start the test
         Test.startTest();

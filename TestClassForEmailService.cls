@@ -6,12 +6,14 @@
 @isTest
 private class TestClassForEmailService 
 {
+    
    /**
     * This is the test method that will check if the contact is inserted if the sender is not 
     * already present contact in the org.
     */
     static testMethod void testForContactInserted() 
     {
+        
         // Create an instance of the inbound email
         Messaging.InboundEmail email = new Messaging.InboundEmail();
         
@@ -79,6 +81,7 @@ private class TestClassForEmailService
     */
     static testMethod void testForContactNotInserted() 
     {
+        
         // Call the set mock test
         Test.setMock(HttpCalloutMock.class, new TestForGoobleMockCallOut());
         
@@ -305,8 +308,7 @@ private class TestClassForEmailService
         System.assertEquals(1,emailList.size());
     }
     
-    
-    /**
+   /**
     * This is the test method that will check if the email is not inserted if the sender has 
     * not send the query in appropriate format. 
     */
@@ -413,12 +415,14 @@ private class TestClassForEmailService
              + ' (Your Query) \n \n'+ 'Thank you for your request' 
              + 'We are happy to serve you.',result.message);
     }
+    
    /**
     * This is the test method that will check if the query is inserted if the sender has send the 
     * query in appropriate format. 
     */
     static testMethod void testForQueryInserted() 
     {
+        
         // Create an instance of the inbound email
         Messaging.InboundEmail email = new Messaging.InboundEmail();
         
@@ -529,6 +533,7 @@ private class TestClassForEmailService
     */
     static testMethod void testForQueryForContactInserted() 
     {
+        
         // Create an instance of the inbound email
         Messaging.InboundEmail email = new Messaging.InboundEmail();
         
@@ -637,6 +642,7 @@ private class TestClassForEmailService
     */
     static testMethod void testForQueryWithResponse() 
     {
+        
         // Create an instance of the inbound email
         Messaging.InboundEmail email = new Messaging.InboundEmail();
         
@@ -760,6 +766,7 @@ private class TestClassForEmailService
     */
     static testMethod void testForCornerCaseQueryWithResponse() 
     {
+        
         // Create an instance of the inbound email
         Messaging.InboundEmail email = new Messaging.InboundEmail();
         
@@ -884,6 +891,7 @@ private class TestClassForEmailService
     */
     static testMethod void testForNoResultsFoundForQuery() 
     {
+        
         // Create an instance of the inbound email
         Messaging.InboundEmail email = new Messaging.InboundEmail();
         
@@ -1002,15 +1010,13 @@ private class TestClassForEmailService
         System.assertEquals(0,responseList.size());
     }
     
-    
-   
-    
    /**
     * This is the test method that will check if the responses is generated if the sender 
     * has send the query inappropriate format. 
     */
     static testMethod void testForQueryWithNoResponseGenerated() 
     {
+
         // Create an instance of the inbound email
         Messaging.InboundEmail email = new Messaging.InboundEmail();
         
@@ -1124,7 +1130,6 @@ private class TestClassForEmailService
         // Check if the responses are generated or not 
         System.assertEquals(0,responseList.size());
     }
-    
     
    /**
     * This is the test method that will check if the responses is generated if the sender 
@@ -1252,6 +1257,7 @@ private class TestClassForEmailService
     */
     static testMethod void testForQueryForResponseAppended() 
     {
+
          // Create the instance of the query
         Query__c queryInstance = new Query__c(Query_Field__c = 'Test');
         
@@ -1283,11 +1289,12 @@ private class TestClassForEmailService
         System.assertEquals(1,checkQueryList.size());
         
         // Create the instance of the response
-        Response__c responseInstance = new Response__c(Description__c = 'Test Description',
-                                                       Search_Query__c = queryInstance.Id,
-                                                       Title__c = 'Speedtest.net by Ookla - The Global Broadband Speed Test',
-                                                       Links__c = 'Test Link'
-                                                      );
+        Response__c responseInstance = new Response__c(
+            Description__c = 'Test Description',
+            Search_Query__c = queryInstance.Id,
+            Title__c = 'Speedtest.net by Ookla - The Global Broadband Speed Test',
+            Links__c = 'Test Link'
+        );
         
         // Fetch the response list
         List<Response__c> checkResponseList = 

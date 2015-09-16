@@ -3,6 +3,7 @@
  */
 public with sharing class SearchHistoryController 
 {
+    
     // Declare the list of the query.
     public List<Query__c> queryList{get; set;}
     
@@ -23,6 +24,7 @@ public with sharing class SearchHistoryController
     */
     public SearchHistoryController()
     {
+        
         // Initialize the response list
         responseList = new List<Response__c>();
         
@@ -41,7 +43,8 @@ public with sharing class SearchHistoryController
     */
     public List<Response__c> getresponseResults()
     {
-        // Assign the query /id 
+        
+        // Assign the query id 
         selectedQueryId = ApexPages.currentPage().getParameters().get('query');
         
         // Fetch the response
@@ -70,6 +73,7 @@ public with sharing class SearchHistoryController
     */
     public List<Query__c> getsearchResults()
     {
+        
         // Get the records
         queryList = queryRecords.getRecords();
         
@@ -82,6 +86,7 @@ public with sharing class SearchHistoryController
     */
     public void showResultSection()
     {
+        
          // Assign the boolean value as true
          resultSection = true;
     }
@@ -174,18 +179,17 @@ public with sharing class SearchHistoryController
                 // Fetch the query
                 queryRecords = 
                 new ApexPages.StandardSetController(
-                                                    Database.getQueryLocator
-                                                    (
-                                                        [ 
-                                                            SELECT
-                                                                Id,
-                                                                Query_Field__c
-                                                            FROM
-                                                                Query__c
-                                                            LIMIT 200
-                                                        ]
-                                                    )
-                                                    );
+                    Database.getQueryLocator(
+                        [ 
+                            SELECT
+                                Id,
+                                Query_Field__c
+                            FROM
+                                Query__c
+                            LIMIT 200
+                        ]
+                    )
+                );
                 // sets the number of records in each page set
                 queryRecords.setPageSize(5);
             }

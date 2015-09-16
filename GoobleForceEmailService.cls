@@ -1,15 +1,19 @@
-/*
+/**
  * This is the class that will handle the inbound emails. The email is send back to the sender if 
  * any exception is caused or if he specifies the query in wrong format. 
  */
 global with sharing class GoobleForceEmailService implements Messaging.InboundEmailHandler 
 {
+    
    /**
     * This is a method that implements the method having parameters as email and envelope
     */
-    global Messaging.InboundEmailResult handleInboundEmail(Messaging.InboundEmail email,
-    Messaging.InboundEnvelope envelope) 
+    global Messaging.InboundEmailResult handleInboundEmail(
+        Messaging.InboundEmail email,
+        Messaging.InboundEnvelope envelope
+    ) 
     {
+        
         // Create the instance of the contact.
         Contact contactInstance;
        
@@ -27,21 +31,23 @@ global with sharing class GoobleForceEmailService implements Messaging.InboundEm
         
         try
         {
+            
             // Fetch the contact having email id same as the senders email id
             contactList =
                 [
-                        SELECT 
-                            Id,
-                            Email,
-                            LastName
-                        FROM 
-                            Contact 
-                        WHERE Email = :email.fromAddress
+                    SELECT 
+                        Id,
+                        Email,
+                        LastName
+                    FROM 
+                        Contact 
+                    WHERE Email = :email.fromAddress
                 ];
             
             // Check if the contact is already present in the org or not
             if (contactList.size() == 0) 
             {
+                
                 // Create the instance of the contact
                 contactInstance = new Contact();
                 
@@ -56,9 +62,9 @@ global with sharing class GoobleForceEmailService implements Messaging.InboundEm
             } 
             else
             {
+                
                 // Create the instance of the contact
                 contactInstance = contactList[0];
-                
             }
             
             // Create the instance of the email
@@ -70,7 +76,6 @@ global with sharing class GoobleForceEmailService implements Messaging.InboundEm
             // Assign the contact id
             EmailInstance.Contact_Details__c = contactInstance.Id;
             
-            
             // Assign the body
             EmailInstance.Email_Body__c = email.plainTextBody;
             
@@ -78,11 +83,11 @@ global with sharing class GoobleForceEmailService implements Messaging.InboundEm
             EmailInstance.Subject__c = email.subject;
             
             // Check if the body is empty or not
-            if(
-                EmailInstance.Email_Body__c.contains('(') && 
-                EmailInstance.Email_Body__c.contains(')') 
-               )
+            if(EmailInstance.Email_Body__c.contains('(') 
+                    && EmailInstance.Email_Body__c.contains(')') 
+            )
             {
+                
                 // Create the instance of the query
                 Query__c queryInstance = new Query__c();
                
@@ -94,11 +99,13 @@ global with sharing class GoobleForceEmailService implements Messaging.InboundEm
                 
                 // Assign the body
                  bodyInstance= bodyInstance.substringAfter('(');
+                
                 queryInstance.Query_Field__c = bodyInstance.replaceAll('\\s+', ' ');
+                
                 // Check if the body contains (,)
                 if(queryInstance.Query_Field__c.contains('(') || 
-                   queryInstance.Query_Field__c.contains(')')
-                  )
+                        queryInstance.Query_Field__c.contains(')')
+                )
                 { 
                     // Replace the ( with space
                     queryInstance.Query_Field__c = queryInstance.Query_Field__c.replace('(',' ');
@@ -108,14 +115,19 @@ global with sharing class GoobleForceEmailService implements Messaging.InboundEm
                     
                     //Trim extra spaces
                     queryInstance.Query_Field__c = queryInstance.Query_Field__c.trim();
-                }
                 
+                }
+                    
+                //Trim extra spaces
+                queryInstance.Query_Field__c = queryInstance.Query_Field__c.trim();
+                                
                 // Check if the queryString is empty or not
                 if((String.isNotEmpty(queryInstance.Query_Field__c)) && 
-                   (String.isNotBlank(queryInstance.Query_Field__c)) &&
-                    queryInstance.Query_Field__c.length() <= 255
-                  )
+                        (String.isNotBlank(queryInstance.Query_Field__c)) &&
+                            queryInstance.Query_Field__c.length() <= 255
+                )
                 {
+                    
                     // Fetch the query 
                     List<Query__c> queryList = 
                         [
@@ -130,6 +142,7 @@ global with sharing class GoobleForceEmailService implements Messaging.InboundEm
                     // Check if the size of the list is zero or not
                     if(queryList.size() == 0)
                     {
+                        
                         // Insert the query
                         insert queryInstance;
                         
@@ -138,6 +151,7 @@ global with sharing class GoobleForceEmailService implements Messaging.InboundEm
                     }
                     else
                     {
+                        
                         // Assign the query details
                         queryForContactInstance.QueryDetails__c = queryList[0].id;
                     }
@@ -151,28 +165,10 @@ global with sharing class GoobleForceEmailService implements Messaging.InboundEm
                     // Insert the email instance
                     insert EmailInstance;
                     
-  /*                  // Fetch the query 
-                    List<Response__c> responseList = 
-                        [
-                            SELECT
-                                Id
-                            FROM
-                                Response__c
-                            WHERE
-                                Search_Query__c = :queryForContactInstance.QueryDetails__c
-                        ]; 
-                    System.debug('queryForContactInstance.QueryDetails__c'
-                        +queryForContactInstance.QueryDetails__c);
-                    System.debug('responseList'+ responseList);
-                    if(responseList.size() == 0)
-                    {
-                        result.success = false;
-                        result.message = 'Sorry we cant find any results for your Query ';
-                    
-                    }*/
                 }
                 else
                 {
+                    
                     // Set the result as false
                     result.success = false;
                     
@@ -196,8 +192,8 @@ global with sharing class GoobleForceEmailService implements Messaging.InboundEm
             // Return the result
             return result;
        }
-        catch(Exception e)
-        {
+       catch(Exception e)
+       {
             // Set the result status as false
             result.success = false;
             
@@ -205,7 +201,7 @@ global with sharing class GoobleForceEmailService implements Messaging.InboundEm
             result.message = 
                 'Please specify the query in proper format. \nFor Example : '
                + ' (Your Query) \n \n'+ 'Thank you for your request' 
-               + '\nWe are happy to serve you.';
+               + ' \nWe are happy to serve you.';
             
             // Return the result
             return result;

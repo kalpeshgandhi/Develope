@@ -16,6 +16,7 @@ public with sharing class BatchResponsesForQuery implements Database.Batchable<s
          query='SELECT ID,Contact_Details__c,QueryDetails__c FROM' 
                +' QueryForContact__c WHERE CreatedDate = today ';
     }
+    
    /**
     * This is the start method that will return the results after executing the query
     */
@@ -24,11 +25,13 @@ public with sharing class BatchResponsesForQuery implements Database.Batchable<s
         // Return the results after executing the query
         return Database.getQueryLocator(query);
     }
+    
    /**
     * This is the execute method that will send the mails
     */
      public void execute(Database.BatchableContext BC, List<QueryForContact__c> queryListInstance)
      {
+         
          // Fetch the emailtemplate with email response
          EmailTemplate emailTemplateId = 
             [
@@ -43,6 +46,7 @@ public with sharing class BatchResponsesForQuery implements Database.Batchable<s
             
          // Create an Instance of the Messaging.SingleEmailMessage 
          List<Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
+         
          // Iterate over the query list
          for(QueryForContact__c queryInstance : queryListInstance)
          {
@@ -65,8 +69,10 @@ public with sharing class BatchResponsesForQuery implements Database.Batchable<s
              // Update the response send field as true
              queryInstance.ResponseSend__c = true;
          }
+         
          try
          {
+             
             // Send all the emails
             Messaging.sendEmail(mails);
             
@@ -76,13 +82,14 @@ public with sharing class BatchResponsesForQuery implements Database.Batchable<s
          }
          catch(Exception exceptionInstance)
          {
+             
              // Print the exception
              System.debug(exceptionInstance.getmessage());
          }
      }
+     
      public void finish(Database.BatchableContext BC)
      {
          System.debug('Mail sent Successfully');
      }
-
 }
