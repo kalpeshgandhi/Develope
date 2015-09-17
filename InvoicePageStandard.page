@@ -1,86 +1,103 @@
 <apex:page StandardController="Invoice_Statement__c" renderas="PDF"
-    showHeader="false" sidebar="false" standardStylesheets="false"
-    applyBodyTag="false" applyHtmlTag="false">
-    <html>
+	showHeader="false" sidebar="false" standardStylesheets="false"
+	applyBodyTag="false" applyHtmlTag="false">
+	<html>
 <head>
-<apex:stylesheet value="{!URLFOR($Resource.StyleSheet, 'Style/Stylesheet.CSS')}"/>
+<apex:stylesheet
+	value="{!URLFOR($Resource.StyleSheet, 'Style/Stylesheet.CSS')}" />
 </head>
 <body>
-    <div style="margin-top: 80px;">
-        <table style="float: left;">
-            <tr>
-                <td width="100%"><CompanyDetails>ABC
-                    CONTAINERS</CompanyDetails> <br /> <CompanyDetails>Street
-                    No.10,MCAMRoad</CompanyDetails> <br /> <CompanyDetails>Pune,Maharashtra,411033</CompanyDetails>
-                    <br /> <CompanyDetails>022-2347430</CompanyDetails></td>
-                <td>
-                    <h1>INVOICE</h1>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <br>
-    <br />
-    <br />
-    <br />
-    <div style="margin-top: 50px;">
-        <table border="1" style="float: right; width: 40%">
-            <tr>
-                <th>INVOICE</th>
-                <th>DATE</th>
-            </tr>
+	<div style="margin-top: 80px;">
+		<table style="float: left;">
+			<tr>
+				<td width="100%">
+				    <CompanyDetails>ABC CONTAINERS</CompanyDetails>
+				    <br /> 
+				    <CompanyDetails>Street No.10,MCAMRoad</CompanyDetails> 
+				    <br /> 
+				    <CompanyDetails>Pune,Maharashtra,411033</CompanyDetails>
+				    <br /> 
+				    <CompanyDetails>022-2347430</CompanyDetails>
+				</td>
+				<td>
+					<h1>INVOICE</h1>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<br>
+	<br />
+	<br />
+	<br />
+	<div style="margin-top: 50px;">
+		<table border="1" style="float: right; width: 40%">
+			<tr>
+				<th>INVOICE</th>
+				<th>DATE</th>
+			</tr>
+			<tr>
+				<td>{!Invoice_Statement__c.Name}</td>
+				<td>
+				    <apex:outputText value="{0, date, MMMM d','  yyyy}">
+						<apex:param value="{!Invoice_Statement__c.Bill_Date__c}" />
+					</apex:outputText>
+				</td>
+			</tr>
+		</table>
+	</div>
+	</br>
+	<div style="margin-top: 80px;">
+		<table style="float: left; width: 30%">
+			<tr>
+				<th>Bill To</th>
+			</tr>
 
-            <tr>
-                <td>{!Invoice_Statement__c.Name}</td>
-                <td><apex:outputText value="{0, date, MMMM d','  yyyy}">
-                        <apex:param value="{!Invoice_Statement__c.Bill_Date__c}" />
-                    </apex:outputText></td>
-            </tr>
-
-        </table>
-    </div>
-    </br>
-
-
-    <div style="margin-top: 80px;">
-        <table style="float: left; width: 30%">
-            <tr>
-                <th>Bill To</th>
-            </tr>
-
-            <tr>
-                <td>{!Invoice_Statement__c.CompanyName__c} <br>{!Invoice_Statement__c.Companys_Address__c}</br>
-                    <br>{!Invoice_Statement__c.Companys_City__c}</br> <br>{!Invoice_Statement__c.State__c}</br>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-
-    <div style="margin-top: 200px;">
-        <table border="1" height="100" style="float: center; width: 100%">
-            <tr>
-                <th>Description</th>
-                <th>Amount</th>
-            </tr>
-            <apex:repeat value="{!Invoice_Statement__c.Line_Items__r}"
-                var="linetraverser">
-                <tr>
-                    <td style="border: 1">{!linetraverser.Name}</td>
-                    <td style="border: 1">{!linetraverser.Total_Amount__c}</td>
-                </tr>
-            </apex:repeat>
-            <tr>
-                <td>Thank You for the business</td>
-                <td>Grand Total :{!Invoice_Statement__c.Grand_Total__c}</td>
-            </tr>
-        </table>
-    </div>
-    <div style="text-align: center; font-size: 10px; margin-top: 400px;">
-        IF You have Any Questions about this invoice,Please Contact ABC
-        CONTAINERS Street No.10,MCAMRoad<br /> Pune,Maharashtra,411033 <br />
-        022-2347430
-    </div>
+			<tr>
+				<td>
+				    {!Invoice_Statement__c.CompanyName__c} 
+				    <br>
+				        {!Invoice_Statement__c.Companys_Address__c}
+				    </br>
+					<br>
+					    {!Invoice_Statement__c.Companys_City__c}
+					</br> 
+					<br>
+					    {!Invoice_Statement__c.State__c}
+					</br>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="margin-top: 200px;">
+		<table border="1" height="100" style="float: center; width: 100%">
+			<tr>
+				<th>Description</th>
+				<th>Amount</th>
+			</tr>
+			<apex:repeat value="{!Invoice_Statement__c.Line_Items__r}" var="linetraverser">
+				<tr>
+					<td style="border: 1">
+					    {!linetraverser.Name}
+					</td>
+					<td style="border: 1">
+					    {!linetraverser.Total_Amount__c}
+					</td>
+				</tr>
+			</apex:repeat>
+			<tr>
+				<td>Thank You for the business</td>
+				<td>Grand Total :{!Invoice_Statement__c.Grand_Total__c}</td>
+			</tr>
+		</table>
+	</div>
+	<div style="text-align: center; font-size: 10px; margin-top: 400px;">
+		IF You have Any Questions about this invoice,Please Contact ABC
+		CONTAINERS Street No.10,MCAMRoad
+		<br />
+		Pune,Maharashtra,411033 
+		<br />
+		022-2347430
+	</div>
 </body>
-    </html>
+	</html>
 </apex:page>
