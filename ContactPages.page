@@ -1,0 +1,56 @@
+<apex:page Controller="AccountAndContactController">
+	<apex:includeScript value="{!URLFOR($Resource.ScriptDeleteContact,'/Script/DeleteJavaScript.js')}" />
+	<apex:form >
+		<apex:pageBlock title="Contact Details for {!accountName[0].Name } "
+			id="page">
+			<br />
+			<apex:repeat value="{!listAToZInstance}" var="traverser">
+				<apex:commandLink value="{!traverser}"
+					rerender="page">
+					<apex:param name="contactList" value="{!traverser}"
+						assignTo="{!alphabetName}" />
+                                    |&nbsp;
+                </apex:commandLink>
+			</apex:repeat>
+			<br />
+			<apex:pageMessages id="message"/>
+			<apex:pageBlockSection id="contactpage"
+				rendered="{!renderContactDispalyPage}">
+				<apex:pageBlockTable value="{!wrapperList}" var="war" id="pageTable">
+					<apex:column value="{!war.contactInstance.Name}" />
+					<apex:column value="{!war.contactInstance.Id}" />
+
+					<apex:column >
+						<apex:inputcheckBox value="{!war.checkBoxInstance}" />
+						<apex:actionSupport event="onclick"
+							action="{!selectMultipleContact}" rerender="pageTable,button" />
+					</apex:column>
+
+					<apex:column >
+						<apex:commandlink value="Delete"
+							onClick="deleteOnClick('{!war.contactInstance.Id}')"
+							rerender="contactTable,blockpage" oncomplete="location.reload();" />
+					</apex:column>
+				</apex:pageBlockTable>
+			</apex:pageBlockSection>
+			<apex:pageBlockSection id="button" rendered="{!renderContactDispalyPage}">
+				<apex:commandButton value="Delete Multiple Contacts"
+					action="{!deleteMultipleContact}" rendered="{!deleteContact}" />
+				<apex:commandButton value="Add" action="{!rerenderAddColumn}"
+					rerender="page">
+				</apex:commandButton>
+				<apex:commandButton value="Return" action="{!returnToAccount}" />
+			</apex:pageBlockSection>
+			<apex:facet name="footer">
+				<c:CountOfListComponent countSizeOfList="{!countSizeOfList}" />
+			</apex:facet>
+			<apex:pageBlockSection title="Add Contact Information"
+				rendered="{!renderAddPage}" id="pageadd">
+				<apex:inputText value="{!contactLastName}" label="LastName" required = "true" />
+                <apex:inputText value="{!contactEmail}" label="Email" />
+                <apex:outputText value="{!accountName[0].Name}" label="AccountName"/>
+				<apex:commandButton value="Save" action="{!addContact}" rerender="page"/>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

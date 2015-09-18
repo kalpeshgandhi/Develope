@@ -1,0 +1,6 @@
+<apex:component >
+<apex:attribute name="countSizeOfList" description="This is a Component that will return the total 
+no of records" type="Integer" required="true"/>
+<apex:outputText value="Total Count : " style="font-weight:bold;font-size:15px "/>
+<apex:outputText value="{!countSizeOfList}" style="font-weight:bold;font-size:15px"/>
+</apex:component>

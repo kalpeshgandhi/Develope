@@ -1,0 +1,42 @@
+<apex:page Controller="AccountAndContactController">
+	<apex:includeScript value="{!URLFOR($Resource.AllScript, '/Script/EnterScript.js')}" />
+	<apex:form >
+		<img src="{!$Resource.ImageUsedAsHeader}" width="150" height="85" />
+		<apex:pageBlock title="Account Details" id="page">
+			<apex:inputText Label="Search" id="searchinput"
+				onkeypress="return enter_keypress(event)"
+				value="{!searchStringAccount}" />
+
+			<apex:actionFunction name="searchResultAccount"
+				action="{!searchResultAccount}" 
+				rerender="message,page,searchinput,accountlistpageblocktable"/>
+			<apex:commandButton Value="Search" action="{!searchResultAccount}"
+				id="cmdbuton" rerender="message,page,searchinput,accountlistpageblocktable" />
+			<apex:pageMessages id="message">
+			</apex:pageMessages>
+			<apex:commandlink id="clear" Value="Clear"
+				action="{!clearSearchResult}"
+				rerender="accountlistpageblocktable,searchinput,page" />
+			<br />
+			<apex:pageBlockTable value="{!accountList}"
+				id="accountlistpageblocktable" var="item">
+				<apex:column headerValue="Account Name">
+					<apex:outputLink value="/{!item.id}"> {!item.name}</apex:outputLink>
+				</apex:column>
+				<apex:column value="{!item.Email_ID__c}" />
+				<apex:column value="{!item.Phone}" />
+				<apex:column value="{!item.Website}" />
+				<apex:column headerValue="Manage Contacts">
+					<apex:commandButton Value="Manage Contacts" action="{!gotoContact}"
+						rerender="All">
+						<apex:param name="accountid" value="{!item.id}"
+							assignTo="{!idAccount}" />
+					</apex:commandButton>
+				</apex:column>
+				<apex:facet name="footer">
+					<c:CountOfListComponent countSizeOfList="{!countSizeOfList}" />
+				</apex:facet>
+			</apex:pageBlockTable>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>
