@@ -194,6 +194,142 @@ private class TestforVisualForcePages
         System.assertEquals(1,pageMessages.size());
     }
 
+   /**
+    * This is a method that will test the functionality to give error if the search 
+    * string to search account is entered as numeric from the account list.
+    */
+    static testMethod void searchAccountErrorForNumericValue()
+    {
+   
+        // Assign the list returned from data factory to a new instance of the account list 
+        List<Account> accountInstanceList = TestDataFactory.accountTestData(10);
+
+        // Check for the size of account list matches expected values
+        System.assertEquals(10,accountInstanceList.size());
+
+        // Insert the account List
+        insert accountInstanceList;
+
+        // Fetch the record
+        List<Account> accountListInstance = 
+            [
+                SELECT 
+                    Id,
+                    Name
+                FROM
+                    Account
+                WHERE
+                    Name LIKE 'TestAccount%'
+            ];
+
+        // Check if the record is inserted or not.
+        System.assertEquals(10, accountListInstance.size());
+
+        // Create a page reference for the account page.
+        PageReference accountPageInstance = Page.AccountPage;
+
+        // Set the current page reference to the account page 
+        Test.setCurrentPage(accountPageInstance);
+
+        // Create an instance of the controller.
+        AccountAndContactController controllerInstance = new AccountAndContactController();
+
+        // Print the value of all the account list.
+        controllerInstance.getAccountList();
+
+        // Check for the total account size.
+        System.assertEquals(10,controllerInstance.countSizeOfList);
+
+        // Start the test
+        Test.startTest();
+
+        // If the search string length is less then 2 then generate the message page error.
+        controllerInstance.searchStringAccount = '111';
+
+        // Search the related account.
+        controllerInstance.searchResultAccount();
+
+        // Print the value of all the account list.
+        controllerInstance.getAccountList();
+
+        // Stop the test
+        Test.stopTest();
+
+        // Create an instance of the apex page messages.
+        List<Apexpages.Message> pageMessages = ApexPages.getMessages();
+
+        // Checks the no of messages that are generated from the page.
+        System.assertEquals(1,pageMessages.size());
+    }
+    
+   /**
+    * This is a method that will test the functionality to give error if the search 
+    * string to search account is entered as special character from the account list.
+    */
+    static testMethod void searchAccountErrorForSpecialCharacter()
+    {
+   
+        // Assign the list returned from data factory to a new instance of the account list 
+        List<Account> accountInstanceList = TestDataFactory.accountTestData(10);
+
+        // Check for the size of account list matches expected values
+        System.assertEquals(10,accountInstanceList.size());
+
+        // Insert the account List
+        insert accountInstanceList;
+
+        // Fetch the record
+        List<Account> accountListInstance = 
+            [
+                SELECT 
+                    Id,
+                    Name
+                FROM
+                    Account
+                WHERE
+                    Name LIKE 'TestAccount%'
+            ];
+
+        // Check if the record is inserted or not.
+        System.assertEquals(10, accountListInstance.size());
+
+        // Create a page reference for the account page.
+        PageReference accountPageInstance = Page.AccountPage;
+
+        // Set the current page reference to the account page 
+        Test.setCurrentPage(accountPageInstance);
+
+        // Create an instance of the controller.
+        AccountAndContactController controllerInstance = new AccountAndContactController();
+
+        // Print the value of all the account list.
+        controllerInstance.getAccountList();
+
+        // Check for the total account size.
+        System.assertEquals(10,controllerInstance.countSizeOfList);
+
+        // Start the test
+        Test.startTest();
+
+        // If the search string length is less then 2 then generate the message page error.
+        controllerInstance.searchStringAccount = '###';
+
+        // Search the related account.
+        controllerInstance.searchResultAccount();
+
+        // Print the value of all the account list.
+        controllerInstance.getAccountList();
+
+        // Stop the test
+        Test.stopTest();
+
+        // Create an instance of the apex page messages.
+        List<Apexpages.Message> pageMessages = ApexPages.getMessages();
+
+        // Checks the no of messages that are generated from the page.
+        System.assertEquals(1,pageMessages.size());
+    }
+    
     /**
      * This is a method that will test the functionality to search contact associated to the 
      * account list.

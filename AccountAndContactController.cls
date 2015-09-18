@@ -407,19 +407,47 @@ public with sharing class AccountAndContactController
         // Check the length of the search string is less then 3 letters.
         if(searchStringAccount.normalizeSpace().length() < 3)
         {
+         
+           
+                // Add error message on the page.
+                ApexPages.addmessage(
+                    new ApexPages.message(
+                        ApexPages.severity.info,
+                        'Please enter at least 3 characters to perform search'
+                    )
+                );
             
+                searchStringAccount = '';
+        }
+        else if(searchStringAccount.normalizeSpace().isAlphanumericSpace())
+        {
+            if(searchStringAccount.normalizeSpace().isNumeric())
+            {
+                // Add error message on the page.
+                ApexPages.addmessage(
+                    new ApexPages.message(
+                        ApexPages.severity.info,
+                        'Please specify the account name to search.Numbers are not allowed.'
+                    )
+                );
+            
+                searchStringAccount = '';
+            }
+        }
+        else
+        {
             // Add error message on the page.
             ApexPages.addmessage(
                 new ApexPages.message(
                     ApexPages.severity.info,
-                    'Please enter at least 3 characters to perform search'
+                    'Please specify the account name to search.'
+                    + 'Special Characters are not allowed.'
                 )
             );
             
             searchStringAccount = '';
         }
     }
-    
    /**
     * This is a method that clears the search result.
     */
