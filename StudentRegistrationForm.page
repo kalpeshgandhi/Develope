@@ -1,0 +1,30 @@
+<apex:page standardController="Student__c"
+	extensions="ChangeLanguageExtesion"
+	language="{!selectedLanguageOption}" id="PageStudent" >
+	<apex:form >
+		<apex:pageBlock id="pageblockStudent" >
+			<apex:selectList value="{!selectedLanguageOption}" size="1"
+				multiselect="false">
+				<apex:pageMessages id="messgae">
+				</apex:pageMessages>
+				<apex:selectOptions value="{!languageList}" />
+				<apex:actionsupport event="onchange" rerender="pageStudent,pageblockStudent" />
+			</apex:selectList>
+			<apex:pageBlockSection title="Student Registration Form" columns="1" >
+				<apex:inputField value="{!Student__c.Name}" required="true" />
+				<apex:inputField value="{!Student__c.RollNo__c}" />
+				<apex:inputField value="{!Student__c.Gender__c}" />
+				<apex:inputField value="{!Student__c.Course__c}" />
+				<apex:inputField value="{!Student__c.H_S_C__c}" />
+				<apex:inputField value="{!Student__c.S_S_C__c}" />
+				<apex:inputField value="{!Student__c.Country__c}" />
+				<apex:inputField value="{!Student__c.State__c}" />
+				<apex:inputField value="{!Student__c.City__c}" />
+				<apex:commandButton action="{!Save}" value="Submit"
+					rerender="messgae,pageblockStudent" >
+				</apex:commandButton>
+			    
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

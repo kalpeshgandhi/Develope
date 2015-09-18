@@ -1,0 +1,24 @@
+<apex:page Controller="SelectCityAndCountryPickListDependancy">
+    <apex:form id="formid">
+        <apex:pageBlock id="pageblock">
+            <apex:pageblocksection >
+                <apex:selectList value="{!selectedOption}" size="1"
+                    multiselect="false">
+                    <apex:selectOptions value="{!countryList}" />
+                    <apex:actionSupport event="onchange" 
+                        reRender="pageblock,formid,citylist" />
+
+                </apex:selectList>
+               <!-- <apex:selectList value="{!selectedcityOption }" size="1">
+
+                    <apex:selectOptions value="{!cityList}" id="selectedCity" />
+                </apex:selectList>-->
+                
+                 <apex:selectList value="{!selectedcityOption }" size="1">
+
+                    <apex:selectOptions value="{!selectedCityList}" id="citylist" />
+                </apex:selectList>
+            </apex:pageblocksection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
