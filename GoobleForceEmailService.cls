@@ -192,7 +192,7 @@ global with sharing class GoobleForceEmailService implements Messaging.InboundEm
             // Return the result
             return result;
        }
-       catch(Exception e)
+       catch(Exception exceptionInstance)
        {
             // Set the result status as false
             result.success = false;
