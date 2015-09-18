@@ -239,7 +239,7 @@ global with sharing class TriggerForQueryGenerationHandler
                 insert responseListInstance;
             }
        }
-       catch(Exception e)
+       catch(Exception exceptionInstance)
        {
            System.debug('Error'+e);
        }
