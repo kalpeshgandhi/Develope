@@ -23,7 +23,7 @@ public with sharing class BatchResponsesForQuery implements Database.Batchable<s
            +'FROM ' 
            +'   QueryForContact__c '
            +'WHERE '
-           +'CreatedDate = today ';
+           +'   CreatedDate = today ';
     }
     
    /**
