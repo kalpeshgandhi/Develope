@@ -4,6 +4,7 @@
 public with sharing class BatchResponsesForQuery implements Database.Batchable<sObject>
 ,Database.Stateful
 {
+    
     // Create the instance of the string
     public String query;
        
@@ -12,9 +13,17 @@ public with sharing class BatchResponsesForQuery implements Database.Batchable<s
     */
     public BatchResponsesForQuery()
     {
+        
          // Fetch all the records created today
-         query='SELECT ID,Contact_Details__c,QueryDetails__c FROM' 
-               +' QueryForContact__c WHERE CreatedDate = today ';
+         query = 
+            'SELECT '
+           +'   ID,'
+           +'   Contact_Details__c,'
+           +'   QueryDetails__c '
+           +'FROM ' 
+           +'   QueryForContact__c '
+           +'WHERE '
+           +'CreatedDate = today ';
     }
     
    /**
