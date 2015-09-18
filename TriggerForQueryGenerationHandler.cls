@@ -241,7 +241,7 @@ global with sharing class TriggerForQueryGenerationHandler
        }
        catch(Exception exceptionInstance)
        {
-           System.debug('Error'+e);
+           System.debug('Error' + exceptionInstance);
        }
     }
 }
