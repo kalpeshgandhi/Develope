@@ -1,41 +1,72 @@
+/**
+ * This is a class that will change the labels of the form as per the language selected.
+ */
 public with sharing class ChangeLanguageExtesion 
 {
-    // This is a Private Variable that Creats a Instance of the Student.
-    private Student__c StudentInstance{get;set;}
-    // This is a Public Variable that Saves the Selected Language.
+    
+    // This is a private variable that creats a instance of the student.
+    private Student__c studentInstance{get;set;}
+    
+    // This is a public variable that saves the selected language.
     public String selectedLanguageOption{get;set;}
-    // This is a List that Adds the Language to a Picklist.
+    
+    // This is a list that adds the language to a picklist.
     public List<SelectOption> languageList;
    
-    // This is a Constructer that creates a instance of the Student.
+    // This is a constructer that creates a instance of the student.
     public ChangeLanguageExtesion(ApexPages.StandardController StandardControllerExtension) 
     {
-        this.StudentInstance = (Student__c)StandardControllerExtension.getRecord();
+        
+        this.studentInstance = (Student__c)StandardControllerExtension.getRecord();
     }
-    /*
-    * This is a getter for a list that will add elements to the Picklist.
+    
+   /**
+    * This is a getter for a list that will add elements to the picklist.
     */     
     public List<SelectOption> getlanguageList()
     {
-                  // Intantiate the List of Select Options.
-                  List<SelectOption> listLanguageInstance = new List<SelectOption>();
-                  // Adds the languages to the List.
-                  listLanguageInstance.add(new SelectOption('en_US','English'));
-                  listLanguageInstance.add(new SelectOption('fr','French'));
-                  listLanguageInstance.add(new SelectOption('es','Spanish'));
-                  // Returns the list
-                  return listLanguageInstance;
+        // Intantiate the list of select options.
+        List<SelectOption> listLanguageInstance = new List<SelectOption>();
+
+        // Adds the languages to the list.
+        for (Language__c languageInstance : Language__c.getAll().Values()) 
+        {
+            listLanguageInstance.add(new SelectOption(
+                languageInstance.Code__c, languageInstance.Name)
+            );
+        }
+        
+        // Sort the list
+        listLanguageInstance.sort();
+        
+        // Return the list
+        return listLanguageInstance;
     }
     
-    /*
-     * This method is used to Override the Save Method and to pop up with the message.
-     */
+   /**
+    * This method is used to override the save method and to pop up with the message.
+    */
     public PageReference Save()
     {
-             // Insert the Student Instance
-             insert StudentInstance;
-             // Add a message  that  will show that the Record is been Saved.
-             ApexPages.addmessage(new ApexPages.message(ApexPages.severity.info, System.Label.MessageErrorLabel));
-             return Null;
+        try
+        {
+            
+            // Insert the student instance
+            insert studentInstance;
+        }
+        catch(Exception e)
+        {
+            
+            System.debug(e);
+        }
+        
+        // Add a message  that  will show that the record is been saved.
+        ApexPages.addmessage(new ApexPages.message(
+            ApexPages.severity.info, System.Label.MessageErrorLabel)
+        );
+        
+        studentInstance.clear();
+        
+        return null;
     }
 }
