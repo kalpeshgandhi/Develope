@@ -1,0 +1,59 @@
+<apex:page controller="SearchHistoryController" tabStyle="Account">
+	<apex:form>
+		<p align="center">
+			<font size="6">GOOBLEFORCE</font>
+		</p>
+		<apex:actionStatus id="loading" layout="inline">
+			<apex:facet name="start">
+				<center>
+					<img src="{!$Resource.LoadingStatus}" align="center" />
+				</center>
+			</apex:facet>
+		</apex:actionStatus>
+		<apex:pageBlock id="pageblock" Title="Search History">
+			<apex:pageblockSection id="searchresultblocksection"
+				rendered="{!searchSection}" title="QueryHistory" columns="1">
+				<apex:pageBlockTable value="{!searchResults}"
+					var="searchresultinstance">
+					<apex:column>
+						<apex:CommandLink value="{!searchresultinstance.Query_Field__c}"
+							action="{!showResultSection}">
+							<apex:actionsupport event="onclick" status="loading"
+								rerender="responseblocksection" />
+							<apex:param name="query" value="{!searchresultinstance.Id}" />
+						</apex:CommandLink>
+					</apex:column>
+					
+					<apex:facet name="footer">
+						<apex:panelGrid columns="4">
+							<apex:commandLink action="{!firstPage}" status="loading">
+							    First
+							</apex:commandlink>
+							<apex:commandLink action="{!previous}" status="loading"
+									rendered="{!hasPrevious}">
+						         Previous
+						        </apex:commandlink>
+							<apex:commandLink action="{!next}" status="loading"
+										rendered="{!hasNext}">
+								 Next
+							</apex:commandlink>
+							<apex:commandLink action="{!lastPage}" status="loading">
+							     Last
+							</apex:commandlink>
+						</apex:panelGrid>
+					</apex:facet>
+				</apex:pageBlockTable>
+			</apex:pageBlockSection>
+			<apex:pageBlockSection id="responseblocksection"
+					rendered="{!resultSection}" title="Related Results" columns="1">
+				<apex:pageBlockTable value="{!responseResults}"
+						var="responseresultinstance">
+					<apex:column value="{!responseresultinstance.TitleLinks__c}"
+							headerValue="Title" />
+					<apex:column value="{!responseresultinstance.Links__c}" />
+					<apex:column value="{!responseresultinstance.Description__c}" />
+				</apex:pageBlockTable>
+			</apex:pageblockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>
