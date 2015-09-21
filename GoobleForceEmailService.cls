@@ -12,7 +12,7 @@ global with sharing class GoobleForceEmailService implements Messaging.InboundEm
         Messaging.InboundEmail email,
         Messaging.InboundEnvelope envelope
     ) 
-    {
+    { 
         
         // Create the instance of the contact.
         Contact contactInstance;
@@ -108,10 +108,10 @@ global with sharing class GoobleForceEmailService implements Messaging.InboundEm
                 )
                 { 
                     // Replace the ( with space
-                    queryInstance.Query_Field__c = queryInstance.Query_Field__c.replace('(',' ');
+                    queryInstance.Query_Field__c = queryInstance.Query_Field__c.replace('(', ' ');
                     
                     // Replace the )
-                    queryInstance.Query_Field__c = queryInstance.Query_Field__c.replace(')','');
+                    queryInstance.Query_Field__c = queryInstance.Query_Field__c.replace(')', '');
                     
                     //Trim extra spaces
                     queryInstance.Query_Field__c = queryInstance.Query_Field__c.trim();
@@ -186,7 +186,7 @@ global with sharing class GoobleForceEmailService implements Messaging.InboundEm
                result.message = 
                'Please specify the query in proper format.\nFor Example : '
              + ' (Your Query) \n \n'+ 'Thank you for your request' 
-             + 'We are happy to serve you.';
+             + ' We are happy to serve you.';
            }
            
             // Return the result
@@ -201,7 +201,7 @@ global with sharing class GoobleForceEmailService implements Messaging.InboundEm
             result.message = 
                 'Please specify the query in proper format. \nFor Example : '
                + ' (Your Query) \n \n'+ 'Thank you for your request' 
-               + ' \nWe are happy to serve you.';
+               + ' \n We are happy to serve you.';
             
             // Return the result
             return result;

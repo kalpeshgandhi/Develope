@@ -22,7 +22,7 @@ public with sharing class ResponseComponentController
                     FROM
                         Response__c
                     WHERE 
-                        Search_Query__c =: queryId
+                        Search_Query__c = :queryId
                ];
     }
 }

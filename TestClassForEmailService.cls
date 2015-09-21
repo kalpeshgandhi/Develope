@@ -72,7 +72,7 @@ private class TestClassForEmailService
                     Email = :email.fromAddress
             ];
         // Check if the contact is inserted or not 
-        System.assertEquals(1,contactInstance.size());
+        System.assertEquals(1, contactInstance.size());
     }
     
    /**
@@ -114,7 +114,7 @@ private class TestClassForEmailService
                     Email = :email.fromAddress
             ];
         // Check if the contact is inserted or not 
-        System.assertEquals(0,contactInstance.size());
+        System.assertEquals(0, contactInstance.size());
         
         // Start the test
         Test.startTest();
@@ -136,7 +136,7 @@ private class TestClassForEmailService
                     Email = :email.fromAddress
             ];
         // Check if the contact is inserted or not 
-        System.assertEquals(0,contactInstance.size());
+        System.assertEquals(0, contactInstance.size());
     }
     
    /**
@@ -187,7 +187,7 @@ private class TestClassForEmailService
             ];
             
         // Check if the contact is inserted or not 
-        System.assertEquals(1,contactList.size());
+        System.assertEquals(1, contactList.size());
         
         // Start the test
         Test.startTest();
@@ -209,7 +209,7 @@ private class TestClassForEmailService
                     Email = :email.fromAddress
             ];
         // Check if the contact is inserted or not 
-        System.assertEquals(1,contactList.size());
+        System.assertEquals(1, contactList.size());
     }
     
    /**
@@ -391,7 +391,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(1,contactInstance.size());
+        System.assertEquals(1, contactInstance.size());
         
         // Fetch the email 
         emailList = 
@@ -405,10 +405,10 @@ private class TestClassForEmailService
             ];
 
         // Check if the email is inserted or not 
-        System.assertEquals(0,emailList.size());
+        System.assertEquals(0, emailList.size());
         
         // Check if the email is inserted or not 
-        System.assertEquals(false,result.success);
+        System.assertEquals(false, result.success);
         
         // Check if the email is inserted or not 
         System.assertEquals('Please specify the query in proper format.\nFor Example : '
@@ -456,7 +456,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(0,contactInstance.size());
+        System.assertEquals(0, contactInstance.size());
         
         // Fetch the email 
         List<Email__c> emailList = 
@@ -470,7 +470,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(0,emailList.size());
+        System.assertEquals(0, emailList.size());
         
         // Fetch the query 
         List<Query__c> queryList = 
@@ -484,7 +484,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(0,queryList.size());
+        System.assertEquals(0, queryList.size());
         
         // Start the test
         Test.startTest();
@@ -510,7 +510,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(1,contactInstance.size());
+        System.assertEquals(1, contactInstance.size());
         
         // Fetch the query 
         queryList = 
@@ -567,7 +567,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(0,contactInstance.size());
+        System.assertEquals(0, contactInstance.size());
         
         // Fetch the query 
         List<Query__c> queryList = 
@@ -581,7 +581,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(0,queryList.size());
+        System.assertEquals(0, queryList.size());
         
         // Start the test
         Test.startTest();
@@ -606,7 +606,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(1,contactInstance.size());
+        System.assertEquals(1, contactInstance.size());
         
         // Fetch the query 
         queryList = 
@@ -620,7 +620,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the query is inserted or not 
-        System.assertEquals(1,queryList.size());
+        System.assertEquals(1, queryList.size());
         
         // Fetch the queryforcontact 
        List<QueryForContact__c> queryForContactList = 
@@ -633,7 +633,7 @@ private class TestClassForEmailService
                     QueryDetails__c = :queryList[0].Id
             ];
         // Check if the contact and query are inserted or not 
-        System.assertEquals(1,queryForContactList.size());
+        System.assertEquals(1, queryForContactList.size());
     }
     
    /**
@@ -743,7 +743,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the query is inserted or not 
-        System.assertEquals(1,queryList.size());
+        System.assertEquals(1, queryList.size());
         
         // Fetch the response 
         responseList = 
@@ -757,7 +757,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the responses are generated or not 
-        System.assertNotEquals(0,responseList.size());
+        System.assertNotEquals(0, responseList.size());
     }
     
     /**
@@ -800,7 +800,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(0,contactInstance.size());
+        System.assertEquals(0, contactInstance.size());
         
         // Fetch the responses 
         List<Query__c> queryList = 
@@ -826,7 +826,7 @@ private class TestClassForEmailService
             ];
             
         // Check if the contact is inserted or not 
-        System.assertEquals(0,responseList.size());
+        System.assertEquals(0, responseList.size());
         
         // Start the test
         Test.startTest();
@@ -853,7 +853,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(1,contactInstance.size());
+        System.assertEquals(1, contactInstance.size());
         
         // Fetch the query 
         queryList = 
@@ -867,7 +867,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the query is inserted or not 
-        System.assertEquals(1,queryList.size());
+        System.assertEquals(1, queryList.size());
         
         // Fetch the response 
         responseList = 
@@ -881,7 +881,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the responses are generated or not 
-        System.assertNotEquals(0,responseList.size());
+        System.assertNotEquals(0, responseList.size());
     }
     
     
@@ -925,7 +925,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(0,contactInstance.size());
+        System.assertEquals(0, contactInstance.size());
         
         // Fetch the responses 
         List<Query__c> queryList = 
@@ -939,7 +939,7 @@ private class TestClassForEmailService
             ];
             
         // Check if the contact is inserted or not 
-        System.assertEquals(0,queryList.size());
+        System.assertEquals(0, queryList.size());
         
         // Fetch the response 
         List<Response__c> responseList = 
@@ -951,7 +951,7 @@ private class TestClassForEmailService
             ];
             
         // Check if the contact is inserted or not 
-        System.assertEquals(0,responseList.size());
+        System.assertEquals(0, responseList.size());
         
         // Start the test
         Test.startTest();
@@ -978,7 +978,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(1,contactInstance.size());
+        System.assertEquals(1, contactInstance.size());
         
         // Fetch the query 
         queryList = 
@@ -992,7 +992,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the query is inserted or not 
-        System.assertEquals(1,queryList.size());
+        System.assertEquals(1, queryList.size());
         
         // Fetch the response 
         responseList = 
@@ -1007,7 +1007,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the responses are generated or not 
-        System.assertEquals(0,responseList.size());
+        System.assertEquals(0, responseList.size());
     }
     
    /**
@@ -1050,7 +1050,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(0,contactInstance.size());
+        System.assertEquals(0, contactInstance.size());
         
         // Fetch the responses 
         List<Query__c> queryList = 
@@ -1064,7 +1064,7 @@ private class TestClassForEmailService
             ];
             
         // Check if the contact is inserted or not 
-        System.assertEquals(0,queryList.size());
+        System.assertEquals(0, queryList.size());
         
         // Fetch the response 
         List<Response__c> responseList = 
@@ -1076,7 +1076,7 @@ private class TestClassForEmailService
             ];
             
         // Check if the contact is inserted or not 
-        System.assertEquals(0,responseList.size());
+        System.assertEquals(0, responseList.size());
         
         // Start the test
         Test.startTest();
@@ -1103,7 +1103,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(1,contactInstance.size());
+        System.assertEquals(1, contactInstance.size());
         
         // Fetch the query 
         queryList = 
@@ -1116,7 +1116,7 @@ private class TestClassForEmailService
                     Query_Field__c = :'test'
             ];
         // Check if the query is inserted or not 
-        System.assertEquals(0,queryList.size());
+        System.assertEquals(0, queryList.size());
         
         // Fetch the response 
         responseList = 
@@ -1128,7 +1128,7 @@ private class TestClassForEmailService
             ];
             
         // Check if the responses are generated or not 
-        System.assertEquals(0,responseList.size());
+        System.assertEquals(0, responseList.size());
     }
     
    /**
@@ -1169,7 +1169,7 @@ private class TestClassForEmailService
                     Email = :email.fromAddress
             ];
         // Check if the contact is inserted or not 
-        System.assertEquals(0,contactInstance.size());
+        System.assertEquals(0, contactInstance.size());
         
         // Fetch the responses 
         List<Query__c> queryList = 
@@ -1183,7 +1183,7 @@ private class TestClassForEmailService
             ];
             
         // Check if the contact is inserted or not 
-        System.assertEquals(0,queryList.size());
+        System.assertEquals(0, queryList.size());
         
         // Fetch the response 
         List<Response__c> responseList = 
@@ -1195,7 +1195,7 @@ private class TestClassForEmailService
             ];
             
         // Check if the contact is inserted or not 
-        System.assertEquals(0,responseList.size());
+        System.assertEquals(0, responseList.size());
         
         // Start the test
         Test.startTest();
@@ -1222,7 +1222,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(1,contactInstance.size());
+        System.assertEquals(1, contactInstance.size());
         
         // Fetch the query 
         queryList = 
@@ -1248,7 +1248,7 @@ private class TestClassForEmailService
             ];
             
         // Check if the responses are generated or not 
-        System.assertEquals(0,responseList.size());
+        System.assertEquals(0, responseList.size());
     }
     
    /**
@@ -1270,7 +1270,7 @@ private class TestClassForEmailService
             ];
         
         // Check for the size of the querylist
-        System.assertEquals(0,checkQueryList.size());
+        System.assertEquals(0, checkQueryList.size());
         
         // Insert the queryInstance
         insert queryInstance;
@@ -1306,7 +1306,7 @@ private class TestClassForEmailService
             ];
         
         // Check for the size of the querylist
-        System.assertEquals(0,checkResponseList.size());
+        System.assertEquals(0, checkResponseList.size());
         
         // Insert the queryInstance
         insert responseInstance;
@@ -1323,7 +1323,7 @@ private class TestClassForEmailService
             ];
         
         // Check for the records inserted or not.
-        System.assertEquals(1,checkResponseList.size());
+        System.assertEquals(1, checkResponseList.size());
         
         // Create a instance of the inbound email
         Messaging.InboundEmail email = new Messaging.InboundEmail();
@@ -1357,7 +1357,7 @@ private class TestClassForEmailService
                     Email = :email.fromAddress
             ];
         // Check if the contact is inserted or not 
-        System.assertEquals(0,contactInstance.size());
+        System.assertEquals(0, contactInstance.size());
         
         // Fetch the responses 
         List<Query__c> queryList = 
@@ -1371,7 +1371,7 @@ private class TestClassForEmailService
             ];
             
         // Check if the contact is inserted or not 
-        System.assertEquals(1,queryList.size());
+        System.assertEquals(1, queryList.size());
         
         // Fetch the response 
         List<Response__c> responseList = 
@@ -1383,7 +1383,7 @@ private class TestClassForEmailService
             ];
             
         // Check if the contact is inserted or not 
-        System.assertEquals(1,responseList.size());
+        System.assertEquals(1, responseList.size());
         
 
                                                       
@@ -1411,7 +1411,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(1,contactInstance.size());
+        System.assertEquals(1, contactInstance.size());
         
         // Fetch the query 
         queryList = 
@@ -1424,7 +1424,7 @@ private class TestClassForEmailService
                     Query_Field__c = :'test'
             ];
         // Check if the query is inserted or not 
-        System.assertEquals(1,queryList.size());
+        System.assertEquals(1, queryList.size());
         
         // Fetch the response 
         responseList = 
@@ -1439,7 +1439,7 @@ private class TestClassForEmailService
             system.debug(responseList[1].title__c);
 
         // Check if the responses are generated or not 
-        System.assertEquals(3,responseList.size());
+        System.assertEquals(3, responseList.size());
         
     }
     
@@ -1481,7 +1481,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the contact is inserted or not 
-        System.assertEquals(0,contactInstance.size());
+        System.assertEquals(0, contactInstance.size());
         
         Query__c queryInstance = new Query__c(Query_Field__c = 'test' );
         
@@ -1499,7 +1499,7 @@ private class TestClassForEmailService
             ];
             
         // Check if the contact is inserted or not 
-        System.assertEquals(1,queryList.size());
+        System.assertEquals(1, queryList.size());
         
         // Fetch the response 
         List<Response__c> responseList = 
@@ -1511,7 +1511,7 @@ private class TestClassForEmailService
             ];
             
         // Check if the contact is inserted or not 
-        System.assertEquals(0,responseList.size());
+        System.assertEquals(0, responseList.size());
         
         // Start the test
         Test.startTest();
@@ -1538,7 +1538,7 @@ private class TestClassForEmailService
             ];
             
         // Check if the contact is inserted or not 
-        System.assertEquals(1,contactInstance.size());
+        System.assertEquals(1, contactInstance.size());
         
         // Fetch the query 
         queryList = 
@@ -1552,7 +1552,7 @@ private class TestClassForEmailService
             ];
 
         // Check if the query is inserted or not 
-        System.assertEquals(1,queryList.size());
+        System.assertEquals(1, queryList.size());
         
         // Fetch the response 
         responseList = 
@@ -1564,6 +1564,6 @@ private class TestClassForEmailService
             ];
             
         // Check if the responses are generated or not 
-        System.assertNotEquals(0,responseList.size());
+        System.assertNotEquals(0, responseList.size());
     }
 }

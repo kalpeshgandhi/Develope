@@ -16,7 +16,7 @@ global with sharing class TriggerForQueryGenerationHandler
     {
         
         // Iterate over the list of the email
-        for(Email__c emailInstance: EmailList)
+        for(Email__c emailInstance : EmailList)
         {
             
             // Create the instance of the email body
@@ -31,11 +31,10 @@ global with sharing class TriggerForQueryGenerationHandler
             if(bodyInstance.contains('(') || bodyInstance.contains(')'))
             {
                 // replace body
-                bodyInstance = bodyInstance.replace('(',' ');
+                bodyInstance = bodyInstance.replace('(', ' ');
                 
                 // replace body
-                bodyInstance = bodyInstance.replace(')','');
-                
+                bodyInstance = bodyInstance.replace(')', '');
                 
                 // Trim body 
                 bodyInstance= bodyInstance.trim();
@@ -56,7 +55,7 @@ global with sharing class TriggerForQueryGenerationHandler
     {
         
         // Trim query 
-        queryInstance= queryInstance.trim();
+        queryInstance = queryInstance.trim();
         
         // Create the instance of the http request
         HttpRequest request = new HttpRequest();
@@ -100,13 +99,13 @@ global with sharing class TriggerForQueryGenerationHandler
         
         // Replace the html tag 
         parseString = parseString.replace('<a href=','titleLinkStart');
-        parseString = parseString.replace('</a>','titleLinkEnd');
+        parseString = parseString.replace('</a>', 'titleLinkEnd');
 
-        parseString = parseString.replace('<cite>',' HyperLinkStart[ '); 
-        parseString = parseString.replace('</cite>',']HyperLinkEnd description['); 
+        parseString = parseString.replace('<cite>', ' HyperLinkStart[ '); 
+        parseString = parseString.replace('</cite>', ']HyperLinkEnd description['); 
         
-        parseString = parseString.replace('</div></li>',']EndEnddescription ');
-        parseString = parseString.replace('Cached',' '); 
+        parseString = parseString.replace('</div></li>', ']EndEnddescription ');
+        parseString = parseString.replace('Cached', ' '); 
 
         parseString = parseString.stripHtmlTags();  
        
@@ -173,7 +172,7 @@ global with sharing class TriggerForQueryGenerationHandler
                 String titleName = '';
                 
                 // Store the string between titlelink
-                titleLink = stringInstance.substringBetween('titleLinkStart','titleLinkEnd');
+                titleLink = stringInstance.substringBetween('titleLinkStart', 'titleLinkEnd');
                 
                 // Check if the title link is blank or not
                 if(String.isNotBlank(titleLink) && titleLink.contains('http'))
@@ -190,20 +189,20 @@ global with sharing class TriggerForQueryGenerationHandler
                 titleLink= '<a href=http' + titleLink + '>'+titleName+'</a>';
                 
                 // Fetch the title
-                String titleInstance = stringInstance.substringBetween('>','titleLinkEnd');
+                String titleInstance = stringInstance.substringBetween('>', 'titleLinkEnd');
                 
                 // Fetch the link
                 String linkInstance = 
                     stringInstance.substringBetween('HyperLinkStart[', ']HyperLinkEnd');
                 
                 // Replace back with html tag 
-                stringInstance = stringInstance.replace('titleLinkStart','<a href=');
-                stringInstance = stringInstance.replace('titleLinkEnd','</a>');
+                stringInstance = stringInstance.replace('titleLinkStart', '<a href=');
+                stringInstance = stringInstance.replace('titleLinkEnd', '</a>');
                 
-                stringInstance = stringInstance.replace('Similar','');
-                stringInstance = stringInstance.replace(' HyperLinkStart[ ','<cite>'); 
+                stringInstance = stringInstance.replace('Similar', '');
+                stringInstance = stringInstance.replace(' HyperLinkStart[ ', '<cite>'); 
                 
-                stringInstance = stringInstance.replace(']HyperLinkEnd description[','!!!!'); 
+                stringInstance = stringInstance.replace(']HyperLinkEnd description[', '!!!!'); 
                 
                 // Strip html tag
                 stringInstance = stringInstance.stripHtmlTags();
@@ -235,6 +234,7 @@ global with sharing class TriggerForQueryGenerationHandler
             // Check if the list is not empty
             if(!responseListInstance.isEmpty())
             {
+                
                 // insert the responselist
                 insert responseListInstance;
             }

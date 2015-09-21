@@ -26,7 +26,7 @@ private class TestSearchHistoryController
             ];
             
          // Check if the contact is inserted or not 
-         System.assertEquals(0,queryList.size());
+         System.assertEquals(0, queryList.size());
          
          // Insert the queryInstance
          insert queryInstance;
@@ -44,7 +44,7 @@ private class TestSearchHistoryController
             
          
          // Check if the contact is inserted or not 
-         System.assertEquals(1,queryList.size());
+         System.assertEquals(1, queryList.size());
         
          // Fetch the response list
          List<Response__c> checkResponseList = 
@@ -56,7 +56,7 @@ private class TestSearchHistoryController
              ];
         
          // Check for the size of the querylist
-         System.assertEquals(0,checkResponseList.size());
+         System.assertEquals(0, checkResponseList.size());
         
          // Create the instance of the response
          Response__c responseInstance = new Response__c(
@@ -78,7 +78,7 @@ private class TestSearchHistoryController
              ];
         
          // Check for the size of the querylist
-         System.assertEquals(1,checkResponseList.size());
+         System.assertEquals(1, checkResponseList.size());
          
          // Create the instance of the class
          SearchHistoryController controllerInstance = new SearchHistoryController();
@@ -103,7 +103,7 @@ private class TestSearchHistoryController
          Test.stopTest();
         
          // Check if we are retrieving the queries to be displayed on the page
-         System.assertEquals(1,responseList.size());
+         System.assertEquals(1, responseList.size());
      }
      
     /**
@@ -151,7 +151,7 @@ private class TestSearchHistoryController
          SearchHistoryController controllerInstance = new SearchHistoryController();
                   
          // Create the page reference
-         PageReference pageReferenceforSearchHistory= Page.SearchHistory;
+         PageReference pageReferenceforSearchHistory = Page.SearchHistory;
          
          // Set the current page as contact 
          Test.setCurrentPage(pageReferenceforSearchHistory);
@@ -166,7 +166,7 @@ private class TestSearchHistoryController
          Test.stopTest();
         
          // Check if we are retrieving the queries to be displayed on the page
-         System.assertEquals(1,queryListInstance.size());
+         System.assertEquals(1, queryListInstance.size());
      }
          
     /**
@@ -218,7 +218,7 @@ private class TestSearchHistoryController
          SearchHistoryController controllerInstance = new SearchHistoryController();
                   
          // Create the page reference
-         PageReference pageReferenceforSearchHistory= Page.SearchHistory;
+         PageReference pageReferenceforSearchHistory = Page.SearchHistory;
          
          // Set the current page as contact 
          Test.setCurrentPage(pageReferenceforSearchHistory);
@@ -257,7 +257,7 @@ private class TestSearchHistoryController
             ];
             
          // Check if the contact is inserted or not 
-         System.assertEquals(0,queryList.size());
+         System.assertEquals(0, queryList.size());
          
          // Insert the queryInstance
          insert queryInstance;
@@ -275,7 +275,7 @@ private class TestSearchHistoryController
             
          
          // Check if the contact is inserted or not 
-         System.assertEquals(1,queryList.size());
+         System.assertEquals(1, queryList.size());
         
          // Fetch the response list
          List<Response__c> checkResponseList = 
@@ -287,7 +287,7 @@ private class TestSearchHistoryController
              ];
         
          // Check for the size of the querylist
-         System.assertEquals(0,checkResponseList.size());
+         System.assertEquals(0, checkResponseList.size());
         
          // Create the instance of the response
          List<Response__c> responseListInstance = new List<Response__c>();
@@ -314,7 +314,7 @@ private class TestSearchHistoryController
              ];
         
          // Check for the size of the querylist
-         System.assertEquals(200,checkResponseList.size());
+         System.assertEquals(200, checkResponseList.size());
          
          // Create the instance of the class
          SearchHistoryController controllerInstance = new SearchHistoryController();
@@ -340,7 +340,7 @@ private class TestSearchHistoryController
          Test.stopTest();
         
          // Check if we are retrieving the queries to be displayed on the page
-         System.assertEquals(200,responseList.size());
+         System.assertEquals(200, responseList.size());
      }
      
    /**
@@ -371,7 +371,7 @@ private class TestSearchHistoryController
       
             
         // Check if the contact is inserted or not 
-        System.assertEquals(0,checkQueryList.size());
+        System.assertEquals(0, checkQueryList.size());
          
         insert queryList;
         
@@ -387,7 +387,7 @@ private class TestSearchHistoryController
            ];
            
         // Check if the contact is inserted or not 
-        System.assertEquals(200,checkQueryList.size());
+        System.assertEquals(200, checkQueryList.size());
         
         // Create the instance of the class
         SearchHistoryController controllerInstance = new SearchHistoryController();
@@ -442,7 +442,7 @@ private class TestSearchHistoryController
       
             
         // Check if the contact is inserted or not 
-        System.assertEquals(0,checkQueryList.size());
+        System.assertEquals(0, checkQueryList.size());
          
         // Insert the querylist
         insert queryList;
@@ -465,7 +465,7 @@ private class TestSearchHistoryController
         SearchHistoryController controllerInstance = new SearchHistoryController();
         
         // Create the page reference
-        PageReference pageReferenceforSearchHistory= Page.SearchHistory;
+        PageReference pageReferenceforSearchHistory = Page.SearchHistory;
         
         // Set the current page as contact 
         Test.setCurrentPage(pageReferenceforSearchHistory);
@@ -523,7 +523,7 @@ private class TestSearchHistoryController
       
             
         // Check if the contact is inserted or not 
-        System.assertEquals(0,checkQueryList.size());
+        System.assertEquals(0, checkQueryList.size());
          
         insert queryList;
         
@@ -539,13 +539,13 @@ private class TestSearchHistoryController
            ];
            
         // Check if the contact is inserted or not 
-        System.assertEquals(200,checkQueryList.size());
+        System.assertEquals(200, checkQueryList.size());
         
         // Create the instance of the class
         SearchHistoryController controllerInstance = new SearchHistoryController();
         
         // Create the page reference
-        PageReference pageReferenceforSearchHistory= Page.SearchHistory;
+        PageReference pageReferenceforSearchHistory = Page.SearchHistory;
         
         // Set the current page as contact 
         Test.setCurrentPage(pageReferenceforSearchHistory);
@@ -597,7 +597,7 @@ private class TestSearchHistoryController
       
             
         // Check if the contact is inserted or not 
-        System.assertEquals(0,checkQueryList.size());
+        System.assertEquals(0, checkQueryList.size());
          
         insert queryList;
         
@@ -613,13 +613,13 @@ private class TestSearchHistoryController
            ];
            
         // Check if the contact is inserted or not 
-        System.assertEquals(200,checkQueryList.size());
+        System.assertEquals(200, checkQueryList.size());
         
         // Create the instance of the class
         SearchHistoryController controllerInstance = new SearchHistoryController();
         
         // Create the page reference
-        PageReference pageReferenceforSearchHistory= Page.SearchHistory;
+        PageReference pageReferenceforSearchHistory = Page.SearchHistory;
         
         // Set the current page as contact 
         Test.setCurrentPage(pageReferenceforSearchHistory);
@@ -667,7 +667,7 @@ private class TestSearchHistoryController
       
             
         // Check if the contact is inserted or not 
-        System.assertEquals(0,checkQueryList.size());
+        System.assertEquals(0, checkQueryList.size());
          
         insert queryList;
         
@@ -683,13 +683,13 @@ private class TestSearchHistoryController
            ];
            
         // Check if the contact is inserted or not 
-        System.assertEquals(200,checkQueryList.size());
+        System.assertEquals(200, checkQueryList.size());
         
         // Create the instance of the class
         SearchHistoryController controllerInstance = new SearchHistoryController();
         
         // Create the page reference
-        PageReference pageReferenceforSearchHistory= Page.SearchHistory;
+        PageReference pageReferenceforSearchHistory = Page.SearchHistory;
         
         // Set the current page as contact 
         Test.setCurrentPage(pageReferenceforSearchHistory);
@@ -754,7 +754,7 @@ private class TestSearchHistoryController
       
             
         // Check if the contact is inserted or not 
-        System.assertEquals(0,checkQueryList.size());
+        System.assertEquals(0, checkQueryList.size());
          
         insert queryList;
         
@@ -848,7 +848,7 @@ private class TestSearchHistoryController
       
             
         // Check if the contact is inserted or not 
-        System.assertEquals(0,checkQueryList.size());
+        System.assertEquals(0, checkQueryList.size());
          
         insert queryList;
         
@@ -864,13 +864,13 @@ private class TestSearchHistoryController
            ];
            
         // Check if the contact is inserted or not 
-        System.assertEquals(200,checkQueryList.size());
+        System.assertEquals(200, checkQueryList.size());
         
         // Create the instance of the class
         SearchHistoryController controllerInstance = new SearchHistoryController();
         
         // Create the page reference
-        PageReference pageReferenceforSearchHistory= Page.SearchHistory;
+        PageReference pageReferenceforSearchHistory = Page.SearchHistory;
         
         // Set the current page as contact 
         Test.setCurrentPage(pageReferenceforSearchHistory);

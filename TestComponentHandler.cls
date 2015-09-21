@@ -23,7 +23,7 @@ private class TestComponentHandler
             ];
         
         // Check for the size of the querylist
-        System.assertEquals(0,checkQueryList.size());
+        System.assertEquals(0, checkQueryList.size());
         
         // Insert the queryInstance
         insert queryInstance;
@@ -39,7 +39,7 @@ private class TestComponentHandler
             ];
         
         // Check for the size of the querylist
-        System.assertEquals(1,checkQueryList.size());
+        System.assertEquals(1, checkQueryList.size());
         
         // Create the instance of the response
         Response__c responseInstance = new Response__c(
@@ -59,7 +59,7 @@ private class TestComponentHandler
             ];
         
         // Check for the size of the querylist
-        System.assertEquals(0,checkResponseList.size());
+        System.assertEquals(0, checkResponseList.size());
         
         // Insert the queryInstance
         insert responseInstance;
@@ -76,7 +76,7 @@ private class TestComponentHandler
             ];
         
         // Check for the records inserted or not.
-        System.assertEquals(1,checkResponseList.size());
+        System.assertEquals(1, checkResponseList.size());
         
         // Create the instance of the component 
         ResponseComponentController controllerInstance = new ResponseComponentController();
@@ -97,7 +97,7 @@ private class TestComponentHandler
         Test.stopTest();
         
         // Check for the returned list contains any record
-        System.assertEquals(1,responseList.size());
+        System.assertEquals(1, responseList.size());
     }
     
    /**
@@ -117,7 +117,7 @@ private class TestComponentHandler
             ];
         
         // Check for the size of the querylist
-        System.assertEquals(0,checkQueryList.size());
+        System.assertEquals(0, checkQueryList.size());
         
         // Insert the queryInstance
         insert queryInstance;
@@ -133,7 +133,7 @@ private class TestComponentHandler
             ];
         
         // Check for the size of the querylist
-        System.assertEquals(1,checkQueryList.size());
+        System.assertEquals(1, checkQueryList.size());
         
         // Create the instance of the response
         Response__c responseInstance = new Response__c(
@@ -153,7 +153,7 @@ private class TestComponentHandler
             ];
         
         // Check for the size of the querylist
-        System.assertEquals(0,checkResponseList.size());
+        System.assertEquals(0, checkResponseList.size());
         
         // Insert the queryInstance
         insert responseInstance;
@@ -170,7 +170,7 @@ private class TestComponentHandler
             ];
         
         // Check for the records inserted or not.
-        System.assertEquals(1,checkResponseList.size());
+        System.assertEquals(1, checkResponseList.size());
         
         // Create the instance of the component 
         ResponseComponentController controllerInstance = new ResponseComponentController();
@@ -191,7 +191,7 @@ private class TestComponentHandler
         Test.stopTest();
         
         // Check for the returned list contains any record
-        System.assertEquals(0,responseList.size());
+        System.assertEquals(0, responseList.size());
     }
     
    /**
@@ -212,7 +212,7 @@ private class TestComponentHandler
             ];
         
         // Check for the size of the querylist
-        System.assertEquals(0,checkQueryList.size());
+        System.assertEquals(0, checkQueryList.size());
         
         // Insert the queryInstance
         insert queryInstance;
@@ -228,7 +228,7 @@ private class TestComponentHandler
             ];
         
         // Check for the size of the querylist
-        System.assertEquals(1,checkQueryList.size());
+        System.assertEquals(1, checkQueryList.size());
         
         // Create the instance of the response
         List<Response__c> responseListInstance = new List<Response__c>();
@@ -253,7 +253,7 @@ private class TestComponentHandler
             ];
         
         // Check for the size of the querylist
-        System.assertEquals(0,checkResponseList.size());
+        System.assertEquals(0, checkResponseList.size());
         
         // Insert the queryInstance
         insert responseListInstance;
@@ -291,6 +291,6 @@ private class TestComponentHandler
         Test.stopTest();
         
         // Check for the returned list contains any record
-        System.assertEquals(200,responseList.size());
+        System.assertEquals(200, responseList.size());
     }
 }

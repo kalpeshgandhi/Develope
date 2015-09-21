@@ -6,7 +6,7 @@ public with sharing class BatchResponsesForQuery implements Database.Batchable<s
 {
     
     // Create the instance of the string
-    public String query;
+    public String query = '';
        
    /**
     * This is the constructor that will fetch all the queryforcontact records created today 
@@ -85,9 +85,12 @@ public with sharing class BatchResponsesForQuery implements Database.Batchable<s
             // Send all the emails
             Messaging.sendEmail(mails);
             
-            // Update the query instance
-            update queryListInstance;
-            
+            if(!queryListInstance.isEmpty())
+            {
+                
+                // Update the query instance
+                update queryListInstance;
+            }
          }
          catch(Exception exceptionInstance)
          {
