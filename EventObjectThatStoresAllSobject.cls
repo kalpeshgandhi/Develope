@@ -7,7 +7,7 @@ public with sharing class EventObjectThatStoresAllSobject implements Database.Ba
 {
     
     // Declare the string type of variable query
-    public String query;
+    public String query = '';
         
     // Create an instance of list of sobject 
     List<Sobject> sobjectList = new List<Sobject>();
@@ -74,7 +74,7 @@ public with sharing class EventObjectThatStoresAllSobject implements Database.Ba
                 Sobject genericObject = convertInstance.newSObject();
                 
                 // Iterate over the key set of map
-                for(String fieldInstance :MapOfFieldAndObject.keyset())
+                for(String fieldInstance : MapOfFieldAndObject.keyset())
                 {
     
                     // Add the fields and there values.
@@ -93,7 +93,7 @@ public with sharing class EventObjectThatStoresAllSobject implements Database.Ba
         Database.SaveResult[] srList = Database.insert(sobjectList, false);
         
         // Interate over the list of saved results.
-        for(Integer i=0;i<srList.size();i++)
+        for(Integer i = 0; i < srList.size(); i++)
         {
     
             // Check the instance if successful
@@ -107,7 +107,12 @@ public with sharing class EventObjectThatStoresAllSobject implements Database.Ba
         
         }//End of for loop
         
-        update eventListInstance;
+        // Check if the event list is empty or not
+        if(!eventListInstance.isEmpty())
+        {   
+            // Update the event list
+            update eventListInstance;
+        }
     }
     
    /**

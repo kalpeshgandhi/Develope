@@ -6,8 +6,8 @@ public with sharing class CollectionOfClosedWonOpportunities implements Database
 ,Database.Stateful
 {
     // Saves the query 
-    public String query;
-    public static Decimal totalAmount;
+    public String query = '';
+    public static Decimal totalAmount = 0;
        
     // Create an instance of map of mail and wrapper class 
     Map<String,WrapperAmountAndListOfOpportuntiy> mapofEmail = 
@@ -24,6 +24,7 @@ public with sharing class CollectionOfClosedWonOpportunities implements Database
         
         // Initialize the amount to 0 
         public Decimal Amount = 0;
+        
     }
     
    /** 
@@ -32,18 +33,20 @@ public with sharing class CollectionOfClosedWonOpportunities implements Database
     public CollectionOfClosedWonOpportunities()
     {
         
-        query=
-            'SELECT'
+        query = 
+            'SELECT '
            + '   o.id,'
            + '   o.Name,'
            + '   o.Amount,'
-           + '   o.Account.Primary_ContactEmail__c' 
-           + 'FROM' 
-           + '   Opportunity o' 
-           + 'WHERE'
-           + '   StageName =\'Closed Won'
-           + 'AND'
+           + '   o.Account.Primary_ContactEmail__c ' 
+           + 'FROM ' 
+           + '   Opportunity o ' 
+           + 'WHERE '
+           + '   StageName = \'Closed Won\' '
+           + 'AND '
            + '   CreatedDate = today';
+           
+           System.debug(query);
     }
        
    /**
@@ -81,14 +84,16 @@ public with sharing class CollectionOfClosedWonOpportunities implements Database
                         new WrapperAmountAndListOfOpportuntiy();
                         
                     // Insert the amount of opportunity instance into the wrapper instance. 
-                    wrapper.Amount = opportunityInstance.Amount;
-                    totalAmount = opportunityInstance.Amount;
-                    
+                    wrapper.Amount = opportunityInstance.Amount; 
+
+                    totalAmount = wrapper.Amount;
+
                     // Add an opportunity instance
                     wrapper.opportunityList.add(opportunityInstance);
                         
                     // Add the values of the map and a key in the map.
-                    mapofEmail.put(opportunityInstance.Account.Primary_ContactEmail__c,wrapper);
+                    mapofEmail.put(opportunityInstance.Account.Primary_ContactEmail__c, wrapper);
+                    System.debug(wrapper);
                 }
                 else
                 { 
@@ -98,14 +103,14 @@ public with sharing class CollectionOfClosedWonOpportunities implements Database
                    
                     // Add The amount of the opportunity to the wrapper class amount instance.
                     wrapper.Amount += opportunityInstance.Amount;
-                    totalAmount = opportunityInstance.Amount;
-                    
+                    totalAmount = wrapper.Amount;
+                     system.debug(totalAmount);
                     // Add the opportunity instance to the wrapper.
                     wrapper.opportunityList.add(opportunityInstance);
                 }
             }
         }
-            
+          System.debug('>>>>>>>mapofEmail' + mapofEmail);  
     }
    /**
     * This is a finish block of the data.
