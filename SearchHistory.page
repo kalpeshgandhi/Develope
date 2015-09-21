@@ -32,7 +32,7 @@
 							<apex:commandLink action="{!previous}" status="loading"
 									rendered="{!hasPrevious}">
 						         Previous
-						    </apex:commandlink>
+						        </apex:commandlink>
 							<apex:commandLink action="{!next}" status="loading"
 										rendered="{!hasNext}">
 								 Next
